@@ -20,17 +20,28 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-b from-stone-100 to-stone-200 py-16 px-6">
-      <div className="container mx-auto max-w-6xl">
+    <footer className="bg-gradient-to-b from-stone-100 to-stone-200 py-24 px-6">
+      <div className="container mx-auto max-w-7xl">
         <div className="grid md:grid-cols-4 gap-8 mb-12">
           {/* Logo & Description */}
           <div className="md:col-span-2">
             <div className="flex items-center space-x-3 mb-6">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-amber-600 to-stone-700 flex items-center justify-center shadow-lg">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-amber-600 to-amber-700 flex items-center justify-center shadow-2xl">
                 <span className="text-white font-bold text-xl">C</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-2xl font-extralight text-stone-800 text-spaced">CHÁCARA</span>
+                <span 
+                  className="text-2xl font-kanoky font-light tracking-wider"
+                  style={{ 
+                    background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    display: 'inline-block'
+                  }}
+                >
+                  CHÁCARA
+                </span>
                 <span className="text-xs text-stone-600/80 tracking-widest">L D</span>
               </div>
             </div>
@@ -43,10 +54,12 @@ const Footer = () => {
                 <a
                   key={index}
                   href={social.href}
-                  className="glass-card w-10 h-10 rounded-full flex items-center justify-center text-stone-600 hover:text-amber-700 hover:shadow-lg transition-all duration-300"
+                  className="w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center text-stone-600 hover:text-amber-700 hover:shadow-xl transition-all duration-300 group"
                   aria-label={social.label}
                 >
-                  {social.icon}
+                  <div className="group-hover:scale-110 transition-transform duration-300">
+                    {social.icon}
+                  </div>
                 </a>
               ))}
             </div>
@@ -86,19 +99,20 @@ const Footer = () => {
         </div>
 
         {/* Divider */}
-        <div className="border-t border-stone-300/50 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-luxury text-sm tracking-wide">
-              © {currentYear} ChácaraLD. Todos os direitos reservados.
-            </p>
-            <div className="flex space-x-6 text-sm text-luxury">
-              <a href="#" className="hover:text-amber-700 transition-colors duration-300">
-                Política de Privacidade
-              </a>
-              <a href="#" className="hover:text-amber-700 transition-colors duration-300">
-                Termos de Uso
-              </a>
-            </div>
+        <div className="w-full h-px bg-stone-300 mb-8"></div>
+
+        {/* Bottom Section */}
+        <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+          <p className="text-luxury text-sm tracking-wide">
+            © {currentYear} ChácaraLD. Todos os direitos reservados.
+          </p>
+          <div className="flex space-x-6 text-sm text-luxury">
+            <a href="#" className="hover:text-amber-700 transition-colors duration-300">
+              Política de Privacidade
+            </a>
+            <a href="#" className="hover:text-amber-700 transition-colors duration-300">
+              Termos de Uso
+            </a>
           </div>
         </div>
       </div>

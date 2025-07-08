@@ -1,11 +1,8 @@
-
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 const GallerySection = () => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
 
   const images = [
     {
@@ -40,23 +37,6 @@ const GallerySection = () => {
     }
   ];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   const nextImage = () => {
     if (selectedImage !== null) {
       setSelectedImage((selectedImage + 1) % images.length);
@@ -70,57 +50,149 @@ const GallerySection = () => {
   };
 
   return (
-    <section ref={sectionRef} id="gallery" className="py-24 px-6">
-      <div className="container mx-auto max-w-6xl">
-        {/* Header */}
-        <div className={`text-center mb-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="inline-block mb-6">
-            <span className="text-sm text-luxury tracking-[0.3em] uppercase">Galeria</span>
-            <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-amber-600 to-transparent mx-auto mt-2"></div>
-          </div>
-          <h2 className="text-5xl md:text-6xl font-extralight text-stone-800 text-spaced mb-6">
-            NOSSOS ESPAÇOS
+    <section id="gallery" className="py-24 px-6">
+      <div className="container mx-auto max-w-7xl">
+        {/* Main Title */}
+        <div className="text-center mb-16">
+          <h2 
+            className="text-6xl md:text-7xl lg:text-8xl font-kanoky font-light leading-none tracking-wider"
+            style={{ 
+              background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              display: 'inline-block'
+            }}
+          >
+            GALERIA
           </h2>
-          <p className="text-xl text-luxury max-w-3xl mx-auto leading-relaxed">
-            Descubra os ambientes únicos da ChácaraLD e inspire-se para criar 
-            o seu evento dos sonhos em meio à natureza.
-          </p>
+          <div className="w-full h-px bg-stone-300 mt-8 mb-8"></div>
+          
+          {/* Description Text */}
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <p className="text-luxury leading-relaxed text-lg">
+              Descubra os ambientes únicos da ChácaraLD e inspire-se para criar 
+              o seu evento dos sonhos em meio à natureza. Cada espaço foi cuidadosamente 
+              planejado para proporcionar momentos inesquecíveis.
+            </p>
+          </div>
         </div>
 
-        {/* Gallery Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {images.map((image, index) => (
-            <div 
-              key={index}
-              className={`group cursor-pointer transition-all duration-700 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-              }`}
-              style={{ transitionDelay: `${index * 150}ms` }}
-              onClick={() => setSelectedImage(index)}
-            >
-              <div className="relative overflow-hidden rounded-2xl glass-card shadow-lg group-hover:shadow-2xl transition-all duration-500">
-                <img 
-                  src={image.src}
-                  alt={image.alt}
-                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-4 left-4 text-white">
-                    <span className="text-sm font-light tracking-wide">{image.category}</span>
-                  </div>
+        {/* Gallery Grid - Custom Layout */}
+        <div className="grid grid-cols-12 gap-4 mb-16">
+          {/* Large image - Top Left */}
+          <div 
+            className="col-span-12 md:col-span-6 lg:col-span-4 group cursor-pointer"
+            onClick={() => setSelectedImage(0)}
+          >
+            <div className="relative overflow-hidden rounded-lg">
+              <img 
+                src={images[0].src}
+                alt={images[0].alt}
+                className="w-full h-80 object-cover rounded-lg shadow-2xl group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute bottom-4 left-4 text-white">
+                  <span className="text-sm font-light tracking-wide">{images[0].category}</span>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
 
-        {/* CTA */}
-        <div className={`text-center transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <button className="neuro-button px-10 py-4 rounded-full text-stone-700 font-medium tracking-wide hover:shadow-xl transition-all duration-500 group">
-            <span className="group-hover:tracking-wider transition-all duration-300">
-              Ver Galeria Completa
-            </span>
-          </button>
+          {/* Medium image - Top Center */}
+          <div 
+            className="col-span-12 md:col-span-6 lg:col-span-5 group cursor-pointer"
+            onClick={() => setSelectedImage(1)}
+          >
+            <div className="relative overflow-hidden rounded-lg">
+              <img 
+                src={images[1].src}
+                alt={images[1].alt}
+                className="w-full h-80 object-cover rounded-lg shadow-2xl group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute bottom-4 left-4 text-white">
+                  <span className="text-sm font-light tracking-wide">{images[1].category}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Small image - Top Right */}
+          <div 
+            className="col-span-12 md:col-span-6 lg:col-span-3 group cursor-pointer"
+            onClick={() => setSelectedImage(2)}
+          >
+            <div className="relative overflow-hidden rounded-lg">
+              <img 
+                src={images[2].src}
+                alt={images[2].alt}
+                className="w-full h-80 object-cover rounded-lg shadow-2xl group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute bottom-4 left-4 text-white">
+                  <span className="text-sm font-light tracking-wide">{images[2].category}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Medium image - Bottom Left */}
+          <div 
+            className="col-span-12 md:col-span-6 lg:col-span-3 group cursor-pointer"
+            onClick={() => setSelectedImage(3)}
+          >
+            <div className="relative overflow-hidden rounded-lg">
+              <img 
+                src={images[3].src}
+                alt={images[3].alt}
+                className="w-full h-52 object-cover rounded-lg shadow-2xl group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute bottom-4 left-4 text-white">
+                  <span className="text-sm font-light tracking-wide">{images[3].category}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Small image - Bottom Center */}
+          <div 
+            className="col-span-12 md:col-span-6 lg:col-span-4 group cursor-pointer"
+            onClick={() => setSelectedImage(4)}
+          >
+            <div className="relative overflow-hidden rounded-lg">
+              <img 
+                src={images[4].src}
+                alt={images[4].alt}
+                className="w-full h-52 object-cover rounded-lg shadow-2xl group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute bottom-4 left-4 text-white">
+                  <span className="text-sm font-light tracking-wide">{images[4].category}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Medium image - Bottom Right */}
+          <div 
+            className="col-span-12 md:col-span-6 lg:col-span-5 group cursor-pointer"
+            onClick={() => setSelectedImage(5)}
+          >
+            <div className="relative overflow-hidden rounded-lg">
+              <img 
+                src={images[5].src}
+                alt={images[5].alt}
+                className="w-full h-52 object-cover rounded-lg shadow-2xl group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute bottom-4 left-4 text-white">
+                  <span className="text-sm font-light tracking-wide">{images[5].category}</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
