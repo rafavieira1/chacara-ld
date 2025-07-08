@@ -1,4 +1,3 @@
-
 import { Users, Calendar, Utensils, Camera, Music, Sparkles } from 'lucide-react';
 
 const ServicesSection = () => {
@@ -31,21 +30,31 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section id="services" className="py-24 px-6 bg-gradient-to-b from-transparent to-stone-50/50">
-      <div className="container mx-auto max-w-6xl">
-        {/* Header */}
-        <div className="text-center mb-20 animate-fade-in">
-          <div className="inline-block mb-6">
-            <span className="text-sm text-luxury tracking-[0.3em] uppercase">Nossos Serviços</span>
-            <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-amber-600 to-transparent mx-auto mt-2"></div>
-          </div>
-          <h2 className="text-5xl md:text-6xl font-extralight text-stone-800 text-spaced mb-6">
-            EXPERIÊNCIAS
+    <section id="services" className="py-24 px-6">
+      <div className="container mx-auto max-w-7xl">
+        {/* Main Title */}
+        <div className="text-center mb-16">
+          <h2 
+            className="text-6xl md:text-7xl lg:text-8xl font-kanoky font-light leading-none tracking-wider"
+            style={{ 
+              background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              display: 'inline-block'
+            }}
+          >
+            SERVIÇOS
           </h2>
-          <p className="text-xl text-luxury max-w-3xl mx-auto leading-relaxed">
-            Oferecemos soluções completas para tornar seu evento único e inesquecível, 
-            com atendimento personalizado e atenção aos mínimos detalhes.
-          </p>
+          <div className="w-full h-px bg-stone-300 mt-8 mb-8"></div>
+          
+          {/* Description Text */}
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <p className="text-luxury leading-relaxed text-lg">
+              Oferecemos soluções completas para tornar seu evento único e inesquecível, 
+              com atendimento personalizado e atenção aos mínimos detalhes.
+            </p>
+          </div>
         </div>
 
         {/* Services Grid */}
@@ -53,10 +62,9 @@ const ServicesSection = () => {
           {services.map((service, index) => (
             <div 
               key={index}
-              className="group animate-fade-in"
-              style={{ animationDelay: `${index * 0.2}s` }}
+              className="group"
             >
-              <div className="glass-card rounded-3xl p-8 h-full hover:shadow-2xl transition-all duration-500 group-hover:scale-105">
+              <div className="rounded-lg p-8 h-full shadow-2xl hover:shadow-3xl transition-all duration-500 group-hover:scale-105">
                 <div className="text-amber-700 mb-6 group-hover:scale-110 transition-transform duration-300">
                   {service.icon}
                 </div>
@@ -80,7 +88,7 @@ const ServicesSection = () => {
         </div>
 
         {/* Amenities */}
-        <div className="glass-card rounded-3xl p-8 animate-fade-in">
+        <div className="rounded-lg p-8 shadow-2xl">
           <h3 className="text-2xl font-light text-stone-800 text-center mb-8 tracking-wide">
             Comodidades Incluídas
           </h3>
@@ -97,15 +105,6 @@ const ServicesSection = () => {
               </div>
             ))}
           </div>
-        </div>
-
-        {/* CTA */}
-        <div className="text-center mt-16 animate-fade-in">
-          <button className="neuro-button px-10 py-4 rounded-full text-stone-700 font-medium tracking-wide hover:shadow-xl transition-all duration-500 group">
-            <span className="group-hover:tracking-wider transition-all duration-300">
-              Solicitar Orçamento
-            </span>
-          </button>
         </div>
       </div>
     </section>

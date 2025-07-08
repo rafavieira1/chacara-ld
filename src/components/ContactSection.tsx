@@ -67,21 +67,31 @@ const ContactSection = () => {
   ];
 
   return (
-    <section id="contact" className="py-24 px-6 bg-gradient-to-b from-stone-50/50 to-transparent">
-      <div className="container mx-auto max-w-6xl">
-        {/* Header */}
-        <div className="text-center mb-20 animate-fade-in">
-          <div className="inline-block mb-6">
-            <span className="text-sm text-luxury tracking-[0.3em] uppercase">Contato</span>
-            <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-amber-600 to-transparent mx-auto mt-2"></div>
-          </div>
-          <h2 className="text-5xl md:text-6xl font-extralight text-stone-800 text-spaced mb-6">
-            VAMOS CONVERSAR
+    <section id="contact" className="py-24 px-6">
+      <div className="container mx-auto max-w-7xl">
+        {/* Main Title */}
+        <div className="text-center mb-16">
+          <h2 
+            className="text-6xl md:text-7xl lg:text-8xl font-kanoky font-light leading-none tracking-wider"
+            style={{ 
+              background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              display: 'inline-block'
+            }}
+          >
+            CONTATO
           </h2>
-          <p className="text-xl text-luxury max-w-3xl mx-auto leading-relaxed">
-            Estamos prontos para transformar seu sonho em realidade. Entre em contato 
-            e agende uma visita para conhecer nossos espaços.
-          </p>
+          <div className="w-full h-px bg-stone-300 mt-8 mb-8"></div>
+          
+          {/* Description Text */}
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <p className="text-luxury leading-relaxed text-lg">
+              Estamos prontos para transformar seu sonho em realidade. Entre em contato 
+              e agende uma visita para conhecer nossos espaços.
+            </p>
+          </div>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16">

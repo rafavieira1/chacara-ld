@@ -9,17 +9,17 @@ const VideoTourSection = () => {
 
   const highlights = [
     {
-      icon: <MapPin className="w-6 h-6" />,
+      icon: <MapPin className="w-10 h-10" />,
       title: "Localização Privilegiada",
       description: "15 minutos do centro da cidade"
     },
     {
-      icon: <Clock className="w-6 h-6" />,
+      icon: <Clock className="w-10 h-10" />,
       title: "Disponível 24h",
       description: "Flexibilidade total para seu evento"
     },
     {
-      icon: <Users className="w-6 h-6" />,
+      icon: <Users className="w-10 h-10" />,
       title: "Até 300 Convidados",
       description: "Capacidade adaptável às suas necessidades"
     }
@@ -43,27 +43,37 @@ const VideoTourSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="tour" className="py-24 px-6 bg-gradient-to-b from-stone-50/50 to-transparent">
-      <div className="container mx-auto max-w-6xl">
-        {/* Header */}
-        <div className={`text-center mb-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="inline-block mb-6">
-            <span className="text-sm text-luxury tracking-[0.3em] uppercase">Tour Virtual</span>
-            <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-amber-600 to-transparent mx-auto mt-2"></div>
-          </div>
-          <h2 className="text-5xl md:text-6xl font-extralight text-stone-800 text-spaced mb-6">
-            CONHEÇA NOSSO ESPAÇO
+    <section ref={sectionRef} id="tour" className="py-24 px-6">
+      <div className="container mx-auto max-w-7xl">
+        {/* Main Title */}
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <h2 
+            className="text-6xl md:text-7xl lg:text-8xl font-kanoky font-light leading-none tracking-wider"
+            style={{ 
+              background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              display: 'inline-block'
+            }}
+          >
+            TOUR VIRTUAL
           </h2>
-          <p className="text-xl text-luxury max-w-3xl mx-auto leading-relaxed">
-            Faça um tour virtual pelos nossos ambientes e descubra todos os detalhes 
-            que tornam a ChácaraLD o local perfeito para seu evento especial.
-          </p>
+          <div className="w-full h-px bg-stone-300 mt-8 mb-8"></div>
+          
+          {/* Description Text */}
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <p className="text-luxury leading-relaxed text-lg">
+              Faça um tour virtual pelos nossos ambientes e descubra todos os detalhes 
+              que tornam a ChácaraLD o local perfeito para seu evento especial.
+            </p>
+          </div>
         </div>
 
         {/* Video Player */}
         <div className={`mb-16 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="relative group">
-            <div className="glass-card rounded-3xl overflow-hidden shadow-2xl">
+            <div className="rounded-lg overflow-hidden shadow-2xl">
               <div className="relative aspect-video bg-gradient-to-br from-stone-200 to-stone-300">
                 {/* Placeholder for video */}
                 <img 
@@ -77,7 +87,7 @@ const VideoTourSection = () => {
                   <div className="absolute inset-0 flex items-center justify-center bg-black/20">
                     <button 
                       onClick={() => setIsPlaying(true)}
-                      className="glass-card w-20 h-20 rounded-full flex items-center justify-center text-white hover:scale-110 transition-all duration-500 animate-glow-pulse"
+                      className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-xl border border-white/30 flex items-center justify-center text-white hover:scale-110 transition-all duration-500 shadow-2xl"
                     >
                       <Play className="w-8 h-8 ml-1" fill="currentColor" />
                     </button>
@@ -85,7 +95,7 @@ const VideoTourSection = () => {
                 )}
                 
                 {/* Video Duration Badge */}
-                <div className="absolute top-4 right-4 glass-card px-3 py-1 rounded-full">
+                <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full">
                   <span className="text-white text-sm font-light">3:24</span>
                 </div>
               </div>
@@ -98,20 +108,22 @@ const VideoTourSection = () => {
           {highlights.map((highlight, index) => (
             <div 
               key={index}
-              className={`text-center group transition-all duration-1000 ${
+              className={`group transition-all duration-1000 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
               }`}
               style={{ transitionDelay: `${600 + index * 200}ms` }}
             >
-              <div className="glass-card w-20 h-20 rounded-2xl mx-auto mb-6 flex items-center justify-center text-amber-700 group-hover:shadow-2xl transition-all duration-500 group-hover:scale-110">
-                {highlight.icon}
+              <div className="rounded-lg p-8 text-center shadow-2xl hover:shadow-3xl transition-all duration-500 group-hover:scale-105">
+                <div className="text-amber-700 mb-6 group-hover:scale-110 transition-transform duration-300 flex justify-center">
+                  {highlight.icon}
+                </div>
+                <h4 className="text-xl font-light text-stone-800 mb-3 tracking-wide">
+                  {highlight.title}
+                </h4>
+                <p className="text-luxury text-sm leading-relaxed">
+                  {highlight.description}
+                </p>
               </div>
-              <h4 className="text-xl font-light text-stone-800 mb-3 tracking-wide">
-                {highlight.title}
-              </h4>
-              <p className="text-luxury text-sm leading-relaxed">
-                {highlight.description}
-              </p>
             </div>
           ))}
         </div>

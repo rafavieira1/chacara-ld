@@ -12,6 +12,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Kanoky';
+  src: url('/KenokyLight-3zezL.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
@@ -127,6 +135,10 @@ All colors MUST be HSL.
   
   .font-1769 {
     font-family: 'Font1769', serif;
+  }
+  
+  .font-kanoky {
+    font-family: 'Kanoky', sans-serif;
   }
 }
 

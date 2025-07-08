@@ -1,4 +1,3 @@
-
 import { Star, Quote } from 'lucide-react';
 import { useState } from 'react';
 
@@ -34,25 +33,35 @@ const TestimonialsSection = () => {
 
   return (
     <section id="testimonials" className="py-24 px-6">
-      <div className="container mx-auto max-w-6xl">
-        {/* Header */}
-        <div className="text-center mb-20 animate-fade-in">
-          <div className="inline-block mb-6">
-            <span className="text-sm text-luxury tracking-[0.3em] uppercase">Depoimentos</span>
-            <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-amber-600 to-transparent mx-auto mt-2"></div>
-          </div>
-          <h2 className="text-5xl md:text-6xl font-extralight text-stone-800 text-spaced mb-6">
-            HISTÓRIAS REAIS
+      <div className="container mx-auto max-w-7xl">
+        {/* Main Title */}
+        <div className="text-center mb-16">
+          <h2 
+            className="text-6xl md:text-7xl lg:text-8xl font-kanoky font-light leading-none tracking-wider"
+            style={{ 
+              background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              display: 'inline-block'
+            }}
+          >
+            DEPOIMENTOS
           </h2>
-          <p className="text-xl text-luxury max-w-3xl mx-auto leading-relaxed">
-            Descubra o que nossos clientes falam sobre suas experiências únicas na ChácaraLD 
-            e como tornamos seus momentos especiais ainda mais memoráveis.
-          </p>
+          <div className="w-full h-px bg-stone-300 mt-8 mb-8"></div>
+          
+          {/* Description Text */}
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <p className="text-luxury leading-relaxed text-lg">
+              Descubra o que nossos clientes falam sobre suas experiências únicas na ChácaraLD 
+              e como tornamos seus momentos especiais ainda mais memoráveis.
+            </p>
+          </div>
         </div>
 
         {/* Main Testimonial */}
-        <div className="mb-16 animate-fade-in">
-          <div className="glass-card rounded-3xl p-12 text-center relative overflow-hidden">
+        <div className="mb-16">
+          <div className="rounded-lg p-12 text-center relative overflow-hidden shadow-2xl">
             {/* Quote Icon */}
             <div className="absolute top-8 left-8 text-amber-600/20">
               <Quote className="w-16 h-16" />
@@ -109,7 +118,7 @@ const TestimonialsSection = () => {
           {testimonials.map((testimonial, index) => (
             <div 
               key={index}
-              className={`glass-card rounded-2xl p-6 cursor-pointer transition-all duration-500 hover:shadow-2xl ${
+              className={`rounded-lg p-6 cursor-pointer transition-all duration-500 hover:shadow-2xl shadow-xl ${
                 index === activeTestimonial ? 'ring-2 ring-amber-600/50' : ''
               }`}
               onClick={() => setActiveTestimonial(index)}

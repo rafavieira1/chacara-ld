@@ -9,28 +9,28 @@ const BookingStepsSection = () => {
   const steps = [
     {
       number: "01",
-      icon: <Calendar className="w-8 h-8" />,
+      icon: <Calendar className="w-10 h-10" />,
       title: "Agende uma Visita",
       description: "Conheça pessoalmente nossos espaços e tire todas as suas dúvidas com nossa equipe especializada.",
       action: "Agendar Visita"
     },
     {
       number: "02",
-      icon: <MessageSquare className="w-8 h-8" />,
+      icon: <MessageSquare className="w-10 h-10" />,
       title: "Planejamento Personalizado",
       description: "Desenvolvemos um projeto único para seu evento, cuidando de cada detalhe segundo suas preferências.",
       action: "Solicitar Orçamento"
     },
     {
       number: "03",
-      icon: <CreditCard className="w-8 h-8" />,
+      icon: <CreditCard className="w-10 h-10" />,
       title: "Reserva Confirmada",
       description: "Finalize a reserva com condições flexíveis de pagamento e garanta sua data especial.",
       action: "Confirmar Reserva"
     },
     {
       number: "04",
-      icon: <PartyPopper className="w-8 h-8" />,
+      icon: <PartyPopper className="w-10 h-10" />,
       title: "Dia do Evento",
       description: "Relaxe e aproveite! Nossa equipe cuida de tudo para que você viva momentos inesquecíveis.",
       action: "Celebrar"
@@ -55,94 +55,88 @@ const BookingStepsSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="booking-steps" className="py-24 px-6 bg-gradient-to-b from-transparent to-stone-50/50">
-      <div className="container mx-auto max-w-6xl">
-        {/* Header */}
-        <div className={`text-center mb-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="inline-block mb-6">
-            <span className="text-sm text-luxury tracking-[0.3em] uppercase">Como Reservar</span>
-            <div className="w-16 h-0.5 bg-gradient-to-r from-transparent via-amber-600 to-transparent mx-auto mt-2"></div>
-          </div>
-          <h2 className="text-5xl md:text-6xl font-extralight text-stone-800 text-spaced mb-6">
-            PROCESSO SIMPLES
+    <section ref={sectionRef} id="booking-steps" className="py-24 px-6">
+      <div className="container mx-auto max-w-7xl">
+        {/* Main Title */}
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <h2 
+            className="text-6xl md:text-7xl lg:text-8xl font-kanoky font-light leading-none tracking-wider"
+            style={{ 
+              background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              display: 'inline-block'
+            }}
+          >
+            COMO RESERVAR
           </h2>
-          <p className="text-xl text-luxury max-w-3xl mx-auto leading-relaxed">
-            Transformar seu sonho em realidade é mais fácil do que você imagina. 
-            Siga nosso processo personalizado em 4 etapas simples.
-          </p>
+          <div className="w-full h-px bg-stone-300 mt-8 mb-8"></div>
+          
+          {/* Description Text */}
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <p className="text-luxury leading-relaxed text-lg">
+              Transformar seu sonho em realidade é mais fácil do que você imagina. 
+              Siga nosso processo personalizado em 4 etapas simples.
+            </p>
+          </div>
         </div>
 
-        {/* Timeline */}
-        <div className="relative max-w-4xl mx-auto">
-          {/* Vertical Timeline Line - Mobile */}
-          <div className="lg:hidden absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-amber-600/30 via-amber-600/60 to-amber-600/30"></div>
-          
-          {/* Horizontal Timeline Line - Desktop */}
-          <div className="hidden lg:block absolute top-24 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-600/30 via-amber-600/60 to-amber-600/30"></div>
-          
-          <div className="space-y-12 lg:space-y-0 lg:grid lg:grid-cols-4 lg:gap-8">
-            {steps.map((step, index) => (
-              <div 
-                key={index}
-                className={`relative transition-all duration-1000 ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                }`}
-                style={{ transitionDelay: `${index * 200 + 300}ms` }}
-              >
-                {/* Timeline Node */}
-                <div className="absolute -left-4 lg:left-1/2 lg:-translate-x-1/2 lg:top-20 w-8 h-8 bg-gradient-to-br from-amber-600 to-amber-700 rounded-full flex items-center justify-center shadow-lg border-4 border-white z-10">
-                  <span className="text-white font-light text-sm">{step.number}</span>
+        {/* Steps Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+          {steps.map((step, index) => (
+            <div 
+              key={index}
+              className={`group transition-all duration-1000 ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+              style={{ transitionDelay: `${index * 200 + 300}ms` }}
+            >
+              <div className="rounded-lg p-8 text-center shadow-2xl hover:shadow-3xl transition-all duration-500 group-hover:scale-105 relative">
+                {/* Step Number */}
+                <div className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-br from-amber-600 to-amber-700 rounded-full flex items-center justify-center shadow-lg">
+                  <span className="text-white font-light text-lg">{step.number}</span>
                 </div>
                 
-                {/* Step Card */}
-                <div className="ml-12 lg:ml-0 lg:mt-32 glass-card rounded-3xl p-8 text-center hover:shadow-2xl transition-all duration-500 group-hover:scale-105 relative">
-                  {/* Icon */}
-                  <div className="text-amber-700 mb-6 group-hover:scale-110 transition-transform duration-300 flex justify-center">
-                    {step.icon}
-                  </div>
-                  
-                  {/* Content */}
-                  <h3 className="text-xl font-light text-stone-800 mb-4 tracking-wide">
-                    {step.title}
-                  </h3>
-                  <p className="text-luxury text-sm leading-relaxed mb-6">
-                    {step.description}
-                  </p>
-                  
-                  {/* Action Button */}
-                  <button className="neuro-button px-6 py-2 rounded-full text-stone-700 font-light text-sm tracking-wide hover:shadow-lg transition-all duration-300 group">
-                    <span className="group-hover:tracking-wider transition-all duration-300">
-                      {step.action}
-                    </span>
-                  </button>
+                {/* Icon */}
+                <div className="text-amber-700 mb-6 group-hover:scale-110 transition-transform duration-300 flex justify-center">
+                  {step.icon}
                 </div>
                 
-                {/* Progress Indicator - Desktop */}
-                {index < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-24 -right-4 w-8 h-8 z-20">
-                    <div className="w-0 h-0 border-l-8 border-l-amber-600/60 border-y-4 border-y-transparent animate-pulse"></div>
-                  </div>
-                )}
+                {/* Content */}
+                <h3 className="text-xl font-light text-stone-800 mb-4 tracking-wide">
+                  {step.title}
+                </h3>
+                <p className="text-luxury text-sm leading-relaxed mb-6">
+                  {step.description}
+                </p>
+                
+                {/* Action Button */}
+                <button className="neuro-button px-6 py-2 rounded-full text-stone-700 font-light text-sm tracking-wide hover:shadow-lg transition-all duration-300 group">
+                  <span className="group-hover:tracking-wider transition-all duration-300">
+                    {step.action}
+                  </span>
+                </button>
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Progress Bar */}
-        <div className={`mt-16 max-w-2xl mx-auto transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="bg-stone-200 rounded-full h-2 overflow-hidden">
-            <div className="bg-gradient-to-r from-amber-600 to-amber-700 h-full rounded-full animate-[progress_3s_ease-in-out_infinite] shadow-lg"></div>
-          </div>
-          <p className="text-center text-luxury text-sm mt-4">Processo 100% personalizado para você</p>
+            </div>
+          ))}
         </div>
 
         {/* CTA */}
-        <div className={`text-center mt-16 transition-all duration-1000 delay-1200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <button className="neuro-button px-12 py-4 rounded-full text-stone-700 font-medium tracking-wide hover:shadow-xl transition-all duration-500 group">
-            <span className="group-hover:tracking-wider transition-all duration-300">
-              Começar Agora
-            </span>
-          </button>
+        <div className={`text-center transition-all duration-1000 delay-1200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="rounded-lg p-8 shadow-2xl max-w-2xl mx-auto">
+            <h3 className="text-2xl font-light text-stone-800 mb-4 tracking-wide">
+              Pronto para começar?
+            </h3>
+            <p className="text-luxury mb-6 leading-relaxed">
+              Nossa equipe está pronta para tornar seu evento inesquecível
+            </p>
+            <button className="neuro-button px-12 py-4 rounded-full text-stone-700 font-medium tracking-wide hover:shadow-xl transition-all duration-500 group">
+              <span className="group-hover:tracking-wider transition-all duration-300">
+                Começar Agora
+              </span>
+            </button>
+          </div>
         </div>
       </div>
     </section>
