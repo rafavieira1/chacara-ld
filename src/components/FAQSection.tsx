@@ -90,20 +90,20 @@ const FAQSection = () => {
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
         style={{ transitionDelay: '300ms' }}>
-          <FaqSection
-            title=""
-            items={faqs}
-            contactInfo={{
-              title: "Não encontrou a resposta que procurava?",
-              description: "Nossa equipe está pronta para esclarecer todas as suas dúvidas",
-              buttonText: "Fale Conosco",
-              onContact: () => {
-                // Scroll para seção de contato
-                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-              }
-            }}
-            className="py-0 bg-transparent"
-          />
+        <FaqSection
+          title=""
+          items={faqs}
+          contactInfo={{
+            title: "Não encontrou a resposta que procurava?",
+            description: "Nossa equipe está pronta para esclarecer todas as suas dúvidas",
+            buttonText: "Fale Conosco",
+            onContact: () => {
+              // Scroll para seção de contato
+              document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
+          className="py-0 bg-transparent"
+        />
         </div>
       </div>
     </section>

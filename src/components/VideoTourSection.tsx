@@ -1,7 +1,7 @@
 
-import { Play, MapPin, Clock, Users } from 'lucide-react';
+import { MapPin, Clock, Users } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
-import HeroVideoDialog from './magicui/hero-video-dialog';
+import VideoPlayer from './ui/player-video';
 
 const VideoTourSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -70,15 +70,9 @@ const VideoTourSection = () => {
           </div>
         </div>
 
-        {/* Hero Video Dialog */}
+        {/* Video Player */}
         <div className={`mb-16 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <HeroVideoDialog
-            animationStyle="from-center"
-            videoSrc="/video.mp4"
-            thumbnailSrc="/background.jpg"
-            thumbnailAlt="Tour virtual da Chácara LD"
-            className="max-w-5xl mx-auto"
-          />
+          <VideoPlayer src="/video.mp4" />
         </div>
 
         {/* Highlights */}

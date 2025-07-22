@@ -1,6 +1,7 @@
 
 import { Calendar, Phone, Mail, MapPin } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
+import { CTASection as CTAWithRectangle } from '@/components/ui/cta-with-rectangle';
 
 const CTASection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -22,6 +23,7 @@ const CTASection = () => {
 
     return () => observer.disconnect();
   }, []);
+  
   const contactMethods = [
     {
       icon: <Phone className="w-8 h-8" />,
@@ -71,28 +73,25 @@ const CTASection = () => {
           </div>
         </div>
 
-        {/* Main CTA */}
-        <div className={`text-center mb-20 transition-all duration-1000 ${
+        {/* Main CTA using cta-with-rectangle component */}
+        <div className={`transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
         style={{ transitionDelay: '300ms' }}>
-          <div className="rounded-lg p-12 shadow-2xl hover:shadow-3xl transition-all duration-500 relative group max-w-4xl mx-auto">
-            <div className="w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
-              <Calendar className="w-10 h-10 text-white" />
-            </div>
-            <h3 className="text-3xl font-light text-stone-800 mb-4 tracking-wide">
-              Agende Sua Visita Gratuita
-            </h3>
-            <p className="text-luxury mb-8 max-w-2xl mx-auto leading-relaxed">
-              Conheça pessoalmente todos os nossos espaços e descubra como podemos 
-              tornar seu evento inesquecível. Nossa equipe está pronta para recebê-lo.
-            </p>
-            <button className="neuro-button px-12 py-4 rounded-full text-stone-700 font-medium tracking-wide hover:shadow-2xl transition-all duration-500 group text-lg">
-              <span className="group-hover:tracking-wider transition-all duration-300">
-                Agendar Visita Gratuita
-              </span>
-            </button>
-          </div>
+          <CTAWithRectangle
+            badge={{
+              text: "Visita Gratuita"
+            }}
+            title="Agende Sua Visita Gratuita"
+            description="Conheça pessoalmente todos os nossos espaços e descubra como podemos tornar seu evento inesquecível. Nossa equipe está pronta para recebê-lo."
+            action={{
+              text: "Agendar Visita Gratuita",
+              href: "#contact",
+              variant: "default"
+            }}
+            withGlow={true}
+            className="mb-20"
+          />
         </div>
 
         {/* Contact Methods */}
