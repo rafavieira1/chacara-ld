@@ -23,6 +23,10 @@ export default {
     			inter: [
     				'Inter',
     				'sans-serif'
+    			],
+    			'great-vibes': [
+    				'Great Vibes',
+    				'cursive'
     			]
     		},
     		colors: {

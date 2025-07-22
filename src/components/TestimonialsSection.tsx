@@ -66,20 +66,29 @@ const TestimonialsSection = () => {
     <section ref={sectionRef} id="testimonials" className="py-24 px-6">
       <div className="container mx-auto max-w-7xl">
         {/* Main Title */}
-        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 
-            className="text-6xl md:text-7xl lg:text-8xl font-kanoky font-light leading-none tracking-wider"
-            style={{ 
-              background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              display: 'inline-block'
-            }}
-          >
-            DEPOIMENTOS
-          </h2>
-          <div className="w-full h-px bg-stone-300 mt-8 mb-8"></div>
+        <div className={`text-center mb-16 transition-all duration-1000 relative z-10 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="py-8">
+            <h2 
+              className="text-6xl md:text-7xl lg:text-8xl font-great-vibes font-normal leading-loose tracking-wide relative z-20"
+              style={{ 
+                background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                paddingTop: '2rem',
+                paddingBottom: '1rem',
+                lineHeight: '1.6',
+                minHeight: '200px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '100%'
+              }}
+            >
+              Depoimentos
+            </h2>
+          </div>
+          <div className="w-full h-px bg-stone-300 mt-2 mb-8 relative z-10"></div>
           
           {/* Description Text */}
           <div className="text-center max-w-3xl mx-auto mb-16">

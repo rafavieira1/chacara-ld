@@ -5,6 +5,8 @@ import { Tabs } from '@/components/ui/tabs';
 
 const ServicesSection = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState<Record<string, boolean>>({});
+  const [imageCache, setImageCache] = useState<Record<string, HTMLImageElement>>({});
   const sectionRef = useRef<HTMLElement>(null);
   
   const servicesData = [
@@ -56,6 +58,68 @@ const ServicesSection = () => {
     { icon: <Users className="w-6 h-6" />, label: "Capacidade Flexível" }
   ];
 
+  // Pré-carregar e cachear todas as imagens
+  useEffect(() => {
+    const preloadImages = () => {
+      servicesData.forEach((service) => {
+        // Verificar se já existe no cache
+        if (imageCache[service.value]) {
+          setImagesLoaded(prev => ({
+            ...prev,
+            [service.value]: true
+          }));
+          return;
+        }
+
+        const img = new Image();
+        
+        // Configurações para otimização
+        img.decoding = 'async';
+        img.loading = 'eager';
+        
+        img.onload = () => {
+          // Aguardar um frame para garantir que a imagem esteja totalmente processada
+          requestAnimationFrame(() => {
+            setImageCache(prev => ({
+              ...prev,
+              [service.value]: img
+            }));
+            setImagesLoaded(prev => ({
+              ...prev,
+              [service.value]: true
+            }));
+          });
+        };
+        
+        img.onerror = () => {
+          console.warn(`Erro ao carregar imagem: ${service.content.imageSrc}`);
+          setImagesLoaded(prev => ({
+            ...prev,
+            [service.value]: true
+          }));
+        };
+        
+        img.src = service.content.imageSrc;
+      });
+    };
+
+    // Usar setTimeout para não bloquear o render inicial
+    setTimeout(preloadImages, 100);
+  }, []);
+
+  // Adicionar preload links no head
+  useEffect(() => {
+    servicesData.forEach((service) => {
+      if (!document.querySelector(`link[href="${service.content.imageSrc}"]`)) {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = service.content.imageSrc;
+        document.head.appendChild(link);
+      }
+    });
+  }, []);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -76,25 +140,78 @@ const ServicesSection = () => {
     };
   }, []);
 
+  const ImageWithPlaceholder = ({ service }: { service: typeof servicesData[0] }) => {
+    const isLoaded = imagesLoaded[service.value];
+    
+    return (
+      <div className="w-full relative overflow-hidden rounded-xl">
+        {/* Placeholder com altura fixa */}
+        <div 
+          className={`absolute inset-0 bg-gradient-to-r from-stone-200 via-stone-100 to-stone-200 flex items-center justify-center transition-opacity duration-300 ${
+            isLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          }`}
+          style={{ minHeight: '400px' }}
+        >
+          <div className="flex flex-col items-center gap-2">
+            <div className="w-8 h-8 border-2 border-stone-400 border-t-transparent rounded-full animate-spin"></div>
+            <div className="text-stone-500 text-sm">Carregando imagem...</div>
+          </div>
+        </div>
+        
+        {/* Imagem real */}
+        <img
+          src={service.content.imageSrc}
+          alt={service.content.imageAlt}
+          className={`w-full h-auto object-cover shadow-lg transition-all duration-500 ${
+            isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+          }`}
+          style={{ 
+            minHeight: '400px',
+            maxHeight: '500px',
+            objectPosition: 'center center'
+          }}
+          decoding="async"
+          onLoad={() => {
+            // Garantir que o estado seja atualizado mesmo se o onload do preload não funcionou
+            if (!imagesLoaded[service.value]) {
+              setImagesLoaded(prev => ({
+                ...prev,
+                [service.value]: true
+              }));
+            }
+          }}
+        />
+      </div>
+    );
+  };
+
   return (
     <section ref={sectionRef} id="services" className="py-24 px-6">
       <div className="container mx-auto max-w-7xl">
         {/* Main Title */}
-        <div className={`text-center mb-4 transition-all duration-700 ease-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 
-            className="text-6xl md:text-7xl lg:text-8xl font-kanoky font-light leading-normal tracking-wider py-4"
-            style={{ 
-              background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              display: 'inline-block',
-              lineHeight: '1.2'
-            }}
-          >
-            SERVIÇOS
-          </h2>
-          <div className="w-full h-px bg-stone-300 mt-4 mb-2"></div>
+        <div className={`text-center mb-4 transition-all duration-700 ease-out relative z-10 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div className="py-8">
+            <h2 
+              className="text-6xl md:text-7xl lg:text-8xl font-great-vibes font-normal leading-loose tracking-wide relative z-20"
+              style={{ 
+                background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                paddingTop: '2rem',
+                paddingBottom: '1rem',
+                lineHeight: '1.6',
+                minHeight: '200px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '100%'
+              }}
+            >
+              Serviços
+            </h2>
+          </div>
+          <div className="w-full h-px bg-stone-300 mt-2 mb-2 relative z-10"></div>
         </div>
 
         {/* Services Feature Tabs */}
@@ -141,12 +258,7 @@ const ServicesSection = () => {
                         </button>
                       </div>
                       <div className="w-full order-2 lg:order-2">
-                        <img
-                          src={service.content.imageSrc}
-                          alt={service.content.imageAlt}
-                          className="rounded-xl w-full h-auto object-cover shadow-lg"
-                          loading="lazy"
-                        />
+                        <ImageWithPlaceholder service={service} />
                       </div>
                     </div>
                   </div>
