@@ -1,6 +1,9 @@
 import { Users, Calendar, Utensils, Camera, Music, Sparkles } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
 
 const ServicesSection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
   const services = [
     {
       icon: <Users className="w-10 h-10" />,
@@ -29,11 +32,28 @@ const ServicesSection = () => {
     { icon: <Users className="w-6 h-6" />, label: "Capacidade Flexível" }
   ];
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="services" className="py-24 px-6">
+    <section ref={sectionRef} id="services" className="py-24 px-6">
       <div className="container mx-auto max-w-7xl">
         {/* Main Title */}
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 
             className="text-6xl md:text-7xl lg:text-8xl font-kanoky font-light leading-none tracking-wider"
             style={{ 
@@ -62,10 +82,16 @@ const ServicesSection = () => {
           {services.map((service, index) => (
             <div 
               key={index}
-              className="group"
+              className={`group transition-all duration-1000 ${
+                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+              style={{ transitionDelay: `${300 + index * 200}ms` }}
             >
               <div className="rounded-lg p-8 h-full shadow-2xl hover:shadow-3xl transition-all duration-500 group-hover:scale-105">
-                <div className="text-amber-700 mb-6 group-hover:scale-110 transition-transform duration-300">
+                <div 
+                  className="mb-6 group-hover:scale-110 transition-transform duration-300"
+                  style={{ color: '#5C3A2B' }}
+                >
                   {service.icon}
                 </div>
                 <h3 className="text-2xl font-light text-stone-800 mb-4 tracking-wide">
@@ -77,7 +103,7 @@ const ServicesSection = () => {
                 <ul className="space-y-2">
                   {service.features.map((feature, idx) => (
                     <li key={idx} className="flex items-center text-sm text-luxury">
-                      <div className="w-1.5 h-1.5 bg-amber-600 rounded-full mr-3"></div>
+                      <div className="w-1.5 h-1.5 rounded-full mr-3" style={{ backgroundColor: '#5C3A2B' }}></div>
                       {feature}
                     </li>
                   ))}
@@ -88,7 +114,10 @@ const ServicesSection = () => {
         </div>
 
         {/* Amenities */}
-        <div className="rounded-lg p-8 shadow-2xl">
+        <div className={`rounded-lg p-8 shadow-2xl transition-all duration-1000 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+        style={{ transitionDelay: '900ms' }}>
           <h3 className="text-2xl font-light text-stone-800 text-center mb-8 tracking-wide">
             Comodidades Incluídas
           </h3>
@@ -96,9 +125,12 @@ const ServicesSection = () => {
             {amenities.map((amenity, index) => (
               <div 
                 key={index}
-                className="flex items-center space-x-3 text-luxury group hover:text-amber-700 transition-colors duration-300"
+                className="flex items-center space-x-3 text-luxury group transition-colors duration-300"
               >
-                <div className="text-amber-700 group-hover:scale-110 transition-transform duration-300">
+                <div 
+                  className="group-hover:scale-110 transition-transform duration-300"
+                  style={{ color: '#5C3A2B' }}
+                >
                   {amenity.icon}
                 </div>
                 <span className="font-light tracking-wide">{amenity.label}</span>

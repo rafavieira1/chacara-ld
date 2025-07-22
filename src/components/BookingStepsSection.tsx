@@ -1,66 +1,146 @@
-
 import { Calendar, MessageSquare, CreditCard, PartyPopper } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { Timeline } from './ui/timeline';
 
 const BookingStepsSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  const steps = [
+  const data = [
     {
-      number: "01",
-      icon: <Calendar className="w-10 h-10" />,
       title: "Agende uma Visita",
-      description: "Conheça pessoalmente nossos espaços e tire todas as suas dúvidas com nossa equipe especializada.",
-      action: "Agendar Visita"
+      content: (
+        <div className="space-y-6">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="flex items-center justify-center w-12 h-12 rounded-full shadow-lg" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
+              <Calendar className="w-6 h-6 text-white" />
+            </div>
+            <div className="text-sm text-stone-600 font-light tracking-wide">PASSO 01</div>
+          </div>
+          
+          <p className="text-stone-700 leading-relaxed text-base mb-6">
+            Conheça pessoalmente nossos espaços e tire todas as suas dúvidas com nossa equipe especializada. 
+            Durante a visita, você poderá ver todos os ambientes, conhecer nossa estrutura completa e 
+            entender como podemos personalizar o espaço para seu evento.
+          </p>
+          
+          <div className="bg-stone-50 p-6 rounded-lg border border-stone-200">
+            <h4 className="font-medium text-stone-800 mb-3">O que você verá na visita:</h4>
+            <ul className="text-stone-600 space-y-2 text-sm">
+              <li>• Todos os salões e áreas externas</li>
+              <li>• Estrutura de cozinha e serviços</li>
+              <li>• Opções de decoração e montagem</li>
+              <li>• Capacidade e layout dos espaços</li>
+            </ul>
+          </div>
+          
+          <button className="px-8 py-3 rounded-full text-white font-light tracking-wide shadow-lg hover:shadow-xl transition-all duration-300" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
+            Agendar Visita
+          </button>
+        </div>
+      ),
     },
     {
-      number: "02",
-      icon: <MessageSquare className="w-10 h-10" />,
-      title: "Planejamento Personalizado",
-      description: "Desenvolvemos um projeto único para seu evento, cuidando de cada detalhe segundo suas preferências.",
-      action: "Solicitar Orçamento"
+      title: "Planejamento Personalizado", 
+      content: (
+        <div className="space-y-6">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="flex items-center justify-center w-12 h-12 rounded-full shadow-lg" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
+              <MessageSquare className="w-6 h-6 text-white" />
+            </div>
+            <div className="text-sm text-stone-600 font-light tracking-wide">PASSO 02</div>
+          </div>
+          
+          <p className="text-stone-700 leading-relaxed text-base mb-6">
+            Desenvolvemos um projeto único para seu evento, cuidando de cada detalhe segundo suas preferências.
+            Nossa equipe especializada trabalha junto com você para criar uma experiência memorável e personalizada.
+          </p>
+          
+          <div className="bg-stone-50 p-6 rounded-lg border border-stone-200">
+            <h4 className="font-medium text-stone-800 mb-3">Nossos serviços incluem:</h4>
+            <ul className="text-stone-600 space-y-2 text-sm">
+              <li>• Consultoria em decoração e ambientação</li>
+              <li>• Cardápio personalizado com chef</li>
+              <li>• Cronograma detalhado do evento</li>
+              <li>• Coordenação de fornecedores</li>
+            </ul>
+          </div>
+          
+          <button className="px-8 py-3 rounded-full text-white font-light tracking-wide shadow-lg hover:shadow-xl transition-all duration-300" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
+            Solicitar Orçamento
+          </button>
+        </div>
+      ),
     },
     {
-      number: "03",
-      icon: <CreditCard className="w-10 h-10" />,
       title: "Reserva Confirmada",
-      description: "Finalize a reserva com condições flexíveis de pagamento e garanta sua data especial.",
-      action: "Confirmar Reserva"
+      content: (
+        <div className="space-y-6">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="flex items-center justify-center w-12 h-12 rounded-full shadow-lg" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
+              <CreditCard className="w-6 h-6 text-white" />
+            </div>
+            <div className="text-sm text-stone-600 font-light tracking-wide">PASSO 03</div>
+          </div>
+          
+          <p className="text-stone-700 leading-relaxed text-base mb-6">
+            Finalize a reserva com condições flexíveis de pagamento e garanta sua data especial.
+            Oferecemos diversas opções de pagamento para facilitar a realização do seu sonho.
+          </p>
+          
+          <div className="bg-stone-50 p-6 rounded-lg border border-stone-200">
+            <h4 className="font-medium text-stone-800 mb-3">Opções de pagamento:</h4>
+            <ul className="text-stone-600 space-y-2 text-sm">
+              <li>• Parcelamento em até 12x sem juros</li>
+              <li>• Desconto para pagamento à vista</li>
+              <li>• Entrada facilitada (30% do valor)</li>
+              <li>• Contrato flexível e transparente</li>
+            </ul>
+          </div>
+          
+          <button className="px-8 py-3 rounded-full text-white font-light tracking-wide shadow-lg hover:shadow-xl transition-all duration-300" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
+            Confirmar Reserva
+          </button>
+        </div>
+      ),
     },
     {
-      number: "04",
-      icon: <PartyPopper className="w-10 h-10" />,
       title: "Dia do Evento",
-      description: "Relaxe e aproveite! Nossa equipe cuida de tudo para que você viva momentos inesquecíveis.",
-      action: "Celebrar"
+      content: (
+        <div className="space-y-6">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="flex items-center justify-center w-12 h-12 rounded-full shadow-lg" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
+              <PartyPopper className="w-6 h-6 text-white" />
+            </div>
+            <div className="text-sm text-stone-600 font-light tracking-wide">PASSO 04</div>
+          </div>
+          
+          <p className="text-stone-700 leading-relaxed text-base mb-6">
+            Relaxe e aproveite! Nossa equipe cuida de tudo para que você viva momentos inesquecíveis.
+            No dia do seu evento, você só precisa se preocupar em celebrar com seus convidados.
+          </p>
+          
+          <div className="bg-stone-50 p-6 rounded-lg border border-stone-200">
+            <h4 className="font-medium text-stone-800 mb-3">Nossa equipe garante:</h4>
+            <ul className="text-stone-600 space-y-2 text-sm">
+              <li>• Montagem completa antes da chegada</li>
+              <li>• Coordenação durante todo o evento</li>
+              <li>• Suporte técnico e logístico</li>
+              <li>• Limpeza e desmontagem pós-evento</li>
+            </ul>
+          </div>
+          
+          <button className="px-8 py-3 rounded-full text-white font-light tracking-wide shadow-lg hover:shadow-xl transition-all duration-300" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
+            Celebrar
+          </button>
+        </div>
+      ),
     }
   ];
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section ref={sectionRef} id="booking-steps" className="py-24 px-6">
-      <div className="container mx-auto max-w-7xl">
-        {/* Main Title */}
-        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+    <section id="booking-steps" className="py-24 px-6">
+      <div className="container mx-auto max-w-7xl px-6">
+        {/* Section Header */}
+        <div className="text-center mb-16">
           <h2 
-            className="text-6xl md:text-7xl lg:text-8xl font-kanoky font-light leading-none tracking-wider"
+            className="text-6xl md:text-7xl lg:text-8xl font-kanoky font-light leading-none tracking-wider mb-8"
             style={{ 
               background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)',
               WebkitBackgroundClip: 'text',
@@ -69,72 +149,36 @@ const BookingStepsSection = () => {
               display: 'inline-block'
             }}
           >
-            COMO RESERVAR
+            PASSOS PARA AGENDAR
           </h2>
           <div className="w-full h-px bg-stone-300 mt-8 mb-8"></div>
           
-          {/* Description Text */}
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <p className="text-luxury leading-relaxed text-lg">
+          <div className="text-center max-w-3xl mx-auto">
+            <p className="text-stone-700 leading-relaxed text-lg">
               Transformar seu sonho em realidade é mais fácil do que você imagina. 
               Siga nosso processo personalizado em 4 etapas simples.
             </p>
           </div>
         </div>
+      </div>
 
-        {/* Steps Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-          {steps.map((step, index) => (
-            <div 
-              key={index}
-              className={`group transition-all duration-1000 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-              }`}
-              style={{ transitionDelay: `${index * 200 + 300}ms` }}
-            >
-              <div className="rounded-lg p-8 text-center shadow-2xl hover:shadow-3xl transition-all duration-500 group-hover:scale-105 relative">
-                {/* Step Number */}
-                <div className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-br from-amber-600 to-amber-700 rounded-full flex items-center justify-center shadow-lg">
-                  <span className="text-white font-light text-lg">{step.number}</span>
-                </div>
-                
-                {/* Icon */}
-                <div className="text-amber-700 mb-6 group-hover:scale-110 transition-transform duration-300 flex justify-center">
-                  {step.icon}
-                </div>
-                
-                {/* Content */}
-                <h3 className="text-xl font-light text-stone-800 mb-4 tracking-wide">
-                  {step.title}
-                </h3>
-                <p className="text-luxury text-sm leading-relaxed mb-6">
-                  {step.description}
-                </p>
-                
-                {/* Action Button */}
-                <button className="neuro-button px-6 py-2 rounded-full text-stone-700 font-light text-sm tracking-wide hover:shadow-lg transition-all duration-300 group">
-                  <span className="group-hover:tracking-wider transition-all duration-300">
-                    {step.action}
-                  </span>
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
+      {/* Timeline Component with custom styling */}
+      <div className="timeline-custom-styles">
+        <Timeline data={data} />
+      </div>
 
-        {/* CTA */}
-        <div className={`text-center transition-all duration-1000 delay-1200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="rounded-lg p-8 shadow-2xl max-w-2xl mx-auto">
+      {/* Final CTA */}
+      <div className="container mx-auto max-w-7xl px-6 mt-16">
+        <div className="text-center">
+          <div className="bg-stone-50 rounded-lg p-8 shadow-2xl max-w-2xl mx-auto border border-stone-200">
             <h3 className="text-2xl font-light text-stone-800 mb-4 tracking-wide">
               Pronto para começar?
             </h3>
-            <p className="text-luxury mb-6 leading-relaxed">
+            <p className="text-stone-700 mb-6 leading-relaxed">
               Nossa equipe está pronta para tornar seu evento inesquecível
             </p>
-            <button className="neuro-button px-12 py-4 rounded-full text-stone-700 font-medium tracking-wide hover:shadow-xl transition-all duration-500 group">
-              <span className="group-hover:tracking-wider transition-all duration-300">
-                Começar Agora
-              </span>
+            <button className="px-12 py-4 rounded-full text-white font-medium tracking-wide shadow-xl hover:shadow-2xl transition-all duration-500" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
+              Começar Agora
             </button>
           </div>
         </div>

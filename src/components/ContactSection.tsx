@@ -112,7 +112,7 @@ const ContactSection = () => {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 rounded-xl glass-card border-0 focus:ring-2 focus:ring-amber-600/20 transition-all duration-300 text-stone-800"
+                      className="w-full px-4 py-3 rounded-xl glass-card border-0 focus:ring-2 focus:ring-stone-400/20 transition-all duration-300 text-stone-800"
                       placeholder="Seu nome completo"
                     />
                   </div>
@@ -124,7 +124,7 @@ const ContactSection = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 rounded-xl glass-card border-0 focus:ring-2 focus:ring-amber-600/20 transition-all duration-300 text-stone-800"
+                      className="w-full px-4 py-3 rounded-xl glass-card border-0 focus:ring-2 focus:ring-stone-400/20 transition-all duration-300 text-stone-800"
                       placeholder="seu@email.com"
                     />
                   </div>
@@ -139,8 +139,8 @@ const ContactSection = () => {
                       value={formData.phone}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 rounded-xl glass-card border-0 focus:ring-2 focus:ring-amber-600/20 transition-all duration-300 text-stone-800"
-                      placeholder="(11) 9 9999-9999"
+                      className="w-full px-4 py-3 rounded-xl glass-card border-0 focus:ring-2 focus:ring-stone-400/20 transition-all duration-300 text-stone-800"
+                      placeholder="(11) 99999-9999"
                     />
                   </div>
                   <div>
@@ -150,14 +150,14 @@ const ContactSection = () => {
                       value={formData.eventType}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 rounded-xl glass-card border-0 focus:ring-2 focus:ring-amber-600/20 transition-all duration-300 text-stone-800"
+                      className="w-full px-4 py-3 rounded-xl glass-card border-0 focus:ring-2 focus:ring-stone-400/20 transition-all duration-300 text-stone-800"
                     >
-                      <option value="">Selecione</option>
+                      <option value="">Selecione o tipo</option>
                       <option value="casamento">Casamento</option>
-                      <option value="corporativo">Evento Corporativo</option>
                       <option value="aniversario">Aniversário</option>
+                      <option value="corporativo">Evento Corporativo</option>
                       <option value="formatura">Formatura</option>
-                      <option value="outro">Outro</option>
+                      <option value="outros">Outros</option>
                     </select>
                   </div>
                 </div>
@@ -171,7 +171,7 @@ const ContactSection = () => {
                       value={formData.date}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 rounded-xl glass-card border-0 focus:ring-2 focus:ring-amber-600/20 transition-all duration-300 text-stone-800"
+                      className="w-full px-4 py-3 rounded-xl glass-card border-0 focus:ring-2 focus:ring-stone-400/20 transition-all duration-300 text-stone-800"
                     />
                   </div>
                   <div>
@@ -182,8 +182,8 @@ const ContactSection = () => {
                       value={formData.guests}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 rounded-xl glass-card border-0 focus:ring-2 focus:ring-amber-600/20 transition-all duration-300 text-stone-800"
-                      placeholder="50"
+                      className="w-full px-4 py-3 rounded-xl glass-card border-0 focus:ring-2 focus:ring-stone-400/20 transition-all duration-300 text-stone-800"
+                      placeholder="Ex: 150"
                     />
                   </div>
                 </div>
@@ -195,8 +195,8 @@ const ContactSection = () => {
                     value={formData.message}
                     onChange={handleInputChange}
                     rows={4}
-                    className="w-full px-4 py-3 rounded-xl glass-card border-0 focus:ring-2 focus:ring-amber-600/20 transition-all duration-300 text-stone-800 resize-none"
-                    placeholder="Conte-nos mais sobre seu evento e suas necessidades específicas..."
+                    className="w-full px-4 py-3 rounded-xl glass-card border-0 focus:ring-2 focus:ring-stone-400/20 transition-all duration-300 text-stone-800 resize-none"
+                    placeholder="Conte-nos mais sobre seu evento..."
                   ></textarea>
                 </div>
 

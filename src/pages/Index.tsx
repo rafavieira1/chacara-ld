@@ -20,7 +20,7 @@ const Index = () => {
   }, []);
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-stone-50 via-amber-50/30 to-stone-100 transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`min-h-screen bg-gradient-to-br from-stone-50 via-stone-100/30 to-stone-100 transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
       <Navbar />
       <main>
         <HeroSection />

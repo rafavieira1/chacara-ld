@@ -1,9 +1,9 @@
 
 import { Play, MapPin, Clock, Users } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
+import HeroVideoDialog from './magicui/hero-video-dialog';
 
 const VideoTourSection = () => {
-  const [isPlaying, setIsPlaying] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -70,37 +70,15 @@ const VideoTourSection = () => {
           </div>
         </div>
 
-        {/* Video Player */}
+        {/* Hero Video Dialog */}
         <div className={`mb-16 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="relative group">
-            <div className="rounded-lg overflow-hidden shadow-2xl">
-              <div className="relative aspect-video bg-gradient-to-br from-stone-200 to-stone-300">
-                {/* Placeholder for video */}
-                <img 
-                  src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80"
-                  alt="Vista aérea da chácara"
-                  className="w-full h-full object-cover"
-                />
-                
-                {/* Play Button Overlay */}
-                {!isPlaying && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                    <button 
-                      onClick={() => setIsPlaying(true)}
-                      className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-xl border border-white/30 flex items-center justify-center text-white hover:scale-110 transition-all duration-500 shadow-2xl"
-                    >
-                      <Play className="w-8 h-8 ml-1" fill="currentColor" />
-                    </button>
-                  </div>
-                )}
-                
-                {/* Video Duration Badge */}
-                <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm px-3 py-1 rounded-full">
-                  <span className="text-white text-sm font-light">3:24</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <HeroVideoDialog
+            animationStyle="from-center"
+            videoSrc="/video.mp4"
+            thumbnailSrc="/background.jpg"
+            thumbnailAlt="Tour virtual da Chácara LD"
+            className="max-w-5xl mx-auto"
+          />
         </div>
 
         {/* Highlights */}
@@ -114,7 +92,10 @@ const VideoTourSection = () => {
               style={{ transitionDelay: `${600 + index * 200}ms` }}
             >
               <div className="rounded-lg p-8 text-center shadow-2xl hover:shadow-3xl transition-all duration-500 group-hover:scale-105">
-                <div className="text-amber-700 mb-6 group-hover:scale-110 transition-transform duration-300 flex justify-center">
+                <div 
+                  className="mb-6 group-hover:scale-110 transition-transform duration-300 flex justify-center"
+                  style={{ color: '#5C3A2B' }}
+                >
                   {highlight.icon}
                 </div>
                 <h4 className="text-xl font-light text-stone-800 mb-3 tracking-wide">

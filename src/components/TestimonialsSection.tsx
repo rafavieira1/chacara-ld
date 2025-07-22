@@ -1,5 +1,6 @@
 import { Star, Quote } from 'lucide-react';
 import { useState } from 'react';
+import { TestimonialsColumn } from './ui/testimonials-columns-1';
 
 const TestimonialsSection = () => {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
@@ -7,29 +8,40 @@ const TestimonialsSection = () => {
   const testimonials = [
     {
       name: "Marina & Carlos",
-      event: "Casamento",
-      date: "Setembro 2023",
+      role: "Casamento",
       text: "A ChácaraLD foi o cenário perfeito para nosso casamento dos sonhos. Cada detalhe foi cuidado com carinho pela equipe, e nossos convidados não pararam de elogiar a beleza do local.",
-      rating: 5,
       image: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&w=150&q=80"
     },
     {
       name: "Empresa TechCorp",
-      event: "Evento Corporativo",
-      date: "Outubro 2023",
+      role: "Evento Corporativo",
       text: "Realizamos nossa confraternização anual na ChácaraLD e foi um sucesso absoluto. A estrutura é impecável e o atendimento superou todas as expectativas.",
-      rating: 5,
       image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80"
     },
     {
       name: "Ana Paula",
-      event: "Aniversário de 50 anos",
-      date: "Novembro 2023",
+      role: "Aniversário de 50 anos",
       text: "Minha festa de 50 anos na ChácaraLD foi inesquecível! O ambiente acolhedor e a natureza exuberante criaram uma atmosfera mágica que meus amigos ainda comentam.",
-      rating: 5,
       image: "https://images.unsplash.com/photo-1494790108755-2616c169bb6b?auto=format&fit=crop&w=150&q=80"
+    },
+    {
+      name: "Roberto Silva",
+      role: "Formatura",
+      text: "Nossa formatura na ChácaraLD foi simplesmente perfeita! O espaço é lindo e a equipe foi muito atenciosa com todos os detalhes.",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80"
+    },
+    {
+      name: "Família Santos",
+      role: "Reunião de Família",
+      text: "Reunimos toda a família na ChácaraLD para comemorar os 80 anos da vovó. Foi um dia especial que ficará na memória de todos.",
+      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80"
     }
   ];
+
+  // Dividir testemunhos em 3 colunas
+  const firstColumn = testimonials.slice(0, 2);
+  const secondColumn = testimonials.slice(2, 4);
+  const thirdColumn = testimonials.slice(4, 5).concat(testimonials.slice(0, 1)); // Adicionar mais para preencher
 
   return (
     <section id="testimonials" className="py-24 px-6">
@@ -59,91 +71,82 @@ const TestimonialsSection = () => {
           </div>
         </div>
 
-        {/* Main Testimonial */}
-        <div className="mb-16">
-          <div className="rounded-lg p-12 text-center relative overflow-hidden shadow-2xl">
-            {/* Quote Icon */}
-            <div className="absolute top-8 left-8 text-amber-600/20">
-              <Quote className="w-16 h-16" />
-            </div>
-            
-            {/* Stars */}
-            <div className="flex justify-center mb-8">
-              {[...Array(testimonials[activeTestimonial].rating)].map((_, i) => (
-                <Star key={i} className="w-6 h-6 text-amber-500 fill-current" />
-              ))}
-            </div>
-            
-            {/* Testimonial Text */}
-            <blockquote className="text-2xl md:text-3xl font-light text-stone-800 leading-relaxed mb-8 max-w-4xl mx-auto">
-              "{testimonials[activeTestimonial].text}"
-            </blockquote>
-            
-            {/* Author Info */}
-            <div className="flex items-center justify-center space-x-4">
-              <img 
-                src={testimonials[activeTestimonial].image}
-                alt={testimonials[activeTestimonial].name}
-                className="w-16 h-16 rounded-full object-cover shadow-lg"
-              />
-              <div className="text-left">
-                <div className="text-xl font-light text-stone-800 tracking-wide">
-                  {testimonials[activeTestimonial].name}
-                </div>
-                <div className="text-luxury text-sm">
-                  {testimonials[activeTestimonial].event} • {testimonials[activeTestimonial].date}
+        {/* Testimonials Columns */}
+        <div className="flex justify-center">
+          <div className="flex gap-6 max-w-6xl w-full [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] h-[600px] overflow-hidden">
+            <TestimonialsColumn 
+              testimonials={firstColumn}
+              className="hidden md:block"
+              duration={15}
+            />
+            <TestimonialsColumn 
+              testimonials={secondColumn}
+              className="hidden md:block"
+              duration={19}
+            />
+            <TestimonialsColumn 
+              testimonials={thirdColumn}
+              className="hidden md:block"
+              duration={17}
+            />
+          </div>
+        </div>
+
+        {/* Mobile Testimonials */}
+        <div className="md:hidden">
+          <div className="mb-16">
+            <div className="rounded-lg p-8 text-center relative overflow-hidden shadow-2xl">
+              {/* Quote Icon */}
+              <div className="absolute top-8 left-8 opacity-20" style={{ color: '#5C3A2B' }}>
+                <Quote className="w-16 h-16" />
+              </div>
+              
+              {/* Stars */}
+              <div className="flex justify-center mb-6">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-6 h-6 fill-current" style={{ color: '#5C3A2B' }} />
+                ))}
+              </div>
+              
+              {/* Testimonial Text */}
+              <blockquote className="text-lg md:text-xl font-light text-stone-800 leading-relaxed mb-8">
+                "{testimonials[activeTestimonial].text}"
+              </blockquote>
+              
+              {/* Author Info */}
+              <div className="flex items-center justify-center space-x-4">
+                <img 
+                  src={testimonials[activeTestimonial].image}
+                  alt={testimonials[activeTestimonial].name}
+                  className="w-12 h-12 rounded-full object-cover shadow-lg"
+                />
+                <div className="text-left">
+                  <div className="text-lg font-light text-stone-800 tracking-wide">
+                    {testimonials[activeTestimonial].name}
+                  </div>
+                  <div className="text-luxury text-sm">
+                    {testimonials[activeTestimonial].role}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Testimonial Navigation */}
-        <div className="flex justify-center space-x-4 mb-12">
-          {testimonials.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setActiveTestimonial(index)}
-              className={`w-4 h-4 rounded-full transition-all duration-300 ${
-                index === activeTestimonial 
-                  ? 'bg-amber-600 shadow-lg' 
-                  : 'bg-stone-300 hover:bg-stone-400'
-              }`}
-            />
-          ))}
-        </div>
-
-        {/* All Testimonials Preview */}
-        <div className="grid md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <div 
-              key={index}
-              className={`rounded-lg p-6 cursor-pointer transition-all duration-500 hover:shadow-2xl shadow-xl ${
-                index === activeTestimonial ? 'ring-2 ring-amber-600/50' : ''
-              }`}
-              onClick={() => setActiveTestimonial(index)}
-            >
-              <div className="flex items-center mb-4">
-                <img 
-                  src={testimonial.image}
-                  alt={testimonial.name}
-                  className="w-12 h-12 rounded-full object-cover mr-3"
-                />
-                <div>
-                  <div className="font-light text-stone-800">{testimonial.name}</div>
-                  <div className="text-xs text-luxury">{testimonial.event}</div>
-                </div>
-              </div>
-              <div className="flex mb-3">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 text-amber-500 fill-current" />
-                ))}
-              </div>
-              <p className="text-sm text-luxury leading-relaxed line-clamp-3">
-                {testimonial.text}
-              </p>
-            </div>
-          ))}
+          {/* Mobile Navigation */}
+          <div className="flex justify-center space-x-3">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveTestimonial(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === activeTestimonial 
+                    ? 'shadow-lg' 
+                    : 'bg-stone-300 hover:bg-stone-400'
+                }`}
+                style={index === activeTestimonial ? { backgroundColor: '#5C3A2B' } : {}}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

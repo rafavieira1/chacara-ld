@@ -24,7 +24,7 @@ const CTASection = () => {
   ];
 
   return (
-    <section id="cta" className="py-24 px-6 bg-gradient-to-b from-stone-50 to-stone-100">
+    <section id="cta" className="py-24 px-6">
       <div className="container mx-auto max-w-7xl">
         {/* Main Title */}
         <div className="text-center mb-16">
@@ -54,7 +54,7 @@ const CTASection = () => {
         {/* Main CTA */}
         <div className="text-center mb-20">
           <div className="rounded-lg p-12 shadow-2xl hover:shadow-3xl transition-all duration-500 relative group max-w-4xl mx-auto">
-            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-gradient-to-br from-amber-600 to-amber-700 flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300">
+            <div className="w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
               <Calendar className="w-10 h-10 text-white" />
             </div>
             <h3 className="text-3xl font-light text-stone-800 mb-4 tracking-wide">
@@ -83,13 +83,13 @@ const CTASection = () => {
                 href={method.action}
                 className="block rounded-lg p-8 text-center shadow-2xl hover:shadow-3xl transition-all duration-500 group-hover:scale-105"
               >
-                <div className="text-amber-700 mb-4 group-hover:scale-110 transition-transform duration-300 flex justify-center">
+                <div className="mb-4 group-hover:scale-110 transition-transform duration-300 flex justify-center" style={{ color: '#5C3A2B' }}>
                   {method.icon}
                 </div>
                 <h4 className="text-lg font-light text-stone-800 mb-2 tracking-wide">
                   {method.title}
                 </h4>
-                <p className="text-luxury text-sm group-hover:text-amber-700 transition-colors duration-300">
+                <p className="text-luxury text-sm transition-colors duration-300">
                   {method.info}
                 </p>
               </a>
@@ -116,7 +116,7 @@ const CTASection = () => {
           <div className="inline-flex items-center space-x-4 rounded-lg p-6 shadow-2xl">
             <div className="flex -space-x-2">
               {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="w-8 h-8 bg-gradient-to-br from-amber-600 to-amber-700 rounded-full border-2 border-white shadow-lg"></div>
+                <div key={i} className="w-8 h-8 rounded-full border-2 border-white shadow-lg" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}></div>
               ))}
             </div>
             <div className="text-sm text-luxury">

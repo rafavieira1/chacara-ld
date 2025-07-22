@@ -1,11 +1,5 @@
 
-import { Plus, Minus } from 'lucide-react';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { FaqSection } from './ui/faq';
 
 const FAQSection = () => {
   const faqs = [
@@ -71,39 +65,21 @@ const FAQSection = () => {
           </div>
         </div>
 
-        {/* FAQ Accordion */}
-        <div className="max-w-4xl mx-auto">
-          <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem 
-                key={index} 
-                value={`item-${index}`}
-                className="rounded-lg px-6 border-none shadow-2xl hover:shadow-3xl transition-all duration-300"
-              >
-                <AccordionTrigger className="text-left py-6 hover:no-underline group">
-                  <span className="text-lg font-light text-stone-800 tracking-wide pr-4 group-hover:text-amber-700 transition-colors duration-300">
-                    {faq.question}
-                  </span>
-                </AccordionTrigger>
-                <AccordionContent className="pb-6">
-                  <div className="text-luxury leading-relaxed pt-2 border-t border-stone-200/50">
-                    {faq.answer}
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-
-        {/* Contact CTA */}
-        <div className="text-center mt-16 animate-fade-in">
-          <p className="text-luxury mb-6">Não encontrou a resposta que procurava?</p>
-          <button className="neuro-button px-10 py-4 rounded-full text-stone-700 font-medium tracking-wide hover:shadow-xl transition-all duration-500 group">
-            <span className="group-hover:tracking-wider transition-all duration-300">
-              Fale Conosco
-            </span>
-          </button>
-        </div>
+        {/* FAQ Component */}
+        <FaqSection
+          title=""
+          items={faqs}
+          contactInfo={{
+            title: "Não encontrou a resposta que procurava?",
+            description: "Nossa equipe está pronta para esclarecer todas as suas dúvidas",
+            buttonText: "Fale Conosco",
+            onContact: () => {
+              // Scroll para seção de contato
+              document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
+          className="py-0 bg-transparent"
+        />
       </div>
     </section>
   );
