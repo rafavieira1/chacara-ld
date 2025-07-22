@@ -1,9 +1,29 @@
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
 import { toast } from 'sonner';
 
 const ContactSection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -67,10 +87,10 @@ const ContactSection = () => {
   ];
 
   return (
-    <section id="contact" className="py-24 px-6">
+    <section ref={sectionRef} id="contact" className="py-24 px-6">
       <div className="container mx-auto max-w-7xl">
         {/* Main Title */}
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 
             className="text-6xl md:text-7xl lg:text-8xl font-kanoky font-light leading-none tracking-wider"
             style={{ 
@@ -94,7 +114,10 @@ const ContactSection = () => {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className={`grid lg:grid-cols-2 gap-16 transition-all duration-1000 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+        style={{ transitionDelay: '300ms' }}>
           {/* Contact Form */}
           <div className="animate-fade-in">
             <div className="glass-card rounded-3xl p-8">

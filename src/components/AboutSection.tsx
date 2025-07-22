@@ -1,10 +1,32 @@
 
+import { useState, useEffect, useRef } from 'react';
+
 const AboutSection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="about" className="py-24 px-6 pb-10">
+    <section ref={sectionRef} id="about" className="py-24 px-6 pb-10">
       <div className="container mx-auto max-w-7xl">
         {/* Main Title */}
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 
             className="text-6xl md:text-7xl lg:text-8xl font-kanoky font-light leading-none tracking-wider"
             style={{ 
@@ -23,7 +45,10 @@ const AboutSection = () => {
         {/* Content Grid - Matching Reference Layout */}
         <div className="space-y-16">
           {/* Top Row - Image and Text */}
-          <div className="flex flex-col lg:flex-row gap-y-8 lg:gap-y-0 lg:gap-x-8">
+          <div className={`flex flex-col lg:flex-row gap-y-8 lg:gap-y-0 lg:gap-x-8 transition-all duration-1000 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+          style={{ transitionDelay: '300ms' }}>
             {/* Top Left - Image */}
             <div className="relative flex-shrink-0">
               <img 
@@ -55,7 +80,10 @@ const AboutSection = () => {
           </div>
 
           {/* Bottom Row - Text and Image */}
-          <div className="flex flex-col lg:flex-row gap-y-8 lg:gap-y-0 lg:gap-x-8">
+          <div className={`flex flex-col lg:flex-row gap-y-8 lg:gap-y-0 lg:gap-x-8 transition-all duration-1000 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+          style={{ transitionDelay: '600ms' }}>
             {/* Bottom Left - Text Block */}
             <div className="space-y-6 flex-1">
               <p className="text-luxury leading-relaxed text-lg">
@@ -87,7 +115,10 @@ const AboutSection = () => {
           </div>
 
           {/* Bottom Full Width Image */}
-          <div className="relative">
+          <div className={`relative transition-all duration-1000 ${
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+          style={{ transitionDelay: '900ms' }}>
             <img 
               src="/about1.jpg"
               alt="Vista panorâmica da Chácara LD"

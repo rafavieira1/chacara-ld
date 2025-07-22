@@ -1,7 +1,27 @@
 
 import { FaqSection } from './ui/faq';
+import { useState, useEffect, useRef } from 'react';
 
 const FAQSection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
   const faqs = [
     {
       question: "Qual é a capacidade máxima do espaço?",
@@ -38,10 +58,10 @@ const FAQSection = () => {
   ];
 
   return (
-    <section id="faq" className="py-24 px-6">
+    <section ref={sectionRef} id="faq" className="py-24 px-6">
       <div className="container mx-auto max-w-7xl">
         {/* Main Title */}
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 
             className="text-6xl md:text-7xl lg:text-8xl font-kanoky font-light leading-none tracking-wider"
             style={{ 
@@ -66,20 +86,25 @@ const FAQSection = () => {
         </div>
 
         {/* FAQ Component */}
-        <FaqSection
-          title=""
-          items={faqs}
-          contactInfo={{
-            title: "Não encontrou a resposta que procurava?",
-            description: "Nossa equipe está pronta para esclarecer todas as suas dúvidas",
-            buttonText: "Fale Conosco",
-            onContact: () => {
-              // Scroll para seção de contato
-              document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-            }
-          }}
-          className="py-0 bg-transparent"
-        />
+        <div className={`transition-all duration-1000 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+        style={{ transitionDelay: '300ms' }}>
+          <FaqSection
+            title=""
+            items={faqs}
+            contactInfo={{
+              title: "Não encontrou a resposta que procurava?",
+              description: "Nossa equipe está pronta para esclarecer todas as suas dúvidas",
+              buttonText: "Fale Conosco",
+              onContact: () => {
+                // Scroll para seção de contato
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+              }
+            }}
+            className="py-0 bg-transparent"
+          />
+        </div>
       </div>
     </section>
   );

@@ -1,7 +1,27 @@
 
 import { Calendar, Phone, Mail, MapPin } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
 
 const CTASection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
   const contactMethods = [
     {
       icon: <Phone className="w-8 h-8" />,
@@ -24,10 +44,10 @@ const CTASection = () => {
   ];
 
   return (
-    <section id="cta" className="py-24 px-6">
+    <section ref={sectionRef} id="cta" className="py-24 px-6">
       <div className="container mx-auto max-w-7xl">
         {/* Main Title */}
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 
             className="text-6xl md:text-7xl lg:text-8xl font-kanoky font-light leading-none tracking-wider"
             style={{ 
@@ -52,7 +72,10 @@ const CTASection = () => {
         </div>
 
         {/* Main CTA */}
-        <div className="text-center mb-20">
+        <div className={`text-center mb-20 transition-all duration-1000 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+        style={{ transitionDelay: '300ms' }}>
           <div className="rounded-lg p-12 shadow-2xl hover:shadow-3xl transition-all duration-500 relative group max-w-4xl mx-auto">
             <div className="w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
               <Calendar className="w-10 h-10 text-white" />
@@ -73,7 +96,10 @@ const CTASection = () => {
         </div>
 
         {/* Contact Methods */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
+        <div className={`grid md:grid-cols-3 gap-8 mb-16 transition-all duration-1000 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+        style={{ transitionDelay: '600ms' }}>
           {contactMethods.map((method, index) => (
             <div 
               key={index}

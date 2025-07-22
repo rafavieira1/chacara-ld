@@ -1,7 +1,27 @@
 import { Calendar, MessageSquare, CreditCard, PartyPopper } from 'lucide-react';
 import { Timeline } from './ui/timeline';
+import { useState, useEffect, useRef } from 'react';
 
 const BookingStepsSection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
   const data = [
     {
       title: "Agende uma Visita",
@@ -135,10 +155,10 @@ const BookingStepsSection = () => {
   ];
 
   return (
-    <section id="booking-steps" className="py-24 px-6">
+    <section ref={sectionRef} id="booking-steps" className="py-24 px-6">
       <div className="container mx-auto max-w-7xl px-6">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 
             className="text-6xl md:text-7xl lg:text-8xl font-kanoky font-light leading-none tracking-wider mb-8"
             style={{ 
@@ -163,7 +183,10 @@ const BookingStepsSection = () => {
       </div>
 
       {/* Timeline Component with custom styling */}
-      <div className="timeline-custom-styles">
+      <div className={`timeline-custom-styles transition-all duration-1000 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+      }`}
+      style={{ transitionDelay: '300ms' }}>
         <Timeline data={data} />
       </div>
 

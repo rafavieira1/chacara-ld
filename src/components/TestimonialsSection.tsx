@@ -1,9 +1,28 @@
 import { Star, Quote } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { TestimonialsColumn } from './ui/testimonials-columns-1';
 
 const TestimonialsSection = () => {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const testimonials = [
     {
@@ -44,10 +63,10 @@ const TestimonialsSection = () => {
   const thirdColumn = testimonials.slice(4, 5).concat(testimonials.slice(0, 1)); // Adicionar mais para preencher
 
   return (
-    <section id="testimonials" className="py-24 px-6">
+    <section ref={sectionRef} id="testimonials" className="py-24 px-6">
       <div className="container mx-auto max-w-7xl">
         {/* Main Title */}
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 
             className="text-6xl md:text-7xl lg:text-8xl font-kanoky font-light leading-none tracking-wider"
             style={{ 
@@ -72,7 +91,10 @@ const TestimonialsSection = () => {
         </div>
 
         {/* Testimonials Columns */}
-        <div className="flex justify-center">
+        <div className={`flex justify-center transition-all duration-1000 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+        style={{ transitionDelay: '300ms' }}>
           <div className="flex gap-6 max-w-6xl w-full [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] h-[600px] overflow-hidden">
             <TestimonialsColumn 
               testimonials={firstColumn}

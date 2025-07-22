@@ -1,9 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { GetStartedButton } from '@/components/ui/get-started-button';
 
 const GallerySection = () => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const images = [
     {
@@ -86,10 +105,10 @@ const GallerySection = () => {
   };
 
   return (
-    <section id="gallery" className="py-24 px-6">
+    <section ref={sectionRef} id="gallery" className="py-24 px-6">
       <div className="container mx-auto max-w-7xl">
         {/* Main Title */}
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 
             className="text-6xl md:text-7xl lg:text-8xl font-kanoky font-light leading-none tracking-wider"
             style={{ 
@@ -115,7 +134,10 @@ const GallerySection = () => {
         </div>
 
         {/* Sticky Scroll Gallery */}
-        <div className="grid grid-cols-12 gap-4 mb-16">
+        <div className={`grid grid-cols-12 gap-4 mb-16 transition-all duration-1000 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+        style={{ transitionDelay: '300ms' }}>
           {/* Left Column */}
           <div className="grid gap-4 col-span-12 md:col-span-4">
             <figure className="w-full group cursor-pointer" onClick={() => setSelectedImage(0)}>
