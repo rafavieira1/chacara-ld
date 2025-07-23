@@ -1,5 +1,5 @@
 
-import { Calendar, Phone, Mail, MapPin } from 'lucide-react';
+import { Calendar, Phone, Mail, MapPin, Facebook, Instagram, MessageCircle } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { CTASection as CTAWithRectangle } from '@/components/ui/cta-with-rectangle';
 
@@ -42,6 +42,27 @@ const CTASection = () => {
       title: "Visite-nos",
       info: "Rodovia SP-XXX, Km XX",
       action: "#"
+    }
+  ];
+
+  const socialNetworks = [
+    {
+      icon: <Facebook className="w-8 h-8" />,
+      title: "Facebook",
+      info: "@chacarald",
+      action: "https://facebook.com/chacarald"
+    },
+    {
+      icon: <Instagram className="w-8 h-8" />,
+      title: "Instagram",
+      info: "@chacarald",
+      action: "https://instagram.com/chacarald"
+    },
+    {
+      icon: <MessageCircle className="w-8 h-8" />,
+      title: "WhatsApp",
+      info: "(11) 9 9999-9999",
+      action: "https://wa.me/5511999999999"
     }
   ];
 
@@ -131,33 +152,36 @@ const CTASection = () => {
           ))}
         </div>
 
-        {/* Secondary CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16">
-          <button className="neuro-button px-10 py-4 rounded-full text-stone-700 font-light tracking-wide hover:shadow-lg transition-all duration-300 group">
-            <span className="group-hover:tracking-wider transition-all duration-300">
-              Solicitar Orçamento
-            </span>
-          </button>
-          <button className="neuro-button px-10 py-4 rounded-full text-stone-700 font-light tracking-wide hover:shadow-lg transition-all duration-300 group">
-            <span className="group-hover:tracking-wider transition-all duration-300">
-              Download do Catálogo
-            </span>
-          </button>
+        {/* Social Networks */}
+        <div className={`grid md:grid-cols-3 gap-8 mb-16 transition-all duration-1000 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+        style={{ transitionDelay: '900ms' }}>
+          {socialNetworks.map((network, index) => (
+            <div 
+              key={index}
+              className="group"
+            >
+              <a 
+                href={network.action}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block rounded-lg p-8 text-center shadow-2xl hover:shadow-3xl transition-all duration-500 group-hover:scale-105"
+              >
+                                 <div className="mb-4 group-hover:scale-110 transition-transform duration-300 flex justify-center" style={{ color: '#5C3A2B' }}>
+                   {network.icon}
+                 </div>
+                <h4 className="text-lg font-light text-stone-800 mb-2 tracking-wide">
+                  {network.title}
+                </h4>
+                <p className="text-luxury text-sm transition-colors duration-300">
+                  {network.info}
+                </p>
+              </a>
+            </div>
+          ))}
         </div>
 
-        {/* Trust Badge */}
-        <div className="text-center">
-          <div className="inline-flex items-center space-x-4 rounded-lg p-6 shadow-2xl">
-            <div className="flex -space-x-2">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="w-8 h-8 rounded-full border-2 border-white shadow-lg" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}></div>
-              ))}
-            </div>
-            <div className="text-sm text-luxury">
-              <span className="font-medium text-stone-800">200+</span> eventos realizados com sucesso
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

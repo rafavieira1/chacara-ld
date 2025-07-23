@@ -77,7 +77,7 @@ const FaqSection = React.forwardRef<HTMLElement, FaqSectionProps>(
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="max-w-md mx-auto mt-12 p-6 rounded-lg text-center bg-stone-50 border border-stone-200 shadow-lg"
+              className="max-w-5xl mx-auto mt-12 p-6 rounded-lg text-center bg-stone-50 border border-stone-200 shadow-lg"
             >
               <div 
                 className="inline-flex items-center justify-center p-3 rounded-full mb-4"
@@ -85,19 +85,19 @@ const FaqSection = React.forwardRef<HTMLElement, FaqSectionProps>(
               >
                 <Mail className="h-5 w-5 text-white" />
               </div>
-              <p className="text-sm font-medium text-stone-800 mb-2">
-                {contactInfo.title}
-              </p>
-              <p className="text-xs text-stone-600 mb-4">
-                {contactInfo.description}
-              </p>
-              <button 
-                className="px-8 py-3 rounded-full text-white font-light tracking-wide shadow-lg hover:shadow-xl transition-all duration-300"
-                style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}
-                onClick={contactInfo.onContact}
-              >
-                {contactInfo.buttonText}
-              </button>
+                             <p className="text-lg font-medium text-stone-800 mb-3">
+                 {contactInfo.title}
+               </p>
+               <p className="text-base text-stone-600 mb-6">
+                 {contactInfo.description}
+               </p>
+               <button 
+                 className="px-8 py-3 rounded-full text-white font-medium tracking-wide shadow-lg hover:shadow-xl transition-all duration-300 text-base"
+                 style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}
+                 onClick={contactInfo.onContact}
+               >
+                 {contactInfo.buttonText}
+               </button>
             </motion.div>
           )}
         </div>
