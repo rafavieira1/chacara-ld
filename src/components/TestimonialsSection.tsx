@@ -9,36 +9,43 @@ const testimonialsData = {
   subtitle: "Veja como a Chácara LD fez parte de momentos especiais e o que nossos clientes dizem sobre viver essa experiência conosco.",
   testimonials: [
     {
-      name: "Marina & Carlos",
+      name: "Sara & Pedro",
       role: "Casamento",
-      text: "A ChácaraLD foi o cenário perfeito para nosso casamento dos sonhos. Cada detalhe foi cuidado com carinho pela equipe, e nossos convidados não pararam de elogiar a beleza do local.",
-      image: "https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&w=150&q=80"
+      text: "Nosso casamento na Chácara LD foi simplesmente mágico. A vista ao pôr do sol, a natureza ao redor e o cuidado com cada detalhe tornaram esse dia inesquecível.",
+      image: "/saraepedro.jpg"
     },
     {
-      name: "Empresa TechCorp",
-      role: "Evento Corporativo",
-      text: "Realizamos nossa confraternização anual na ChácaraLD e foi um sucesso absoluto. A estrutura é impecável e o atendimento superou todas as expectativas.",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80"
+      name: "Gabriela",
+      role: "Festa de 15 anos",
+      text: "A estrutura da Chácara LD superou todas as minhas expectativas. Me senti uma princesa! A decoração integrada ao espaço deixou tudo perfeito para esse momento tão especial.",
+      image: "gabriela.jpg"
     },
     {
-      name: "Ana Paula",
-      role: "Aniversário de 50 anos",
-      text: "Minha festa de 50 anos na ChácaraLD foi inesquecível! O ambiente acolhedor e a natureza exuberante criaram uma atmosfera mágica que meus amigos ainda comentam.",
-      image: "https://images.unsplash.com/photo-1494790108755-2616c169bb6b?auto=format&fit=crop&w=150&q=80"
+      name: "Melki & Jussieli",
+      role: "Casamento",
+      text: "Escolhemos a Chácara LD pelo ambiente acolhedor e não nos arrependemos. O espaço é lindo, a equipe atenciosa e tudo saiu como sonhamos.",
+      image: "melkieju.jpg"
     },
     {
-      name: "Roberto Silva",
-      role: "Formatura",
-      text: "Nossa formatura na ChácaraLD foi simplesmente perfeita! O espaço é lindo e a equipe foi muito atenciosa com todos os detalhes.",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80"
+      name: "Carla & Lino",
+      role: "Casamento",
+      text: "Cada cantinho da Chácara LD tem um charme especial. Nosso casamento teve a energia que queríamos: natureza, alegria e conforto para todos os convidados.",
+      image: "/carlaelino.jpg"
     },
     {
-      name: "Família Santos",
-      role: "Reunião de Família",
-      text: "Reunimos toda a família na ChácaraLD para comemorar os 80 anos da vovó. Foi um dia especial que ficará na memória de todos.",
-      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80"
+      name: "Carol",
+      role: "Festa de 15 anos",
+      text: "Foi tudo perfeito! A piscina, os jardins, a área de convivência... Meus convidados amaram e a festa foi muito elogiada. Só tenho a agradecer à Chácara LD.",
+      image: "carol.jpg"
+    },
+    {
+      name: "Marcelo & Thays",
+      role: "Casamento",
+      text: "A Chácara LD foi a escolha ideal para nosso grande dia. Ambiente tranquilo, estrutura impecável e um atendimento que nos deixou totalmente seguros e confiantes.",
+      image: "marceloethays.jpg"
     }
   ]
+  
 };
 
 // Hook customizado para gerenciar testemunho ativo
