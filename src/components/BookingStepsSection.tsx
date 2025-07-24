@@ -62,7 +62,7 @@ const bookingStepsData = {
         "Suporte técnico e logístico",
         "Limpeza e desmontagem pós-evento"
       ],
-      buttonText: "Celebrar"
+      buttonText: "Entrar em Contato"
     }
   ]
 };
@@ -72,12 +72,12 @@ const SectionHeader = ({ title, subtitle, isVisible }: { title: string; subtitle
   <div className={`text-center mb-4 transition-all duration-1000 relative z-10 ${
     isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
   }`}>
-    <div className="py-8">
+    <div className="py-0">
       <h2 className="text-6xl md:text-7xl lg:text-8xl font-great-vibes font-normal leading-loose tracking-wide relative z-20 gradient-text">
         {title}
       </h2>
     </div>
-    <div className="w-full h-px bg-stone-300 mt-2 mb-2 relative z-10"></div>
+    <div className="w-full h-px bg-stone-300 mt-0 mb-2 relative z-10"></div>
     
     <div className="text-center max-w-3xl mx-auto">
       <p className="text-stone-700 leading-relaxed text-lg">
@@ -125,7 +125,8 @@ const StepContent = ({ step }: { step: typeof bookingStepsData.steps[0] }) => {
       
       <InfoList title={step.infoTitle} items={step.infoItems} />
       
-      <GetStartedButton text={step.buttonText} />
+      {/* Mostrar botão apenas no último passo (Celebrar) */}
+      {step.id === 4 && <GetStartedButton text={step.buttonText} />}
     </div>
   );
 };

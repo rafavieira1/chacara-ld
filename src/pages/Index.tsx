@@ -11,6 +11,7 @@ import BookingStepsSection from '../components/BookingStepsSection';
 import FAQSection from '../components/FAQSection';
 import CTASection from '../components/CTASection';
 import LocationSection from '../components/LocationSection';
+import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
 
 const Index = () => {
@@ -34,6 +35,7 @@ const Index = () => {
         <BookingStepsSection />
         <FAQSection />
         <CTASection />
+        <ContactSection />
       </main>
       <Footer />
     </div>

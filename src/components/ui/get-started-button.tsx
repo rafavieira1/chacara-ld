@@ -7,11 +7,13 @@ interface GetStartedButtonProps {
 }
 
 export function GetStartedButton({ onClick, text = "Ver mais" }: GetStartedButtonProps) {
+  const handleClick = onClick || (() => window.open('https://wa.me/5545991033179', '_blank'));
+  
   return (
     <Button 
       className="group relative overflow-hidden text-white font-medium shadow-lg hover:shadow-xl transition-all duration-300" 
       size="lg"
-      onClick={onClick}
+      onClick={handleClick}
       style={{ 
         background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)',
         borderRadius: '6px'

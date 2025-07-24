@@ -45,8 +45,8 @@ const faqData = {
     description: "Nossa equipe está pronta para esclarecer todas as suas dúvidas",
     buttonText: "Fale Conosco",
     onContact: () => {
-      // Scroll para seção de localização
-      document.getElementById('location')?.scrollIntoView({ behavior: 'smooth' });
+      // Abrir WhatsApp
+      window.open('https://wa.me/5545991033179', '_blank');
     }
   }
 };
@@ -56,12 +56,12 @@ const SectionHeader = ({ title, subtitle, isVisible }: { title: string; subtitle
   <div className={`text-center mb-16 transition-all duration-1000 relative z-10 ${
     isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
   }`}>
-    <div className="py-8">
+    <div className="py-0">
       <h2 className="text-6xl md:text-7xl lg:text-8xl font-great-vibes font-normal leading-loose tracking-wide relative z-20 gradient-text">
         {title}
       </h2>
     </div>
-    <div className="w-full h-px bg-stone-300 mt-2 mb-8 relative z-10"></div>
+    <div className="w-full h-px bg-stone-300 mt-0 mb-8 relative z-10"></div>
     
     <div className="text-center max-w-3xl mx-auto mb-16">
       <p className="text-luxury leading-relaxed text-lg">

@@ -2,7 +2,7 @@
 import React from 'react';
 import type { ComponentProps, ReactNode } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
-import { Instagram, Facebook, Mail, Phone } from 'lucide-react';
+import { Instagram, Facebook, Mail, Phone, Home } from 'lucide-react';
 
 // Tipos
 interface FooterLink {
@@ -51,17 +51,18 @@ const footerData = {
       links: [
         { title: 'Localização', href: '#location' },
         { title: 'Orçamento', href: '#location' },
-        { title: 'Telefone', href: 'tel:+5511999999999' },
-        { title: 'Email', href: 'mailto:contato@chacarald.com.br' },
+        { title: 'Telefone', href: 'tel:+5545991033179' },
+        { title: 'Email', href: 'mailto:Chacarald.contato@gmail.com' },
       ],
     },
     {
       label: 'Redes Sociais',
       links: [
-        { title: 'Facebook', href: '#', icon: Facebook },
-        { title: 'Instagram', href: '#', icon: Instagram },
-        { title: 'Email', href: 'mailto:contato@chacarald.com.br', icon: Mail },
-        { title: 'Telefone', href: 'tel:+5511999999999', icon: Phone },
+        { title: 'Facebook', href: 'https://www.facebook.com/chacara.ld', icon: Facebook },
+        { title: 'Instagram', href: 'https://www.instagram.com/chacara.ld', icon: Instagram },
+        { title: 'Airbnb', href: 'https://www.airbnb.com.br/rooms/42228939?source_impression_id=p3_1602254220_UHVuos4fTf%252BaqIOw', icon: Home },
+        { title: 'Email', href: 'mailto:Chacarald.contato@gmail.com', icon: Mail },
+        { title: 'Telefone', href: 'tel:+5545991033179', icon: Phone },
       ],
     },
   ]

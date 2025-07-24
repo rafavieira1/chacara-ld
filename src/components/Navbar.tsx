@@ -12,10 +12,11 @@ const navbarData = {
   menuItems: [
     { label: 'Início', href: '#hero' },
     { label: 'Sobre', href: '#about' },
-    { label: 'Serviços', href: '#services' },
     { label: 'Galeria', href: '#gallery' },
+    { label: 'Tour Virtual', href: '#tour' },
+    { label: 'Serviços', href: '#services' },
     { label: 'Localização', href: '#location' },
-    { label: 'Contato', href: '#location' }
+    { label: 'Contato', href: '#contact' }
   ],
   ctaButton: {
     text: "Contato"

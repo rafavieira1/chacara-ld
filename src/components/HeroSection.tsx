@@ -32,7 +32,7 @@ const HeroTitle = ({ title }: { title: string }) => (
 // Componente para o subtítulo
 const HeroSubtitle = ({ subtitle }: { subtitle: string }) => (
   <div className="absolute bottom-4 left-0 right-0 flex justify-center">
-    <p className="text-lg md:text-xl lg:text-2xl font-1769 tracking-widest uppercase text-center text-white drop-shadow-lg">
+    <p className="text-sm md:text-base lg:text-lg font-1769 tracking-widest uppercase text-center text-white drop-shadow-lg">
       {subtitle}
     </p>
   </div>

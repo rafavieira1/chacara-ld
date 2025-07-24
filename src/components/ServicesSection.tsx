@@ -191,7 +191,7 @@ const ServicesSection = () => {
       <div className="container mx-auto max-w-7xl">
         {/* Main Title */}
         <div className={`text-center mb-4 transition-all duration-700 ease-out relative z-10 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="py-8">
+          <div className="py-0">
             <h2 
               className="text-6xl md:text-7xl lg:text-8xl font-great-vibes font-normal leading-loose tracking-wide relative z-20"
               style={{ 
@@ -199,10 +199,10 @@ const ServicesSection = () => {
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
-                paddingTop: '2rem',
-                paddingBottom: '1rem',
+                paddingTop: '0',
+                paddingBottom: '0',
                 lineHeight: '1.6',
-                minHeight: '200px',
+                minHeight: '80px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -212,7 +212,7 @@ const ServicesSection = () => {
               Serviços
             </h2>
           </div>
-          <div className="w-full h-px bg-stone-300 mt-2 mb-2 relative z-10"></div>
+          <div className="w-full h-px bg-stone-300 mt-0 mb-2 relative z-10"></div>
         </div>
 
         {/* Services Feature Tabs */}
