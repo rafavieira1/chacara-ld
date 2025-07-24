@@ -1,8 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X, Utensils, Palette, Heart, Mountain, Zap } from 'lucide-react';
 import { GetStartedButton } from '@/components/ui/get-started-button';
-import { Trees, Utensils, Heart, Waves, Home } from 'lucide-react';
-import { ImageZoom } from '@/components/ui/image-zoom';
 import "react-medium-image-zoom/dist/styles.css";
 
 const GallerySection = () => {
@@ -32,39 +30,39 @@ const GallerySection = () => {
   // Interactive Selector Options
   const options = [
     {
-      title: "Paisagem",
+      title: "Gastronomia",
       description: "Vista panorâmica com natureza exuberante",
-      image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=800&q=80",
-      imageHD: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&q=90",
-      icon: <Trees size={24} className="text-white" />
-    },
-    {
-      title: "Área Gourmet",
-      description: "Espaço completo para experiências culinárias",
-      image: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=80",
-      imageHD: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=90",
+      image: "/buffet5.jpg",
+      imageHD: "/buffet5.jpg",
       icon: <Utensils size={24} className="text-white" />
     },
     {
-      title: "Casamentos",
+      title: "Decorações",
+      description: "Espaço completo para experiências culinárias",
+      image: "/deco4.jpg",
+      imageHD: "/deco4.jpg",
+      icon: <Palette size={24} className="text-white" />
+    },
+    {
+      title: "Eventos",
       description: "Cerimônias inesquecíveis em ambiente único",
-      image: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80",
-      imageHD: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=90",
+      image: "/evento5.jpg",
+      imageHD: "/evento5.jpg",
       icon: <Heart size={24} className="text-white" />
     },
     {
-      title: "Piscina & Lago",
+      title: "Paisagem",
       description: "Relaxamento com vista para o lago",
-      image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
-      imageHD: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=90",
-      icon: <Waves size={24} className="text-white" />
+      image: "/paisagem1.jpg",
+      imageHD: "/paisagem1.jpg",
+      icon: <Mountain size={24} className="text-white" />
     },
     {
-      title: "Estrutura",
+      title: "Lazer",
       description: "Salões equipados com todo conforto",
-      image: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
-      imageHD: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1200&q=90",
-      icon: <Home size={24} className="text-white" />
+      image: "/lazer1.jpg",
+      imageHD: "/lazer1.jpg",
+      icon: <Zap size={24} className="text-white" />
     }
   ];
 
@@ -72,11 +70,6 @@ const GallerySection = () => {
     if (index !== activeIndex) {
       setActiveIndex(index);
     }
-  };
-
-  const handleActiveCardClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    // O ImageZoom já gerencia o clique automaticamente
   };
 
   useEffect(() => {
@@ -96,34 +89,104 @@ const GallerySection = () => {
 
   const images = [
     {
-      src: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1200&q=90",
+      src: "/buffet1.jpg",
+      alt: "Vista panorâmica da chácara",
+      category: "Gastronomia"
+    },
+    {
+      src: "/buffet2.jpg",
+      alt: "Vista panorâmica da chácara",
+      category: "Gastronomia"
+    },
+    {
+      src: "/buffet3.jpg",
+      alt: "Vista panorâmica da chácara",
+      category: "Gastronomia"
+    },
+    {
+      src: "/buffet4.jpg",
+      alt: "Vista panorâmica da chácara",
+      category: "Gastronomia"
+    },
+    {
+      src: "/deco1.jpg",
+      alt: "Vista panorâmica da chácara",
+      category: "Decorações"
+    },
+    {
+      src: "/deco2.jpg",
+      alt: "Vista panorâmica da chácara",
+      category: "Decorações"
+    },
+    {
+      src: "/deco3.jpg",
+      alt: "Vista panorâmica da chácara",
+      category: "Decorações"
+    },
+    {
+      src: "/deco5.jpg",
+      alt: "Vista panorâmica da chácara",
+      category: "Decorações"
+    },
+    {
+      src: "/evento1.jpg",
+      alt: "Vista panorâmica da chácara",
+      category: "Eventos"
+    },
+    {
+      src: "/evento2.jpg",
+      alt: "Vista panorâmica da chácara",
+      category: "Eventos"
+    },
+    {
+      src: "/evento3.jpg",
+      alt: "Vista panorâmica da chácara",
+      category: "Eventos"
+    },
+    {
+      src: "/evento4.jpg",
+      alt: "Vista panorâmica da chácara",
+      category: "Eventos"
+    },
+    {
+      src: "/paisagem2.jpg",
       alt: "Vista panorâmica da chácara",
       category: "Paisagem"
     },
     {
-      src: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1200&q=90",
-      alt: "Área de eventos ao ar livre",
-      category: "Eventos"
+      src: "/paisagem3.jpg",
+      alt: "Vista panorâmica da chácara",
+      category: "EvenPaisagemtos"
     },
     {
-      src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=90",
-      alt: "Cerimônia de casamento",
-      category: "Casamentos"
+      src: "/paisagem4.jpg",
+      alt: "Vista panorâmica da chácara",
+      category: "Paisagem"
     },
     {
-      src: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=90",
-      alt: "Salão principal",
-      category: "Estrutura"
+      src: "/paisagem5.jpg",
+      alt: "Vista panorâmica da chácara",
+      category: "Paisagem"
     },
     {
-      src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=90",
-      alt: "Área gourmet",
-      category: "Gastronomia"
+      src: "/lazer2.jpg",
+      alt: "Vista panorâmica da chácara",
+      category: "Lazer"
     },
     {
-      src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1200&q=90",
-      alt: "Jardins e áreas verdes",
-      category: "Natureza"
+      src: "/lazer3.jpg",
+      alt: "Vista panorâmica da chácara",
+      category: "Lazer"
+    },
+    {
+      src: "/lazer4.jpg",
+      alt: "Vista panorâmica da chácara",
+      category: "Lazer"
+    },
+    {
+      src: "/lazer5.jpg",
+      alt: "Vista panorâmica da chácara",
+      category: "Lazer"
     }
   ];
 
@@ -216,7 +279,9 @@ const GallerySection = () => {
                   justifyContent: 'flex-end',
                   position: 'relative',
                   overflow: 'hidden',
-                  willChange: 'flex-grow, box-shadow, background-size, background-position'
+                  willChange: 'flex-grow, box-shadow, background-size, background-position',
+                  filter: activeIndex === index ? 'none' : 'blur(2px)',
+                  transition: 'all 700ms ease-in-out, filter 700ms ease-in-out'
                 }}
                 onClick={activeIndex === index ? undefined : () => handleOptionClick(index)}
               >
@@ -234,32 +299,14 @@ const GallerySection = () => {
                   }}
                 ></div>
 
-                {/* ImageZoom overlay - só no card ativo */}
-                {activeIndex === index && (
-                  <ImageZoom>
-                    <div 
-                      className="absolute inset-0 z-30 group/zoom cursor-zoom-in"
-                      onClick={handleActiveCardClick}
-                    >
-                      <img
-                        src={option.imageHD}
-                        alt={option.title}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover/zoom:scale-105"
-                      />
-                      {/* Indicação visual de zoom */}
-                      <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover/zoom:opacity-100 transition-opacity duration-300 z-40">
-                        <svg 
-                          className="w-4 h-4 text-white" 
-                          fill="none" 
-                          stroke="currentColor" 
-                          viewBox="0 0 24 24"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                        </svg>
-                      </div>
-                    </div>
-                  </ImageZoom>
-                )}
+                {/* Imagem de fundo */}
+                <div className="absolute inset-0 z-20">
+                  <img
+                    src={option.imageHD}
+                    alt={option.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
                 
                 {/* Label with icon and info */}
                 <div className="label absolute left-0 right-0 bottom-4 flex items-center justify-start h-12 pointer-events-none px-4 gap-3 w-full" style={{ zIndex: 36 }}>
@@ -293,6 +340,33 @@ const GallerySection = () => {
                     </div>
                   </div>
                 </div>
+
+                {/* Botão Ver mais - só no card ativo */}
+                {activeIndex === index && (
+                  <div 
+                    className="absolute top-4 right-4 z-40 pointer-events-auto"
+                    style={{
+                      opacity: activeIndex === index ? 1 : 0,
+                      transform: activeIndex === index ? 'translateX(0)' : 'translateX(25px)',
+                      transition: 'all 700ms ease-in-out'
+                    }}
+                  >
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        // Encontrar a primeira imagem da categoria correspondente
+                        const categoryImages = images.filter(img => img.category === option.title);
+                        if (categoryImages.length > 0) {
+                          const firstImageIndex = images.findIndex(img => img.src === categoryImages[0].src);
+                          setSelectedImage(firstImageIndex);
+                        }
+                      }}
+                      className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white text-xs font-medium px-3 py-1.5 rounded-full border border-white/30 transition-all duration-300 hover:scale-105"
+                    >
+                      Ver mais
+                    </button>
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -343,36 +417,38 @@ const GallerySection = () => {
 
       {/* Lightbox */}
       {selectedImage !== null && (
-        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
-          <div className="relative max-w-4xl w-full">
+        <div className="fixed inset-0 bg-black/90 z-[9999] flex items-center justify-center p-4 pt-20">
+          <div className="relative max-w-5xl w-full max-h-[80vh] flex flex-col">
             <button
               onClick={() => setSelectedImage(null)}
-              className="absolute -top-12 right-0 text-white hover:text-stone-300 transition-colors duration-300"
+              className="absolute -top-16 right-0 text-white hover:text-stone-300 transition-colors duration-300 z-10 bg-black/50 backdrop-blur-sm rounded-full p-2"
             >
-              <X size={32} />
+              <X size={24} />
             </button>
             
-            <img 
-              src={images[selectedImage].src}
-              alt={images[selectedImage].alt}
-              className="w-full h-auto rounded-2xl shadow-2xl"
-            />
+            <div className="flex-1 flex items-center justify-center overflow-hidden">
+              <img 
+                src={images[selectedImage].src}
+                alt={images[selectedImage].alt}
+                className="max-w-full max-h-full object-contain rounded-2xl shadow-2xl"
+              />
+            </div>
             
             <button
               onClick={prevImage}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-stone-300 transition-colors duration-300 glass-card p-2 rounded-full"
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-stone-300 transition-colors duration-300 glass-card p-2 rounded-full z-10"
             >
               <ChevronLeft size={24} />
             </button>
             
             <button
               onClick={nextImage}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-stone-300 transition-colors duration-300 glass-card p-2 rounded-full"
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-stone-300 transition-colors duration-300 glass-card p-2 rounded-full z-10"
             >
               <ChevronRight size={24} />
             </button>
             
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 glass-card px-4 py-2 rounded-full">
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 glass-card px-4 py-2 rounded-full z-10">
               <span className="text-white text-sm">
                 {selectedImage + 1} / {images.length}
               </span>
