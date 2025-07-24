@@ -10,6 +10,7 @@ import TestimonialsSection from '../components/TestimonialsSection';
 import BookingStepsSection from '../components/BookingStepsSection';
 import FAQSection from '../components/FAQSection';
 import CTASection from '../components/CTASection';
+import LocationSection from '../components/LocationSection';
 import Footer from '../components/Footer';
 
 const Index = () => {
@@ -29,6 +30,7 @@ const Index = () => {
         <VideoTourSection />
         <ServicesSection />
         <TestimonialsSection />
+        <LocationSection />
         <BookingStepsSection />
         <FAQSection />
         <CTASection />

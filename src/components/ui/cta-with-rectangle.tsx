@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Calendar } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { GetStartedButton } from "@/components/ui/get-started-button"
 
 interface CTAProps {
   badge?: {
@@ -58,11 +59,9 @@ export function CTASection({
           )}
 
           {/* Action Button */}
-          <button className="px-12 py-4 rounded-full font-medium tracking-wide transition-all duration-500 group text-lg bg-gradient-to-r from-[#5C3A2B] to-[#8B6355] text-white hover:from-[#4A2F22] hover:to-[#6B4A3F] hover:shadow-2xl">
-            <span className="group-hover:tracking-wider transition-all duration-300">
-              {action.text}
-            </span>
-          </button>
+          <GetStartedButton
+            text={action.text}
+          />
 
           {/* Glow Effect */}
           {withGlow && (

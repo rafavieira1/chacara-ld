@@ -108,7 +108,7 @@ src/
 │   ├── VideoTourSection.tsx
 │   ├── TestimonialsSection.tsx
 │   ├── FAQSection.tsx
-│   ├── ContactSection.tsx
+
 │   ├── CTASection.tsx
 │   ├── BookingStepsSection.tsx
 │   ├── HeroSection.tsx

@@ -148,6 +148,25 @@ All colors MUST be HSL.
   .font-kanoky {
     font-family: 'Kanoky', sans-serif;
   }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    line-height: 1.6;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .gradient-bg {
+    background: linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%);
+  }
 }
 
 /* Custom Keyframes */

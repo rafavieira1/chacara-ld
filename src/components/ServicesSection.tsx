@@ -2,6 +2,7 @@ import { Users, Calendar, Utensils, Camera, Music, Sparkles } from 'lucide-react
 import { useState, useEffect, useRef } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Tabs } from '@/components/ui/tabs';
+import { GetStartedButton } from '@/components/ui/get-started-button';
 
 const ServicesSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -253,9 +254,9 @@ const ServicesSection = () => {
                         <p className="text-muted-foreground lg:text-lg">
                           {service.content.description}
                         </p>
-                        <button className="mt-2.5 w-fit bg-gradient-to-r from-[#5C3A2B] to-[#8B6355] text-white hover:from-[#4A2F22] hover:to-[#6B4A3F] px-6 py-3 rounded-lg font-medium transition-all duration-300">
-                          {service.content.buttonText}
-                        </button>
+                        <GetStartedButton 
+                          text={service.content.buttonText}
+                        />
                       </div>
                       <div className="w-full order-2 lg:order-2">
                         <ImageWithPlaceholder service={service} />
@@ -273,11 +274,11 @@ const ServicesSection = () => {
         </div>
 
         {/* Amenities */}
-        <div className={`mt-16 transition-all duration-700 ease-out ${
+        <div className={`-mt-12 transition-all duration-700 ease-out ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
         style={{ transitionDelay: '400ms' }}>
-          <div className="mx-auto max-w-screen-xl rounded-lg p-8 shadow-2xl bg-white/80 backdrop-blur-sm border border-stone-200">
+          <div className="mx-auto max-w-screen-xl rounded-t-none rounded-b-2xl bg-muted/70 p-6 lg:p-16">
             <div className="flex flex-col items-center gap-4 mb-8">
               <Badge 
                 variant="outline" 

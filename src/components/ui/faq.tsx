@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { GetStartedButton } from "@/components/ui/get-started-button";
 
 interface FaqSectionProps extends React.HTMLAttributes<HTMLElement> {
   title: string;
@@ -91,13 +92,10 @@ const FaqSection = React.forwardRef<HTMLElement, FaqSectionProps>(
                <p className="text-base text-stone-600 mb-6">
                  {contactInfo.description}
                </p>
-               <button 
-                 className="px-8 py-3 rounded-full text-white font-medium tracking-wide shadow-lg hover:shadow-xl transition-all duration-300 text-base"
-                 style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}
+               <GetStartedButton
+                 text={contactInfo.buttonText}
                  onClick={contactInfo.onContact}
-               >
-                 {contactInfo.buttonText}
-               </button>
+               />
             </motion.div>
           )}
         </div>

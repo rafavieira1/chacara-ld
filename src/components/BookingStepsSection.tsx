@@ -1,188 +1,152 @@
 import { Calendar, MessageSquare, CreditCard, PartyPopper } from 'lucide-react';
 import { Timeline } from './ui/timeline';
-import { useState, useEffect, useRef } from 'react';
+import { useIntersectionObserver } from '@/hooks/use-intersection-observer';
+import { GetStartedButton } from '@/components/ui/get-started-button';
+
+// Dados extraídos para facilitar manutenção
+const bookingStepsData = {
+  title: "Passos para Agendar",
+  subtitle: "Transforme seu sonho em realidade em apenas 4 etapas.",
+  steps: [
+    {
+      id: 1,
+      title: "Agende uma Visita",
+      icon: Calendar,
+      description: "Conheça nossos espaços pessoalmente e tire suas dúvidas com nossa equipe especializada.",
+      infoTitle: "O que você verá na visita:",
+      infoItems: [
+        "Todos os salões e áreas externas",
+        "Estrutura de cozinha e serviços",
+        "Opções de decoração e montagem",
+        "Capacidade e layout dos espaços"
+      ],
+      buttonText: "Agendar Visita"
+    },
+    {
+      id: 2,
+      title: "Planejamento Personalizado",
+      icon: MessageSquare,
+      description: "Criamos um projeto único para seu evento, cuidando de cada detalhe.",
+      infoTitle: "Nossos serviços incluem:",
+      infoItems: [
+        "Consultoria em decoração e ambientação",
+        "Cardápio personalizado com chef",
+        "Cronograma detalhado do evento",
+        "Coordenação de fornecedores"
+      ],
+      buttonText: "Solicitar Orçamento"
+    },
+    {
+      id: 3,
+      title: "Reserva Confirmada",
+      icon: CreditCard,
+      description: "Finalize a reserva com condições flexíveis e garanta sua data especial.",
+      infoTitle: "Opções de pagamento:",
+      infoItems: [
+        "Parcelamento em até 12x sem juros",
+        "Desconto para pagamento à vista",
+        "Entrada facilitada (30% do valor)",
+        "Contrato flexível e transparente"
+      ],
+      buttonText: "Confirmar Reserva"
+    },
+    {
+      id: 4,
+      title: "Dia do Evento",
+      icon: PartyPopper,
+      description: "Relaxe e aproveite! Nossa equipe cuida de tudo para você celebrar.",
+      infoTitle: "Nossa equipe garante:",
+      infoItems: [
+        "Montagem completa antes da chegada",
+        "Coordenação durante todo o evento",
+        "Suporte técnico e logístico",
+        "Limpeza e desmontagem pós-evento"
+      ],
+      buttonText: "Celebrar"
+    }
+  ]
+};
+
+// Componente para o cabeçalho da seção
+const SectionHeader = ({ title, subtitle, isVisible }: { title: string; subtitle: string; isVisible: boolean }) => (
+  <div className={`text-center mb-4 transition-all duration-1000 relative z-10 ${
+    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+  }`}>
+    <div className="py-8">
+      <h2 className="text-6xl md:text-7xl lg:text-8xl font-great-vibes font-normal leading-loose tracking-wide relative z-20 gradient-text">
+        {title}
+      </h2>
+    </div>
+    <div className="w-full h-px bg-stone-300 mt-2 mb-2 relative z-10"></div>
+    
+    <div className="text-center max-w-3xl mx-auto">
+      <p className="text-stone-700 leading-relaxed text-lg">
+        {subtitle}
+      </p>
+    </div>
+  </div>
+);
+
+// Componente para o ícone do passo
+const StepIcon = ({ Icon }: { Icon: any }) => (
+  <div className="flex items-center justify-center w-12 h-12 rounded-full shadow-lg gradient-bg">
+    <Icon className="w-6 h-6 text-white" />
+  </div>
+);
+
+// Componente para a lista de informações
+const InfoList = ({ title, items }: { title: string; items: string[] }) => (
+  <div className="bg-stone-50 p-6 rounded-lg border border-stone-200">
+    <h4 className="font-medium text-stone-800 mb-3">{title}</h4>
+    <ul className="text-stone-600 space-y-2 text-sm">
+      {items.map((item, index) => (
+        <li key={index}>• {item}</li>
+      ))}
+    </ul>
+  </div>
+);
+
+// Componente para o conteúdo de cada passo
+const StepContent = ({ step }: { step: typeof bookingStepsData.steps[0] }) => {
+  const Icon = step.icon;
+  
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center gap-4 mb-6">
+        <StepIcon Icon={Icon} />
+        <div className="text-sm text-stone-600 font-light tracking-wide">
+          PASSO {step.id.toString().padStart(2, '0')}
+        </div>
+      </div>
+      
+      <p className="text-stone-700 leading-relaxed text-base mb-6">
+        {step.description}
+      </p>
+      
+      <InfoList title={step.infoTitle} items={step.infoItems} />
+      
+      <GetStartedButton text={step.buttonText} />
+    </div>
+  );
+};
 
 const BookingStepsSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
+  const { isVisible, ref } = useIntersectionObserver();
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-  const data = [
-    {
-      title: "Agende uma Visita",
-      content: (
-        <div className="space-y-6">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="flex items-center justify-center w-12 h-12 rounded-full shadow-lg" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
-              <Calendar className="w-6 h-6 text-white" />
-            </div>
-            <div className="text-sm text-stone-600 font-light tracking-wide">PASSO 01</div>
-          </div>
-          
-                     <p className="text-stone-700 leading-relaxed text-base mb-6">
-             Conheça nossos espaços pessoalmente e tire suas dúvidas com nossa equipe especializada.
-           </p>
-          
-          <div className="bg-stone-50 p-6 rounded-lg border border-stone-200">
-            <h4 className="font-medium text-stone-800 mb-3">O que você verá na visita:</h4>
-            <ul className="text-stone-600 space-y-2 text-sm">
-              <li>• Todos os salões e áreas externas</li>
-              <li>• Estrutura de cozinha e serviços</li>
-              <li>• Opções de decoração e montagem</li>
-              <li>• Capacidade e layout dos espaços</li>
-            </ul>
-          </div>
-          
-          <button className="px-8 py-3 rounded-full text-white font-light tracking-wide shadow-lg hover:shadow-xl transition-all duration-300" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
-            Agendar Visita
-          </button>
-        </div>
-      ),
-    },
-    {
-      title: "Planejamento Personalizado", 
-      content: (
-        <div className="space-y-6">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="flex items-center justify-center w-12 h-12 rounded-full shadow-lg" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
-              <MessageSquare className="w-6 h-6 text-white" />
-            </div>
-            <div className="text-sm text-stone-600 font-light tracking-wide">PASSO 02</div>
-          </div>
-          
-                     <p className="text-stone-700 leading-relaxed text-base mb-6">
-             Criamos um projeto único para seu evento, cuidando de cada detalhe.
-           </p>
-          
-          <div className="bg-stone-50 p-6 rounded-lg border border-stone-200">
-            <h4 className="font-medium text-stone-800 mb-3">Nossos serviços incluem:</h4>
-            <ul className="text-stone-600 space-y-2 text-sm">
-              <li>• Consultoria em decoração e ambientação</li>
-              <li>• Cardápio personalizado com chef</li>
-              <li>• Cronograma detalhado do evento</li>
-              <li>• Coordenação de fornecedores</li>
-            </ul>
-          </div>
-          
-          <button className="px-8 py-3 rounded-full text-white font-light tracking-wide shadow-lg hover:shadow-xl transition-all duration-300" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
-            Solicitar Orçamento
-          </button>
-        </div>
-      ),
-    },
-    {
-      title: "Reserva Confirmada",
-      content: (
-        <div className="space-y-6">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="flex items-center justify-center w-12 h-12 rounded-full shadow-lg" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
-              <CreditCard className="w-6 h-6 text-white" />
-            </div>
-            <div className="text-sm text-stone-600 font-light tracking-wide">PASSO 03</div>
-          </div>
-          
-                     <p className="text-stone-700 leading-relaxed text-base mb-6">
-             Finalize a reserva com condições flexíveis e garanta sua data especial.
-           </p>
-          
-          <div className="bg-stone-50 p-6 rounded-lg border border-stone-200">
-            <h4 className="font-medium text-stone-800 mb-3">Opções de pagamento:</h4>
-            <ul className="text-stone-600 space-y-2 text-sm">
-              <li>• Parcelamento em até 12x sem juros</li>
-              <li>• Desconto para pagamento à vista</li>
-              <li>• Entrada facilitada (30% do valor)</li>
-              <li>• Contrato flexível e transparente</li>
-            </ul>
-          </div>
-          
-          <button className="px-8 py-3 rounded-full text-white font-light tracking-wide shadow-lg hover:shadow-xl transition-all duration-300" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
-            Confirmar Reserva
-          </button>
-        </div>
-      ),
-    },
-    {
-      title: "Dia do Evento",
-      content: (
-        <div className="space-y-6">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="flex items-center justify-center w-12 h-12 rounded-full shadow-lg" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
-              <PartyPopper className="w-6 h-6 text-white" />
-            </div>
-            <div className="text-sm text-stone-600 font-light tracking-wide">PASSO 04</div>
-          </div>
-          
-                     <p className="text-stone-700 leading-relaxed text-base mb-6">
-             Relaxe e aproveite! Nossa equipe cuida de tudo para você celebrar.
-           </p>
-          
-          <div className="bg-stone-50 p-6 rounded-lg border border-stone-200">
-            <h4 className="font-medium text-stone-800 mb-3">Nossa equipe garante:</h4>
-            <ul className="text-stone-600 space-y-2 text-sm">
-              <li>• Montagem completa antes da chegada</li>
-              <li>• Coordenação durante todo o evento</li>
-              <li>• Suporte técnico e logístico</li>
-              <li>• Limpeza e desmontagem pós-evento</li>
-            </ul>
-          </div>
-          
-          <button className="px-8 py-3 rounded-full text-white font-light tracking-wide shadow-lg hover:shadow-xl transition-all duration-300" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
-            Celebrar
-          </button>
-        </div>
-      ),
-    }
-  ];
+  // Transformar dados para o formato esperado pelo Timeline
+  const timelineData = bookingStepsData.steps.map(step => ({
+    title: step.title,
+    content: <StepContent step={step} />
+  }));
 
   return (
-    <section ref={sectionRef} id="booking-steps" className="py-2 px-6">
+    <section ref={ref} id="booking-steps" className="py-2 px-6">
       <div className="container mx-auto max-w-7xl px-6">
-        {/* Section Header */}
-        <div className={`text-center mb-4 transition-all duration-1000 relative z-10 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="py-8">
-            <h2 
-              className="text-6xl md:text-7xl lg:text-8xl font-great-vibes font-normal leading-loose tracking-wide relative z-20"
-              style={{ 
-                background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                paddingTop: '2rem',
-                paddingBottom: '1rem',
-                lineHeight: '1.6',
-                minHeight: '200px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '100%'
-              }}
-            >
-              Passos para Agendar
-            </h2>
-          </div>
-          <div className="w-full h-px bg-stone-300 mt-2 mb-2 relative z-10"></div>
-          
-          <div className="text-center max-w-3xl mx-auto">
-                         <p className="text-stone-700 leading-relaxed text-lg">
-               Transforme seu sonho em realidade em apenas 4 etapas.
-             </p>
-          </div>
-        </div>
+        <SectionHeader 
+          title={bookingStepsData.title}
+          subtitle={bookingStepsData.subtitle}
+          isVisible={isVisible}
+        />
       </div>
 
       {/* Timeline Component with custom styling */}
@@ -190,10 +154,8 @@ const BookingStepsSection = () => {
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}
       style={{ transitionDelay: '300ms' }}>
-        <Timeline data={data} />
+        <Timeline data={timelineData} />
       </div>
-
-
     </section>
   );
 };

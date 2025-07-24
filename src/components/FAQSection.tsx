@@ -1,28 +1,12 @@
 
 import { FaqSection } from './ui/faq';
-import { useState, useEffect, useRef } from 'react';
+import { useIntersectionObserver } from '@/hooks/use-intersection-observer';
 
-const FAQSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-  const faqs = [
+// Dados extraídos para facilitar manutenção
+const faqData = {
+  title: "Perguntas Frequentes",
+  subtitle: "Encontre respostas para as principais dúvidas sobre nossos serviços, políticas e como tornar seu evento único na ChácaraLD.",
+  faqs: [
     {
       question: "Qual é a capacidade máxima do espaço?",
       answer: "Nossa chácara comporta confortavelmente até 300 convidados em eventos ao ar livre e 200 convidados em eventos no salão coberto. Podemos adaptar a configuração conforme suas necessidades específicas."
@@ -55,65 +39,74 @@ const FAQSection = () => {
       question: "Qual é o horário de funcionamento para eventos?",
       answer: "Nossos eventos podem ocorrer das 8h às 2h do dia seguinte. Para eventos que se estendem além desse horário, aplicamos uma taxa adicional. Também oferecemos flexibilidade para montagem no dia anterior."
     }
-  ];
+  ],
+  contactInfo: {
+    title: "Não encontrou a resposta que procurava?",
+    description: "Nossa equipe está pronta para esclarecer todas as suas dúvidas",
+    buttonText: "Fale Conosco",
+    onContact: () => {
+      // Scroll para seção de localização
+      document.getElementById('location')?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+};
+
+// Componente para o cabeçalho da seção
+const SectionHeader = ({ title, subtitle, isVisible }: { title: string; subtitle: string; isVisible: boolean }) => (
+  <div className={`text-center mb-16 transition-all duration-1000 relative z-10 ${
+    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+  }`}>
+    <div className="py-8">
+      <h2 className="text-6xl md:text-7xl lg:text-8xl font-great-vibes font-normal leading-loose tracking-wide relative z-20 gradient-text">
+        {title}
+      </h2>
+    </div>
+    <div className="w-full h-px bg-stone-300 mt-2 mb-8 relative z-10"></div>
+    
+    <div className="text-center max-w-3xl mx-auto mb-16">
+      <p className="text-luxury leading-relaxed text-lg">
+        {subtitle}
+      </p>
+    </div>
+  </div>
+);
+
+// Componente para a seção FAQ
+const FAQContent = ({ faqs, contactInfo, isVisible }: { 
+  faqs: typeof faqData.faqs; 
+  contactInfo: typeof faqData.contactInfo; 
+  isVisible: boolean 
+}) => (
+  <div className={`transition-all duration-1000 ${
+    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+  }`}
+  style={{ transitionDelay: '300ms' }}>
+    <FaqSection
+      title=""
+      items={faqs}
+      contactInfo={contactInfo}
+      className="py-0 bg-transparent"
+    />
+  </div>
+);
+
+const FAQSection = () => {
+  const { isVisible, ref } = useIntersectionObserver();
 
   return (
-    <section ref={sectionRef} id="faq" className="py-24 px-6">
+    <section ref={ref} id="faq" className="py-24 px-6">
       <div className="container mx-auto max-w-7xl">
-        {/* Main Title */}
-        <div className={`text-center mb-16 transition-all duration-1000 relative z-10 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="py-8">
-            <h2 
-              className="text-6xl md:text-7xl lg:text-8xl font-great-vibes font-normal leading-loose tracking-wide relative z-20"
-              style={{ 
-                background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                paddingTop: '2rem',
-                paddingBottom: '1rem',
-                lineHeight: '1.6',
-                minHeight: '200px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: '100%'
-              }}
-            >
-              Perguntas Frequentes
-            </h2>
-          </div>
-          <div className="w-full h-px bg-stone-300 mt-2 mb-8 relative z-10"></div>
-          
-          {/* Description Text */}
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <p className="text-luxury leading-relaxed text-lg">
-              Encontre respostas para as principais dúvidas sobre nossos serviços, 
-              políticas e como tornar seu evento único na ChácaraLD.
-            </p>
-          </div>
-        </div>
-
-        {/* FAQ Component */}
-        <div className={`transition-all duration-1000 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}
-        style={{ transitionDelay: '300ms' }}>
-        <FaqSection
-          title=""
-          items={faqs}
-          contactInfo={{
-            title: "Não encontrou a resposta que procurava?",
-            description: "Nossa equipe está pronta para esclarecer todas as suas dúvidas",
-            buttonText: "Fale Conosco",
-            onContact: () => {
-              // Scroll para seção de contato
-              document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-            }
-          }}
-          className="py-0 bg-transparent"
+        <SectionHeader 
+          title={faqData.title}
+          subtitle={faqData.subtitle}
+          isVisible={isVisible}
         />
-        </div>
+
+        <FAQContent 
+          faqs={faqData.faqs}
+          contactInfo={faqData.contactInfo}
+          isVisible={isVisible}
+        />
       </div>
     </section>
   );
