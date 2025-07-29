@@ -1,7 +1,7 @@
 'use client';
-import React from 'react';
+
 import type { ComponentProps, ReactNode } from 'react';
-import { motion, useReducedMotion } from 'motion/react';
+import { motion, useReducedMotion } from 'framer-motion';
 import { Instagram, Facebook, Mail, Phone, Home } from 'lucide-react';
 
 // Tipos
@@ -89,6 +89,7 @@ const AnimatedContainer = ({ className, delay = 0.1, children }: ViewAnimationPr
       viewport={{ once: true }}
       transition={{ delay, duration: 0.8 }}
       className={className}
+      style={{ position: 'relative' }}
     >
       {children}
     </motion.div>
