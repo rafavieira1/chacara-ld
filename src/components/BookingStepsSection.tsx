@@ -157,7 +157,7 @@ const BookingStepsSection = () => {
   }));
 
   return (
-    <section ref={ref} id="booking-steps" className="py-8 sm:py-12 md:py-16 lg:py-20 px-4 sm:px-6">
+    <section ref={ref} id="booking-steps" className="py-8 sm:py-12 md:py-16 lg:py-20 pb-16 sm:pb-8 md:pb-16 lg:pb-20 px-4 sm:px-6">
       <div className="container mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeader 
           title={bookingStepsData.title}
@@ -167,7 +167,7 @@ const BookingStepsSection = () => {
       </div>
 
       {/* Timeline Component with custom styling */}
-      <div className={`timeline-custom-styles transition-all duration-1000 overflow-hidden relative z-10 ${
+      <div className={`timeline-custom-styles transition-all duration-1000 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}
       style={{ transitionDelay: '300ms' }}>

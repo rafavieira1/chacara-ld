@@ -342,13 +342,12 @@ All colors MUST be HSL.
 /* Timeline mobile optimizations */
 @media (max-width: 768px) {
   .timeline-custom-styles {
-    overflow: hidden !important;
+    overflow: visible !important;
     position: relative !important;
-    max-height: none !important;
   }
   
   .timeline-custom-styles > div {
-    overflow: hidden !important;
+    overflow: visible !important;
     position: relative !important;
   }
 }
