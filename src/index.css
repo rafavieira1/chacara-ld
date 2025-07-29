@@ -121,10 +121,43 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground font-inter;
+    /* Mobile optimizations */
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Prevent layout shifts */
+    min-height: 100vh;
   }
 
   .theme {
     @apply bg-background text-foreground;
+  }
+  
+  /* Optimize images for mobile */
+  img {
+    max-width: 100%;
+    height: auto;
+    /* Prevent layout shifts */
+    contain: layout style paint;
+  }
+  
+  /* Optimize for mobile performance */
+  @media (max-width: 768px) {
+    /* Reduce animations on mobile for better performance */
+    * {
+      animation-duration: 0.1s !important;
+      transition-duration: 0.1s !important;
+    }
+    
+    /* Optimize text rendering */
+    body {
+      font-size: 16px; /* Prevent zoom on iOS */
+    }
+    
+    /* Reduce reflow impact */
+    .container-responsive {
+      contain: layout style paint;
+    }
   }
 }
 
@@ -248,6 +281,23 @@ All colors MUST be HSL.
 
   .mt-responsive {
     @apply mt-4 sm:mt-6 md:mt-8 lg:mt-10;
+  }
+  
+  /* Mobile performance optimizations */
+  .mobile-optimized {
+    /* Prevent reflow */
+    contain: layout style paint;
+    /* Optimize rendering */
+    will-change: auto;
+  }
+  
+  /* Reduce motion for accessibility and performance */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 

@@ -22,13 +22,13 @@
     <link rel="preload" href="/1769.otf" as="font" type="font/otf" crossorigin>
     <link rel="preload" href="/KenokyLight-3zezL.ttf" as="font" type="font/ttf" crossorigin>
     
-    <!-- Preload critical images -->
-    <link rel="preload" href="/background.webp" as="image">
-    <link rel="preload" href="/logo2.png" as="image">
+    <!-- Preload critical images with high priority -->
+    <link rel="preload" href="/logo2.png" as="image" fetchpriority="high">
+    <link rel="preload" href="/background.webp" as="image" fetchpriority="high">
 
     <!-- Critical CSS inline to avoid render-blocking -->
     <style>
-      /* Critical CSS for above-the-fold content */
+      /* Critical CSS for above-the-fold content - Mobile optimized */
       :root {
         --background: 25 15% 96%;
         --foreground: 25 15% 15%;
@@ -51,10 +51,18 @@
         color: hsl(var(--foreground));
         line-height: 1.6;
         overflow-x: hidden;
+        /* Prevent layout shifts */
+        min-height: 100vh;
+        /* Optimize for mobile */
+        -webkit-text-size-adjust: 100%;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
       
       #root {
         min-height: 100vh;
+        /* Prevent reflow */
+        contain: layout style paint;
       }
       
       /* Critical font definitions */
@@ -77,6 +85,28 @@
       /* Critical utility classes */
       .font-1769 { font-family: 'Font1769', serif; }
       .font-kanoky { font-family: 'Kanoky', sans-serif; }
+      
+      /* Mobile-optimized image styles */
+      img {
+        max-width: 100%;
+        height: auto;
+        /* Prevent layout shifts */
+        aspect-ratio: attr(width) / attr(height);
+      }
+      
+      /* Optimize for mobile performance */
+      @media (max-width: 768px) {
+        /* Reduce animations on mobile */
+        * {
+          animation-duration: 0.1s !important;
+          transition-duration: 0.1s !important;
+        }
+        
+        /* Optimize text rendering */
+        body {
+          font-size: 16px; /* Prevent zoom on iOS */
+        }
+      }
     </style>
 
     <meta property="og:title" content="ChácaraLD - Espaço Premium para Eventos" />
