@@ -57,7 +57,23 @@ const SectionHeader = ({ title, subtitle, isVisible }: { title: string; subtitle
     isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
   }`}>
     <div className="py-0">
-      <h2 className="text-6xl md:text-7xl lg:text-8xl font-great-vibes font-normal leading-loose tracking-wide relative z-20 gradient-text">
+      <h2 
+        className="text-6xl md:text-7xl lg:text-8xl font-great-vibes font-normal leading-loose tracking-wide relative z-20"
+        style={{ 
+          background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+          paddingTop: '0',
+          paddingBottom: '0',
+          lineHeight: '1.6',
+          minHeight: '60px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '100%'
+        }}
+      >
         {title}
       </h2>
     </div>
@@ -94,7 +110,7 @@ const FAQSection = () => {
   const { isVisible, ref } = useIntersectionObserver();
 
   return (
-    <section ref={ref} id="faq" className="py-24 px-6">
+    <section ref={ref} id="faq" className="py-24 px-6 hidden md:block">
       <div className="container mx-auto max-w-7xl">
         <SectionHeader 
           title={faqData.title}

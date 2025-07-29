@@ -24,21 +24,37 @@ const aboutContent = {
 
 // Componente para o título com gradiente
 const GradientTitle = ({ children, isVisible }: { children: string; isVisible: boolean }) => (
-  <div className={`text-center mb-16 transition-all duration-1000 relative z-10 ${
+  <div className={`text-center mb-8 sm:mb-12 md:mb-16 transition-all duration-1000 relative z-10 ${
     isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
   }`}>
     <div className="py-0">
-      <h2 className="text-6xl md:text-7xl lg:text-8xl font-great-vibes font-normal leading-loose tracking-wide relative z-20 gradient-text">
+      <h2 
+        className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-great-vibes font-normal leading-tight sm:leading-loose tracking-wide relative z-20"
+        style={{ 
+          background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+          paddingTop: '0',
+          paddingBottom: '0',
+          lineHeight: '1.6',
+          minHeight: '60px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '100%'
+        }}
+      >
         {children}
       </h2>
     </div>
-    <div className="w-full h-px bg-stone-300 mt-0 mb-16 relative z-10"></div>
+    <div className="w-full h-px bg-stone-300 mt-0 mb-8 sm:mb-12 md:mb-16 relative z-10"></div>
   </div>
 );
 
 // Componente para parágrafos
 const Paragraph = ({ children }: { children: string }) => (
-  <p className="text-luxury leading-relaxed text-lg text-justify">
+  <p className="text-luxury leading-relaxed text-base sm:text-lg text-justify">
     {children}
   </p>
 );
@@ -58,57 +74,127 @@ const AboutSection = () => {
   const { isVisible, ref } = useIntersectionObserver();
 
   return (
-    <section ref={ref} id="about" className="py-24 px-6 pb-10">
+    <section ref={ref} id="about" className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 pb-6 sm:pb-8 md:pb-10">
       <div className="container mx-auto max-w-7xl">
         <GradientTitle isVisible={isVisible}>
           {aboutContent.title}
         </GradientTitle>
 
-        <div className="space-y-16">
-          {/* Primeira linha - Imagem e Texto */}
-          <div className={`flex flex-col lg:flex-row gap-y-8 lg:gap-y-0 lg:gap-x-8 transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
-          style={{ transitionDelay: '300ms' }}>
-            <AboutImage 
-              src={aboutContent.images[0].src} 
-              alt={aboutContent.images[0].alt}
-              className="w-[26rem] h-80"
-            />
-            <div className="space-y-6 flex-1">
-              {aboutContent.paragraphs.slice(0, 4).map((text, index) => (
-                <Paragraph key={index}>{text}</Paragraph>
-              ))}
+        <div className="space-y-8 sm:space-y-12 md:space-y-16">
+          {/* Layout Mobile - Ordem específica */}
+          <div className="lg:hidden space-y-6 sm:space-y-8">
+            {/* Primeiros dois parágrafos */}
+            <div className={`space-y-4 sm:space-y-6 transition-all duration-1000 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '300ms' }}>
+              <Paragraph>{aboutContent.paragraphs[0]}</Paragraph>
+              <Paragraph>{aboutContent.paragraphs[1]}</Paragraph>
+            </div>
+
+            {/* Imagem 1 */}
+            <div className={`transition-all duration-1000 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '400ms' }}>
+              <AboutImage 
+                src={aboutContent.images[0].src} 
+                alt={aboutContent.images[0].alt}
+                className="w-full h-48 sm:h-64 md:h-72"
+              />
+            </div>
+
+            {/* Próximos três parágrafos */}
+            <div className={`space-y-4 sm:space-y-6 transition-all duration-1000 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '500ms' }}>
+              <Paragraph>{aboutContent.paragraphs[2]}</Paragraph>
+              <Paragraph>{aboutContent.paragraphs[3]}</Paragraph>
+              <Paragraph>{aboutContent.paragraphs[4]}</Paragraph>
+            </div>
+
+            {/* Imagem 2 */}
+            <div className={`transition-all duration-1000 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '600ms' }}>
+              <AboutImage 
+                src={aboutContent.images[1].src} 
+                alt={aboutContent.images[1].alt}
+                className="w-full h-48 sm:h-64 md:h-72"
+              />
+            </div>
+
+            {/* Últimos dois parágrafos */}
+            <div className={`space-y-4 sm:space-y-6 transition-all duration-1000 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '700ms' }}>
+              <Paragraph>{aboutContent.paragraphs[5]}</Paragraph>
+              <Paragraph>{aboutContent.paragraphs[6]}</Paragraph>
+            </div>
+
+            {/* Imagem 3 */}
+            <div className={`transition-all duration-1000 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '800ms' }}>
+              <AboutImage 
+                src={aboutContent.images[2].src} 
+                alt={aboutContent.images[2].alt}
+                className="w-full h-32 sm:h-40 md:h-48"
+              />
             </div>
           </div>
 
-          {/* Segunda linha - Texto e Imagem */}
-          <div className={`flex flex-col lg:flex-row gap-y-8 lg:gap-y-0 lg:gap-x-8 transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
-          style={{ transitionDelay: '600ms' }}>
-            <div className="space-y-6 flex-1">
-              {aboutContent.paragraphs.slice(4).map((text, index) => (
-                <Paragraph key={index}>{text}</Paragraph>
-              ))}
+          {/* Layout Desktop - Mantém o layout original */}
+          <div className="hidden lg:block space-y-16">
+            {/* Primeira linha - Imagem e Texto */}
+            <div className={`flex flex-col lg:flex-row gap-y-6 sm:gap-y-8 lg:gap-y-0 lg:gap-x-8 transition-all duration-1000 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '300ms' }}>
+              <AboutImage 
+                src={aboutContent.images[0].src} 
+                alt={aboutContent.images[0].alt}
+                className="w-full sm:w-[20rem] md:w-[24rem] lg:w-[26rem] h-48 sm:h-64 md:h-72 lg:h-80"
+              />
+              <div className="space-y-4 sm:space-y-6 flex-1">
+                {aboutContent.paragraphs.slice(0, 4).map((text, index) => (
+                  <Paragraph key={index}>{text}</Paragraph>
+                ))}
+              </div>
             </div>
-            <AboutImage 
-              src={aboutContent.images[1].src} 
-              alt={aboutContent.images[1].alt}
-              className="w-[26rem] h-80 ml-auto"
-            />
-          </div>
 
-          {/* Imagem de largura total */}
-          <div className={`relative transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
-          style={{ transitionDelay: '900ms' }}>
-            <AboutImage 
-              src={aboutContent.images[2].src} 
-              alt={aboutContent.images[2].alt}
-              className="w-full h-48"
-            />
+            {/* Segunda linha - Texto e Imagem */}
+            <div className={`flex flex-col lg:flex-row gap-y-6 sm:gap-y-8 lg:gap-y-0 lg:gap-x-8 transition-all duration-1000 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '600ms' }}>
+              <div className="space-y-4 sm:space-y-6 flex-1">
+                {aboutContent.paragraphs.slice(4).map((text, index) => (
+                  <Paragraph key={index}>{text}</Paragraph>
+                ))}
+              </div>
+              <AboutImage 
+                src={aboutContent.images[1].src} 
+                alt={aboutContent.images[1].alt}
+                className="w-full sm:w-[20rem] md:w-[24rem] lg:w-[26rem] h-48 sm:h-64 md:h-72 lg:h-80 lg:ml-auto"
+              />
+            </div>
+
+            {/* Imagem de largura total */}
+            <div className={`relative transition-all duration-1000 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '900ms' }}>
+              <AboutImage 
+                src={aboutContent.images[2].src} 
+                alt={aboutContent.images[2].alt}
+                className="w-full h-32 sm:h-40 md:h-48"
+              />
+            </div>
           </div>
         </div>
       </div>

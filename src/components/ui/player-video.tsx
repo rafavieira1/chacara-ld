@@ -118,13 +118,13 @@ const VideoPlayer = ({ src }: { src: string }) => {
 
   return (
     <motion.div
-      className="relative w-full max-w-md mx-auto rounded-xl overflow-hidden bg-[#11111198] shadow-[0_0_20px_rgba(0,0,0,0.2)] backdrop-blur-sm"
+      className="relative w-full max-w-sm sm:max-w-md mx-auto rounded-xl overflow-hidden bg-black/20 shadow-[0_0_20px_rgba(0,0,0,0.2)]"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       onMouseEnter={() => setShowControls(true)}
       onMouseLeave={() => setShowControls(false)}
-      style={{ aspectRatio: '9/16', maxHeight: '750px', maxWidth: '450px' }}
+      style={{ aspectRatio: '9/16', maxHeight: '600px', maxWidth: '400px' }}
     >
       <video
         ref={videoRef}
@@ -137,35 +137,96 @@ const VideoPlayer = ({ src }: { src: string }) => {
       <AnimatePresence>
         {showControls && (
           <motion.div
-            className="absolute bottom-4 left-4 right-4 max-w-lg mx-auto p-3 bg-[#11111198] backdrop-blur-md rounded-xl"
-            initial={{ y: 20, opacity: 0, filter: "blur(10px)" }}
-            animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
-            exit={{ y: 20, opacity: 0, filter: "blur(10px)" }}
-            transition={{ duration: 0.6, ease: "circInOut", type: "spring" }}
+            className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-gradient-to-t from-black/90 via-black/70 to-transparent"
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 20, opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
           >
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-white text-sm">
-                {formatTime(currentTime)}
-              </span>
-              <CustomSlider
-                value={progress}
-                onChange={handleSeek}
-                className="flex-1"
-              />
-              <span className="text-white text-sm">{formatTime(duration)}</span>
-            </div>
+            {/* Mobile Controls */}
+            <div className="block sm:hidden">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-white text-xs">
+                  {formatTime(currentTime)}
+                </span>
+                <CustomSlider
+                  value={progress}
+                  onChange={handleSeek}
+                  className="flex-1"
+                />
+                <span className="text-white text-xs">{formatTime(duration)}</span>
+              </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.9 }}
-                >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
                   <Button
                     onClick={togglePlay}
                     variant="ghost"
                     size="icon"
-                    className="text-white hover:bg-[#111111d1] hover:text-white"
+                    className="text-white hover:bg-white/20 h-8 w-8"
+                  >
+                    {isPlaying ? (
+                      <Pause className="h-4 w-4" />
+                    ) : (
+                      <Play className="h-4 w-4" />
+                    )}
+                  </Button>
+                  <Button
+                    onClick={toggleMute}
+                    variant="ghost"
+                    size="icon"
+                    className="text-white hover:bg-white/20 h-8 w-8"
+                  >
+                    {isMuted ? (
+                      <VolumeX className="h-4 w-4" />
+                    ) : volume > 0.5 ? (
+                      <Volume2 className="h-4 w-4" />
+                    ) : (
+                      <Volume1 className="h-4 w-4" />
+                    )}
+                  </Button>
+                </div>
+
+                <div className="flex items-center gap-1">
+                  {[0.5, 1, 1.5, 2].map((speed) => (
+                    <Button
+                      key={speed}
+                      onClick={() => setSpeed(speed)}
+                      variant="ghost"
+                      size="sm"
+                      className={cn(
+                        "text-white hover:bg-white/20 h-6 px-2 text-xs",
+                        playbackSpeed === speed && "bg-white/20"
+                      )}
+                    >
+                      {speed}x
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Desktop Controls */}
+            <div className="hidden sm:block">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-white text-sm">
+                  {formatTime(currentTime)}
+                </span>
+                <CustomSlider
+                  value={progress}
+                  onChange={handleSeek}
+                  className="flex-1"
+                />
+                <span className="text-white text-sm">{formatTime(duration)}</span>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <Button
+                    onClick={togglePlay}
+                    variant="ghost"
+                    size="icon"
+                    className="text-white hover:bg-white/20 h-10 w-10"
                   >
                     {isPlaying ? (
                       <Pause className="h-5 w-5" />
@@ -173,17 +234,12 @@ const VideoPlayer = ({ src }: { src: string }) => {
                       <Play className="h-5 w-5" />
                     )}
                   </Button>
-                </motion.div>
-                <div className="flex items-center gap-x-1">
-                  <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
+                  <div className="flex items-center gap-2">
                     <Button
                       onClick={toggleMute}
                       variant="ghost"
                       size="icon"
-                      className="text-white hover:bg-[#111111d1] hover:text-white"
+                      className="text-white hover:bg-white/20 h-10 w-10"
                     >
                       {isMuted ? (
                         <VolumeX className="h-5 w-5" />
@@ -193,37 +249,31 @@ const VideoPlayer = ({ src }: { src: string }) => {
                         <Volume1 className="h-5 w-5" />
                       )}
                     </Button>
-                  </motion.div>
-
-                  <div className="w-24">
-                    <CustomSlider
-                      value={volume * 100}
-                      onChange={handleVolumeChange}
-                    />
+                    <div className="w-24">
+                      <CustomSlider
+                        value={volume * 100}
+                        onChange={handleVolumeChange}
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="flex items-center gap-2">
-                {[0.5, 1, 1.5, 2].map((speed) => (
-                  <motion.div
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                    key={speed}
-                  >
+                <div className="flex items-center gap-1">
+                  {[0.5, 1, 1.5, 2].map((speed) => (
                     <Button
+                      key={speed}
                       onClick={() => setSpeed(speed)}
                       variant="ghost"
-                      size="icon"
+                      size="sm"
                       className={cn(
-                        "text-white hover:bg-[#111111d1] hover:text-white",
-                        playbackSpeed === speed && "bg-[#111111d1]"
+                        "text-white hover:bg-white/20 h-8 px-3 text-sm",
+                        playbackSpeed === speed && "bg-white/20"
                       )}
                     >
                       {speed}x
                     </Button>
-                  </motion.div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </motion.div>

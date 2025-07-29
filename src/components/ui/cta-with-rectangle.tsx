@@ -30,30 +30,30 @@ export function CTASection({
   return (
     <section className={cn("", className)}>
       <div className="text-center">
-        <div className="rounded-lg p-12 shadow-2xl hover:shadow-3xl transition-all duration-500 relative group max-w-4xl mx-auto bg-white/80 backdrop-blur-sm">
+        <div className="rounded-lg p-6 sm:p-8 md:p-12 shadow-2xl hover:shadow-3xl transition-all duration-500 relative group max-w-4xl mx-auto bg-white/80 backdrop-blur-sm">
           {/* Icon */}
-          <div className="w-20 h-20 mx-auto mb-6 rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
-            <Calendar className="w-10 h-10 text-white" />
+          <div className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 mx-auto mb-4 sm:mb-6 rounded-full flex items-center justify-center shadow-2xl group-hover:scale-110 transition-transform duration-300" style={{ background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)' }}>
+            <Calendar className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 text-white" />
           </div>
 
           {/* Badge */}
           {badge && (
             <Badge 
               variant="outline" 
-              className="mb-4 bg-gradient-to-r from-[#5C3A2B] to-[#8B6355] text-white border-0"
+              className="mb-3 sm:mb-4 bg-gradient-to-r from-[#5C3A2B] to-[#8B6355] text-white border-0 text-xs sm:text-sm"
             >
               {badge.text}
             </Badge>
           )}
 
           {/* Title */}
-          <h3 className="text-3xl font-light text-stone-800 mb-4 tracking-wide">
+          <h3 className="text-xl sm:text-2xl md:text-3xl font-light text-stone-800 mb-3 sm:mb-4 tracking-wide px-2">
             {title}
           </h3>
 
           {/* Description */}
           {description && (
-            <p className="text-stone-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-stone-600 mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed text-sm sm:text-base px-4">
               {description}
             </p>
           )}

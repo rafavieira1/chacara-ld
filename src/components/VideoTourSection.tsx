@@ -31,13 +31,13 @@ const VideoTourSection = () => {
   const { isVisible, ref } = useIntersectionObserver();
 
   return (
-    <section ref={ref} id="tour" className="py-24 px-6">
+    <section ref={ref} id="tour" className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6">
       <div className="container mx-auto max-w-7xl">
         {/* Main Title */}
-        <div className={`text-center mb-16 transition-all duration-1000 relative z-50 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className={`text-center mb-8 sm:mb-12 md:mb-16 transition-all duration-1000 relative z-50 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="py-0">
             <h2 
-              className="text-6xl md:text-7xl lg:text-8xl font-great-vibes font-normal leading-loose tracking-wide relative z-50"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-great-vibes font-normal leading-tight sm:leading-loose tracking-wide relative z-50"
               style={{ 
                 background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)',
                 WebkitBackgroundClip: 'text',
@@ -46,7 +46,7 @@ const VideoTourSection = () => {
                 paddingTop: '0',
                 paddingBottom: '0',
                 lineHeight: '1.6',
-                minHeight: '80px',
+                minHeight: '60px',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -56,23 +56,23 @@ const VideoTourSection = () => {
               {videoTourData.title}
             </h2>
           </div>
-          <div className="w-full h-px bg-stone-300 mt-0 mb-8 relative z-50"></div>
+          <div className="w-full h-px bg-stone-300 mt-0 mb-4 sm:mb-6 md:mb-8 relative z-50"></div>
           
           {/* Description Text */}
-          <div className="text-center max-w-3xl mx-auto mb-16 relative z-50">
-            <p className="text-luxury leading-relaxed text-lg">
+          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12 md:mb-16 relative z-50 px-4">
+            <p className="text-luxury leading-relaxed text-base sm:text-lg">
               {videoTourData.subtitle}
             </p>
           </div>
         </div>
 
         {/* Video Player */}
-        <div className={`mb-16 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className={`mb-8 sm:mb-12 md:mb-16 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <VideoPlayer src={videoTourData.videoSrc} />
         </div>
 
         {/* Highlights */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
           {videoTourData.highlights.map((highlight, index) => {
             const Icon = highlight.icon;
             return (
@@ -83,14 +83,14 @@ const VideoTourSection = () => {
                 }`}
                 style={{ transitionDelay: `${600 + index * 200}ms` }}
               >
-                <div className="rounded-lg p-8 text-center shadow-2xl hover:shadow-3xl transition-all duration-500 group-hover:scale-105">
+                <div className="rounded-lg p-6 sm:p-8 text-center shadow-2xl hover:shadow-3xl transition-all duration-500 group-hover:scale-105">
                   <div 
-                    className="mb-6 group-hover:scale-110 transition-transform duration-300 flex justify-center"
+                    className="mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300 flex justify-center"
                     style={{ color: '#5C3A2B' }}
                   >
-                    <Icon className="w-10 h-10" />
+                    <Icon className="w-8 h-8 sm:w-10 sm:h-10" />
                   </div>
-                  <h4 className="text-xl font-light text-stone-800 mb-3 tracking-wide">
+                  <h4 className="text-lg sm:text-xl font-light text-stone-800 mb-2 sm:mb-3 tracking-wide">
                     {highlight.title}
                   </h4>
                   <p className="text-luxury text-sm leading-relaxed">

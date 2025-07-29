@@ -56,7 +56,7 @@ const NavbarLogo = ({ src, alt, href }: { src: string; alt: string; href: string
       <img 
         src={src} 
         alt={alt} 
-        className="w-32 h-16 object-cover hover:opacity-80 transition-opacity duration-300"
+        className="w-20 h-10 sm:w-24 sm:h-12 md:w-28 md:h-14 lg:w-32 lg:h-16 object-cover hover:opacity-80 transition-opacity duration-300"
       />
     </a>
   </div>
@@ -113,8 +113,8 @@ const MobileMenu = ({
   onClose: () => void; 
 }) => (
   isOpen && (
-    <div className="lg:hidden mt-4 glass-card rounded-2xl p-6 animate-fade-in">
-      <div className="flex flex-col space-y-4">
+    <div className="lg:hidden mt-4 glass-card rounded-2xl p-4 sm:p-6 animate-fade-in">
+      <div className="flex flex-col space-y-3 sm:space-y-4">
         {menuItems.map((item) => (
           <MenuItem 
             key={item.label} 
@@ -123,7 +123,9 @@ const MobileMenu = ({
             isMobile
           />
         ))}
-        <GetStartedButton text={navbarData.ctaButton.text} />
+        <div className="pt-2">
+          <GetStartedButton text={navbarData.ctaButton.text} />
+        </div>
       </div>
     </div>
   )
@@ -139,10 +141,10 @@ const MobileMenuButton = ({
 }) => (
   <div className="lg:hidden ml-auto">
     <button
-      className="p-2 rounded-full glass-card"
+      className="p-2 sm:p-3 rounded-full glass-card hover:bg-white/20 transition-colors duration-300"
       onClick={onToggle}
     >
-      {isOpen ? <X size={24} className="text-white" /> : <Menu size={24} className="text-white" />}
+      {isOpen ? <X size={20} className="sm:w-6 sm:h-6 text-white" /> : <Menu size={20} className="sm:w-6 sm:h-6 text-white" />}
     </button>
   </div>
 );
@@ -157,7 +159,7 @@ const Navbar = () => {
         ? 'glass-card backdrop-blur-xl bg-white/20 shadow-lg' 
         : 'bg-transparent'
     }`}>
-      <nav className="container mx-auto px-6 py-2">
+      <nav className="container mx-auto px-4 sm:px-6 py-2">
         <div className="flex items-center">
           <NavbarLogo 
             src={navbarData.logo.src} 

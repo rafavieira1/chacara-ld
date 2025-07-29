@@ -100,28 +100,21 @@ const FooterBrand = ({ logo, brand }: {
   logo: typeof footerData.logo; 
   brand: typeof footerData.brand; 
 }) => (
-  <AnimatedContainer className="space-y-4">
-    <div className="flex items-center space-x-3 mb-6">
+  <AnimatedContainer className="flex items-start">
+    <div className="flex items-center space-x-2">
       <div className="flex items-center justify-center">
         <img 
           src={logo.src} 
           alt={logo.alt} 
-          className="w-16 h-16 object-contain"
+          className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
         />
       </div>
       <div className="flex flex-col">
-        <span className="text-2xl font-kanoky font-light tracking-wider gradient-text">
+        <span className="text-base sm:text-lg font-kanoky font-light tracking-wider gradient-text">
           {brand.name}
         </span>
-        <span className="text-xs text-stone-600/80 tracking-widest">{brand.tagline}</span>
       </div>
     </div>
-    <p className="text-luxury leading-relaxed text-sm max-w-md">
-      {brand.description}
-    </p>
-    <p className="text-luxury text-xs mt-8">
-      © {new Date().getFullYear()} ChácaraLD. Todos os direitos reservados.
-    </p>
   </AnimatedContainer>
 );
 
@@ -130,9 +123,9 @@ const FooterLink = ({ link }: { link: FooterLink }) => (
   <li>
     <a
       href={link.href}
-      className="text-luxury hover:text-stone-800 inline-flex items-center transition-all duration-300 tracking-wide"
+      className="text-luxury hover:text-stone-800 inline-flex items-center transition-all duration-300 tracking-wide text-xs sm:text-sm"
     >
-      {link.icon && <link.icon className="me-2 w-4 h-4" />}
+      {link.icon && <link.icon className="me-2 w-3 h-3 sm:w-4 sm:h-4" />}
       {link.title}
     </a>
   </li>
@@ -141,9 +134,9 @@ const FooterLink = ({ link }: { link: FooterLink }) => (
 // Componente para seção de links
 const FooterSection = ({ section, index }: { section: FooterSection; index: number }) => (
   <AnimatedContainer delay={0.1 + index * 0.1}>
-    <div className="mb-10 md:mb-0">
-      <h3 className="text-sm font-light text-stone-800 tracking-wide mb-4">{section.label}</h3>
-      <ul className="space-y-2 text-sm">
+    <div className="mb-4 md:mb-0">
+      <h3 className="text-xs sm:text-sm font-light text-stone-800 tracking-wide mb-3 sm:mb-4">{section.label}</h3>
+      <ul className="space-y-1 sm:space-y-2 text-xs sm:text-sm">
         {section.links.map((link) => (
           <FooterLink key={link.title} link={link} />
         ))}
@@ -162,13 +155,28 @@ const DecorativeLine = () => (
 
 const Footer = () => {
   return (
-    <footer className="relative w-full flex flex-col items-center justify-center rounded-t-3xl px-6 py-12 lg:py-16 bg-gradient-to-b from-stone-100 to-stone-200">
+    <footer className="relative w-full flex flex-col items-center justify-center rounded-t-3xl px-4 sm:px-6 py-4 sm:py-6 lg:py-8 bg-gradient-to-b from-stone-100 to-stone-200">
       <DecorativeLine />
 
-      <div className="container mx-auto max-w-7xl grid w-full gap-8 xl:grid-cols-3 xl:gap-8">
-        <FooterBrand logo={footerData.logo} brand={footerData.brand} />
+      <div className="container mx-auto max-w-7xl w-full">
+        {/* Logo e título centralizados para mobile */}
+        <div className="flex justify-center -mb-4 sm:mb-0 sm:hidden">
+          <FooterBrand logo={footerData.logo} brand={footerData.brand} />
+        </div>
 
-        <div className="mt-10 grid grid-cols-2 gap-8 md:grid-cols-4 xl:col-span-2 xl:mt-0">
+        {/* Layout desktop - logo à esquerda */}
+        <div className="hidden sm:grid w-full gap-4 sm:gap-6 xl:grid-cols-5 xl:gap-6">
+          <FooterBrand logo={footerData.logo} brand={footerData.brand} />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4 xl:col-span-4">
+            {footerData.sections.map((section, index) => (
+              <FooterSection key={section.label} section={section} index={index} />
+            ))}
+          </div>
+        </div>
+
+        {/* Layout mobile - duas colunas */}
+        <div className="grid grid-cols-2 gap-4 sm:hidden">
           {footerData.sections.map((section, index) => (
             <FooterSection key={section.label} section={section} index={index} />
           ))}

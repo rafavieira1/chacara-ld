@@ -154,18 +154,96 @@ All colors MUST be HSL.
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    padding-top: 2rem;
-    padding-bottom: 1rem;
-    line-height: 1.6;
-    min-height: 200px;
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+    line-height: 1.4;
+    min-height: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
   }
 
+  @media (min-width: 640px) {
+    .gradient-text {
+      padding-top: 1.5rem;
+      padding-bottom: 0.75rem;
+      line-height: 1.5;
+      min-height: 150px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .gradient-text {
+      padding-top: 2rem;
+      padding-bottom: 1rem;
+      line-height: 1.6;
+      min-height: 180px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .gradient-text {
+      padding-top: 2rem;
+      padding-bottom: 1rem;
+      line-height: 1.6;
+      min-height: 200px;
+    }
+  }
+
   .gradient-bg {
     background: linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%);
+  }
+
+  /* Responsive container utilities */
+  .container-responsive {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-12 sm:py-16 md:py-20 lg:py-24;
+  }
+
+  .section-padding-sm {
+    @apply py-8 sm:py-12 md:py-16 lg:py-20;
+  }
+
+  /* Responsive text utilities */
+  .text-responsive-xl {
+    @apply text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl;
+  }
+
+  .text-responsive-lg {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  .text-responsive-md {
+    @apply text-lg sm:text-xl md:text-2xl lg:text-3xl;
+  }
+
+  .text-responsive-sm {
+    @apply text-base sm:text-lg md:text-xl;
+  }
+
+  .text-responsive-xs {
+    @apply text-sm sm:text-base md:text-lg;
+  }
+
+  /* Responsive spacing utilities */
+  .space-responsive {
+    @apply space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10;
+  }
+
+  .gap-responsive {
+    @apply gap-4 sm:gap-6 md:gap-8 lg:gap-10;
+  }
+
+  .mb-responsive {
+    @apply mb-4 sm:mb-6 md:mb-8 lg:mb-10;
+  }
+
+  .mt-responsive {
+    @apply mt-4 sm:mt-6 md:mt-8 lg:mt-10;
   }
 }
 
@@ -246,5 +324,30 @@ All colors MUST be HSL.
     opacity: 1;
     transform: scale(1);
     }
+  }
+}
+
+/* Force lightbox isolation */
+.lightbox-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background-color: rgba(0, 0, 0, 0.95) !important;
+  z-index: 99999 !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+/* Timeline mobile optimizations */
+@media (max-width: 768px) {
+  .timeline-custom-styles {
+    overflow: visible !important;
+    position: relative !important;
+  }
+  
+  .timeline-custom-styles > div {
+    overflow: visible !important;
+    position: relative !important;
   }
 }

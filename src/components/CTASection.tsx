@@ -22,18 +22,34 @@ const ctaData = {
 
 // Componente para o cabeçalho da seção
 const SectionHeader = ({ title, subtitle, isVisible }: { title: string; subtitle: string; isVisible: boolean }) => (
-  <div className={`text-center mb-16 transition-all duration-1000 relative z-10 ${
+  <div className={`text-center mb-8 sm:mb-12 md:mb-16 transition-all duration-1000 relative z-10 ${
     isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
   }`}>
     <div className="py-0">
-      <h2 className="text-6xl md:text-7xl lg:text-8xl font-great-vibes font-normal leading-loose tracking-wide relative z-20 gradient-text">
+      <h2 
+        className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-great-vibes font-normal leading-tight sm:leading-loose tracking-wide relative z-20"
+        style={{ 
+          background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+          paddingTop: '0',
+          paddingBottom: '0',
+          lineHeight: '1.6',
+          minHeight: '60px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '100%'
+        }}
+      >
         {title}
       </h2>
     </div>
-    <div className="w-full h-px bg-stone-300 mt-0 mb-8 relative z-10"></div>
+    <div className="w-full h-px bg-stone-300 mt-0 mb-8 sm:mb-12 md:mb-16 relative z-10"></div>
     
-    <div className="text-center max-w-3xl mx-auto mb-16">
-      <p className="text-luxury leading-relaxed text-lg">
+    <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12 md:mb-16 px-4">
+      <p className="text-luxury leading-relaxed text-base sm:text-lg">
         {subtitle}
       </p>
     </div>
@@ -52,7 +68,7 @@ const MainCTA = ({ cta, isVisible }: { cta: typeof ctaData.cta; isVisible: boole
       description={cta.description}
       action={cta.action}
       withGlow={true}
-      className="mb-20"
+      className="mb-12 sm:mb-16 md:mb-20"
     />
   </div>
 );
@@ -61,7 +77,7 @@ const CTASection = () => {
   const { isVisible, ref } = useIntersectionObserver();
   
   return (
-    <section ref={ref} id="cta" className="py-24 px-6">
+    <section ref={ref} id="cta" className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 pt-20 sm:pt-16 md:pt-20 lg:pt-24">
       <div className="container mx-auto max-w-7xl">
         <SectionHeader 
           title={ctaData.title}

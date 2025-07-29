@@ -1,4 +1,4 @@
-import { Star, Quote } from 'lucide-react';
+import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useState } from 'react';
 import { useIntersectionObserver } from '@/hooks/use-intersection-observer';
 import { TestimonialsColumn } from './ui/testimonials-columns-1';
@@ -56,18 +56,34 @@ const useActiveTestimonial = () => {
 
 // Componente para o cabeçalho da seção
 const SectionHeader = ({ title, subtitle, isVisible }: { title: string; subtitle: string; isVisible: boolean }) => (
-  <div className={`text-center mb-16 transition-all duration-1000 relative z-10 ${
+  <div className={`text-center mb-4 sm:mb-8 md:mb-12 lg:mb-16 transition-all duration-1000 relative z-10 ${
     isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
   }`}>
     <div className="py-0">
-      <h2 className="text-6xl md:text-7xl lg:text-8xl font-great-vibes font-normal leading-loose tracking-wide relative z-20 gradient-text">
+      <h2 
+        className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-great-vibes font-normal leading-tight sm:leading-loose tracking-wide relative z-20"
+        style={{ 
+          background: 'linear-gradient(135deg, #5C3A2B 0%, #8B6355 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+          paddingTop: '0',
+          paddingBottom: '0',
+          lineHeight: '1.6',
+          minHeight: '60px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: '100%'
+        }}
+      >
         {title}
       </h2>
     </div>
-    <div className="w-full h-px bg-stone-300 mt-0 mb-8 relative z-10"></div>
+    <div className="w-full h-px bg-stone-300 mt-0 mb-2 sm:mb-4 md:mb-6 lg:mb-8 relative z-10"></div>
     
-    <div className="text-center max-w-3xl mx-auto mb-16">
-      <p className="text-luxury leading-relaxed text-lg">
+    <div className="text-center max-w-3xl mx-auto mb-4 sm:mb-8 md:mb-12 lg:mb-16 px-4">
+      <p className="text-luxury leading-relaxed text-base sm:text-lg">
         {subtitle}
       </p>
     </div>
@@ -85,7 +101,7 @@ const DesktopTestimonials = ({ testimonials, isVisible }: {
   const thirdColumn = testimonials.slice(4, 5).concat(testimonials.slice(0, 1));
 
   return (
-    <div className={`flex justify-center transition-all duration-1000 ${
+    <div className={`hidden md:flex justify-center transition-all duration-1000 ${
       isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
     }`}
     style={{ transitionDelay: '300ms' }}>
@@ -112,36 +128,41 @@ const DesktopTestimonials = ({ testimonials, isVisible }: {
 
 // Componente para testemunho individual (mobile)
 const MobileTestimonialCard = ({ testimonial }: { testimonial: typeof testimonialsData.testimonials[0] }) => (
-  <div className="rounded-lg p-8 text-center relative overflow-hidden shadow-2xl">
-    {/* Quote Icon */}
-    <div className="absolute top-8 left-8 opacity-20 gradient-text">
-      <Quote className="w-16 h-16" />
+  <div className="rounded-lg p-6 sm:p-8 text-center relative overflow-hidden shadow-2xl">
+    {/* Quote Icon - Top Left */}
+    <div className="absolute top-4 sm:top-6 md:top-8 left-4 sm:left-6 md:left-8 opacity-20 gradient-text">
+      <Quote className="w-12 h-12 sm:w-16 sm:h-16" />
+    </div>
+    
+    {/* Quote Icon - Bottom Right */}
+    <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 right-4 sm:right-6 md:right-8 opacity-20 gradient-text transform rotate-180">
+      <Quote className="w-12 h-12 sm:w-16 sm:h-16" />
     </div>
     
     {/* Stars */}
-    <div className="flex justify-center mb-6">
+    <div className="flex justify-center mb-4 sm:mb-6">
       {[...Array(5)].map((_, i) => (
-        <Star key={i} className="w-6 h-6 fill-current gradient-text" />
+        <Star key={i} className="w-5 h-5 sm:w-6 sm:h-6 fill-current gradient-text" />
       ))}
     </div>
     
     {/* Testimonial Text */}
-    <blockquote className="text-lg md:text-xl font-light text-stone-800 leading-relaxed mb-8">
+    <blockquote className="text-base sm:text-lg md:text-xl font-light text-stone-800 leading-relaxed mb-6 sm:mb-8">
       "{testimonial.text}"
     </blockquote>
     
     {/* Author Info */}
-    <div className="flex items-center justify-center space-x-4">
+    <div className="flex items-center justify-center space-x-3 sm:space-x-4">
       <img 
         src={testimonial.image}
         alt={testimonial.name}
-        className="w-12 h-12 rounded-full object-cover shadow-lg"
+        className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover shadow-lg"
       />
       <div className="text-left">
-        <div className="text-lg font-light text-stone-800 tracking-wide">
+        <div className="text-base sm:text-lg font-light text-stone-800 tracking-wide">
           {testimonial.name}
         </div>
-        <div className="text-luxury text-sm">
+        <div className="text-luxury text-xs sm:text-sm">
           {testimonial.role}
         </div>
       </div>
@@ -158,31 +179,65 @@ const MobileNavigation = ({
   testimonials: typeof testimonialsData.testimonials; 
   activeTestimonial: number; 
   setActiveTestimonial: (index: number) => void; 
-}) => (
-  <div className="flex justify-center space-x-3">
-    {testimonials.map((_, index) => (
-      <button
-        key={index}
-        onClick={() => setActiveTestimonial(index)}
-        className={`w-3 h-3 rounded-full transition-all duration-300 ${
-          index === activeTestimonial 
-            ? 'shadow-lg gradient-bg' 
-            : 'bg-stone-300 hover:bg-stone-400'
-        }`}
-      />
-    ))}
-  </div>
-);
+}) => {
+  const nextTestimonial = () => {
+    setActiveTestimonial((activeTestimonial + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setActiveTestimonial(activeTestimonial === 0 ? testimonials.length - 1 : activeTestimonial - 1);
+  };
+
+  return (
+    <div className="flex justify-center space-x-3">
+      {testimonials.map((_, index) => (
+        <button
+          key={index}
+          onClick={() => setActiveTestimonial(index)}
+          className={`w-3 h-3 rounded-full transition-all duration-300 ${
+            index === activeTestimonial 
+              ? 'shadow-lg gradient-bg' 
+              : 'bg-stone-300 hover:bg-stone-400'
+          }`}
+        />
+      ))}
+    </div>
+  );
+};
 
 // Componente para testemunhos mobile
 const MobileTestimonials = ({ testimonials }: { testimonials: typeof testimonialsData.testimonials }) => {
   const { activeTestimonial, setActiveTestimonial } = useActiveTestimonial();
 
+  const nextTestimonial = () => {
+    setActiveTestimonial((activeTestimonial + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setActiveTestimonial(activeTestimonial === 0 ? testimonials.length - 1 : activeTestimonial - 1);
+  };
+
   return (
-    <div className="md:hidden">
-      <div className="mb-16">
+    <div className="md:hidden relative">
+      <div className="mb-8 sm:mb-12 md:mb-16 relative">
         <MobileTestimonialCard testimonial={testimonials[activeTestimonial]} />
+        
+        {/* Navigation Arrows */}
+        <button
+          onClick={prevTestimonial}
+          className="absolute -left-2 top-1/2 -translate-y-1/2 text-stone-600 hover:text-stone-800 transition-colors duration-300 p-2 rounded-full z-20"
+        >
+          <ChevronLeft size={20} />
+        </button>
+        
+        <button
+          onClick={nextTestimonial}
+          className="absolute -right-2 top-1/2 -translate-y-1/2 text-stone-600 hover:text-stone-800 transition-colors duration-300 p-2 rounded-full z-20"
+        >
+          <ChevronRight size={20} />
+        </button>
       </div>
+      
       <MobileNavigation 
         testimonials={testimonials}
         activeTestimonial={activeTestimonial}
@@ -196,7 +251,7 @@ const TestimonialsSection = () => {
   const { isVisible, ref } = useIntersectionObserver();
 
   return (
-    <section ref={ref} id="testimonials" className="py-24 px-6">
+    <section ref={ref} id="testimonials" className="py-8 sm:py-12 md:py-16 lg:py-20 xl:py-24 px-4 sm:px-6">
       <div className="container mx-auto max-w-7xl">
         <SectionHeader 
           title={testimonialsData.title}
