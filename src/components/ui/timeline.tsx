@@ -37,7 +37,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
       className="w-full font-sans md:px-10"
       ref={containerRef}
     >
-      <div ref={ref} className="relative max-w-7xl mx-auto pb-20">
+      <div ref={ref} className="relative max-w-7xl mx-auto pb-32">
         {data.map((item, index) => (
           <div
             key={index}
@@ -64,13 +64,13 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
           style={{
             height: height + "px",
           }}
-          className="absolute md:left-8 left-8 top-0 overflow-hidden w-[2px] bg-gradient-to-b from-transparent from-[0%] via-stone-300 to-transparent to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
+          className="absolute md:left-8 left-8 top-0 overflow-hidden w-[2px] bg-gradient-to-b from-transparent from-[0%] via-stone-300 to-transparent to-[85%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_80%,transparent_100%)]"
         >
           <motion.div
             style={{
               height: heightTransform,
               opacity: opacityTransform,
-              background: 'linear-gradient(to top, #5C3A2B 0%, #8B6355 50%, transparent 100%)'
+              background: 'linear-gradient(to top, #5C3A2B 0%, #8B6355 50%, transparent 85%)'
             }}
             className="absolute inset-x-0 top-0 w-[2px] rounded-full"
           />

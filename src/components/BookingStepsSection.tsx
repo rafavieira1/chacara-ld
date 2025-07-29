@@ -167,7 +167,7 @@ const BookingStepsSection = () => {
       </div>
 
       {/* Timeline Component with custom styling */}
-      <div className={`timeline-custom-styles transition-all duration-1000 ${
+      <div className={`timeline-custom-styles transition-all duration-1000 overflow-hidden relative z-10 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
       }`}
       style={{ transitionDelay: '300ms' }}>
