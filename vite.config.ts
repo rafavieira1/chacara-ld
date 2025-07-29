@@ -27,10 +27,21 @@ export default defineConfig(({ mode }) => ({
           ui: ['@radix-ui/react-accordion', '@radix-ui/react-dialog', '@radix-ui/react-tabs'],
           animations: ['framer-motion', 'gsap'],
           utils: ['clsx', 'tailwind-merge', 'class-variance-authority']
+        },
+        // Optimize CSS chunking
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name?.endsWith('.css')) {
+            return 'assets/[name]-[hash][extname]';
+          }
+          return 'assets/[name]-[hash][extname]';
         }
       }
     },
-    chunkSizeWarningLimit: 1000
+    chunkSizeWarningLimit: 1000,
+    // Enable CSS code splitting
+    cssCodeSplit: true,
+    // Optimize assets
+    assetsInlineLimit: 4096, // 4kb
   },
   resolve: {
     alias: {
@@ -38,6 +49,18 @@ export default defineConfig(({ mode }) => ({
     },
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'framer-motion']
+    include: ['react', 'react-dom', 'framer-motion'],
+    // Pre-bundle dependencies
+    force: false
+  },
+  // Optimize CSS loading
+  css: {
+    devSourcemap: false,
+    postcss: {
+      plugins: [
+        // Add autoprefixer for better browser compatibility
+        require('autoprefixer')
+      ]
+    }
   }
 }));
