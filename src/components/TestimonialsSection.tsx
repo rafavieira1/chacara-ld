@@ -12,37 +12,37 @@ const testimonialsData = {
       name: "Sara & Pedro",
       role: "Casamento",
       text: "Nosso casamento na Chácara LD foi simplesmente mágico. A vista ao pôr do sol, a natureza ao redor e o cuidado com cada detalhe tornaram esse dia inesquecível.",
-      image: "/saraepedro.jpg"
+      image: "/saraepedro.webp"
     },
     {
       name: "Gabriela",
       role: "Festa de 15 anos",
       text: "A estrutura da Chácara LD superou todas as minhas expectativas. Me senti uma princesa! A decoração integrada ao espaço deixou tudo perfeito para esse momento tão especial.",
-      image: "gabriela.jpg"
+      image: "gabriela.webp"
     },
     {
       name: "Melki & Jussieli",
       role: "Casamento",
       text: "Escolhemos a Chácara LD pelo ambiente acolhedor e não nos arrependemos. O espaço é lindo, a equipe atenciosa e tudo saiu como sonhamos.",
-      image: "melkieju.jpg"
+      image: "melkieju.webp"
     },
     {
       name: "Carla & Lino",
       role: "Casamento",
       text: "Cada cantinho da Chácara LD tem um charme especial. Nosso casamento teve a energia que queríamos: natureza, alegria e conforto para todos os convidados.",
-      image: "/carlaelino.jpg"
+      image: "/carlaelino.webp"
     },
     {
       name: "Carol",
       role: "Festa de 15 anos",
       text: "Foi tudo perfeito! A piscina, os jardins, a área de convivência... Meus convidados amaram e a festa foi muito elogiada. Só tenho a agradecer à Chácara LD.",
-      image: "carol.jpg"
+      image: "carol.webp"
     },
     {
       name: "Marcelo & Thays",
       role: "Casamento",
       text: "A Chácara LD foi a escolha ideal para nosso grande dia. Ambiente tranquilo, estrutura impecável e um atendimento que nos deixou totalmente seguros e confiantes.",
-      image: "marceloethays.jpg"
+      image: "marceloethays.webp"
     }
   ]
   
@@ -156,6 +156,7 @@ const MobileTestimonialCard = ({ testimonial }: { testimonial: typeof testimonia
       <img 
         src={testimonial.image}
         alt={testimonial.name}
+        loading="lazy"
         className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover shadow-lg"
       />
       <div className="text-left">

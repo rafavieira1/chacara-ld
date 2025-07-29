@@ -1,10 +1,10 @@
 import { Users, Calendar, Utensils, Camera, Music, Sparkles } from 'lucide-react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Tabs } from '@/components/ui/tabs';
 import { GetStartedButton } from '@/components/ui/get-started-button';
 
-const ServicesSection = () => {
+const ServicesSection = memo(() => {
   const [isVisible, setIsVisible] = useState(false);
   const [imagesLoaded, setImagesLoaded] = useState<Record<string, boolean>>({});
   const [imageCache, setImageCache] = useState<Record<string, HTMLImageElement>>({});
@@ -20,7 +20,7 @@ const ServicesSection = () => {
         title: "Cerimônias dos seus sonhos em um cenário mágico",
         description: "Celebre o amor em um ambiente único, rodeado pela natureza e com toda estrutura para tornar seu casamento inesquecível. Oferecemos cerimônias ao ar livre, decoração personalizada e coordenação completa.",
         buttonText: "Ver Pacotes",
-        imageSrc: "/evento3.jpg",
+        imageSrc: "/evento3.webp",
         imageAlt: "Casamento na Chácara LD",
       },
     },
@@ -33,7 +33,7 @@ const ServicesSection = () => {
         title: "Espaço ideal para confraternizações empresariais",
         description: "Proporcione momentos especiais para sua equipe em um ambiente sofisticado e acolhedor. Contamos com equipamentos audiovisuais, catering executivo e ambientes flexíveis para atender suas necessidades.",
         buttonText: "Solicitar Orçamento",
-        imageSrc: "/corporativo.jpg",
+        imageSrc: "/corporativo.webp",
         imageAlt: "Eventos corporativos na Chácara LD",
       },
     },
@@ -46,7 +46,7 @@ const ServicesSection = () => {
         title: "Aniversários e celebrações memoráveis",
         description: "Transforme datas especiais em memórias eternas. Oferecemos decoração temática, entretenimento, cardápio variado e espaço kids para celebrações de todos os tipos e idades.",
         buttonText: "Planejar Festa",
-        imageSrc: "/festa.jpg",
+        imageSrc: "/festa.webp",
         imageAlt: "Celebrações na Chácara LD",
       },
     },
@@ -312,6 +312,6 @@ const ServicesSection = () => {
       </div>
     </section>
   );
-};
+});
 
 export default ServicesSection;

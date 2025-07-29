@@ -14,9 +14,9 @@ const aboutContent = {
     "Aqui, cada detalhe é pensado com cuidado para que seu evento seja inesquecível, com conforto, privacidade, contato com a natureza e atendimento de excelência."
   ],
   images: [
-    { src: "/paisagem1.jpg", alt: "Vista da Chácara LD" },
-    { src: "/about2.jpg", alt: "Eventos na Chácara LD" },
-    { src: "/aboutwall.jpg", alt: "Vista panorâmica da Chácara LD" }
+    { src: "/paisagem1.webp", alt: "Vista da Chácara LD" },
+    { src: "/about2.webp", alt: "Eventos na Chácara LD" },
+    { src: "/aboutwall.webp", alt: "Vista panorâmica da Chácara LD" }
   ]
 };
 
@@ -65,6 +65,7 @@ const AboutImage = ({ src, alt, className = "" }: { src: string; alt: string; cl
     <img 
       src={src}
       alt={alt}
+      loading="lazy"
       className={`object-cover rounded-lg shadow-2xl ${className}`}
     />
   </div>

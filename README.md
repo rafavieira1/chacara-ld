@@ -151,17 +151,6 @@ public/
 - Gradientes consistentes em títulos
 - Layout harmonioso entre seções
 
-## 🎯 Próximas Funcionalidades
-
-- [ ] Sistema de reservas online
-- [ ] Integração com calendário
-- [ ] Chat online
-- [ ] Blog de eventos
-- [ ] Galeria 360°
-- [ ] Integração com redes sociais
-- [ ] PWA (Progressive Web App)
-- [ ] Notificações push
-
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.

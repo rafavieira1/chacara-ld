@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
 import { ChevronLeft, ChevronRight, X, Utensils, Palette, Heart, Mountain, Zap } from 'lucide-react';
 import { GetStartedButton } from '@/components/ui/get-started-button';
 import "react-medium-image-zoom/dist/styles.css";
 
-const GallerySection = () => {
+const GallerySection = memo(() => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -32,36 +32,36 @@ const GallerySection = () => {
     {
       title: "Gastronomia",
       description: "Vista panorâmica com natureza exuberante",
-      image: "/buffet5.jpg",
-      imageHD: "/buffet5.jpg",
+      image: "/buffet5.webp",
+      imageHD: "/buffet5.webp",
       icon: <Utensils size={24} className="text-white" />
     },
     {
       title: "Decorações",
       description: "Espaço completo para experiências culinárias",
-      image: "/deco4.jpg",
-      imageHD: "/deco4.jpg",
+      image: "/deco4.webp",
+      imageHD: "/deco4.webp",
       icon: <Palette size={24} className="text-white" />
     },
     {
       title: "Eventos",
       description: "Cerimônias inesquecíveis em ambiente único",
-      image: "/evento5.jpg",
-      imageHD: "/evento5.jpg",
+      image: "/evento5.webp",
+      imageHD: "/evento5.webp",
       icon: <Heart size={24} className="text-white" />
     },
     {
       title: "Paisagem",
       description: "Relaxamento com vista para o lago",
-      image: "/paisagem1.jpg",
-      imageHD: "/paisagem1.jpg",
+      image: "/paisagem1.webp",
+      imageHD: "/paisagem1.webp",
       icon: <Mountain size={24} className="text-white" />
     },
     {
       title: "Lazer",
       description: "Salões equipados com todo conforto",
-      image: "/lazer1.jpg",
-      imageHD: "/lazer1.jpg",
+      image: "/lazer1.webp",
+      imageHD: "/lazer1.webp",
       icon: <Zap size={24} className="text-white" />
     }
   ];
@@ -89,102 +89,102 @@ const GallerySection = () => {
 
   const images = [
     {
-      src: "/buffet1.jpg",
+      src: "/buffet1.webp",
       alt: "Vista panorâmica da chácara",
       category: "Gastronomia"
     },
     {
-      src: "/buffet2.jpg",
+      src: "/buffet2.webp",
       alt: "Vista panorâmica da chácara",
       category: "Gastronomia"
     },
     {
-      src: "/buffet3.jpg",
+      src: "/buffet3.webp",
       alt: "Vista panorâmica da chácara",
       category: "Gastronomia"
     },
     {
-      src: "/buffet4.jpg",
+      src: "/buffet4.webp",
       alt: "Vista panorâmica da chácara",
       category: "Gastronomia"
     },
     {
-      src: "/deco1.jpg",
+      src: "/deco1.webp",
       alt: "Vista panorâmica da chácara",
       category: "Decorações"
     },
     {
-      src: "/deco2.jpg",
+      src: "/deco2.webp",
       alt: "Vista panorâmica da chácara",
       category: "Decorações"
     },
     {
-      src: "/deco3.jpg",
+      src: "/deco3.webp",
       alt: "Vista panorâmica da chácara",
       category: "Decorações"
     },
     {
-      src: "/deco5.jpg",
+      src: "/deco5.webp",
       alt: "Vista panorâmica da chácara",
       category: "Decorações"
     },
     {
-      src: "/evento1.jpg",
+      src: "/evento1.webp",
       alt: "Vista panorâmica da chácara",
       category: "Eventos"
     },
     {
-      src: "/evento2.jpg",
+      src: "/evento2.webp",
       alt: "Vista panorâmica da chácara",
       category: "Eventos"
     },
     {
-      src: "/evento3.jpg",
+      src: "/evento3.webp",
       alt: "Vista panorâmica da chácara",
       category: "Eventos"
     },
     {
-      src: "/evento4.jpg",
+      src: "/evento4.webp",
       alt: "Vista panorâmica da chácara",
       category: "Eventos"
     },
     {
-      src: "/paisagem2.jpg",
+      src: "/paisagem2.webp",
       alt: "Vista panorâmica da chácara",
       category: "Paisagem"
     },
     {
-      src: "/paisagem3.jpg",
+      src: "/paisagem3.webp",
       alt: "Vista panorâmica da chácara",
       category: "EvenPaisagemtos"
     },
     {
-      src: "/paisagem4.jpg",
+      src: "/paisagem4.webp",
       alt: "Vista panorâmica da chácara",
       category: "Paisagem"
     },
     {
-      src: "/paisagem5.jpg",
+      src: "/paisagem5.webp",
       alt: "Vista panorâmica da chácara",
       category: "Paisagem"
     },
     {
-      src: "/lazer2.jpg",
+      src: "/lazer2.webp",
       alt: "Vista panorâmica da chácara",
       category: "Lazer"
     },
     {
-      src: "/lazer3.jpg",
+      src: "/lazer3.webp",
       alt: "Vista panorâmica da chácara",
       category: "Lazer"
     },
     {
-      src: "/lazer4.jpg",
+      src: "/lazer4.webp",
       alt: "Vista panorâmica da chácara",
       category: "Lazer"
     },
     {
-      src: "/lazer5.jpg",
+      src: "/lazer5.webp",
       alt: "Vista panorâmica da chácara",
       category: "Lazer"
     }
@@ -609,6 +609,6 @@ const GallerySection = () => {
       `}</style>
     </section>
   );
-};
+});
 
 export default GallerySection;

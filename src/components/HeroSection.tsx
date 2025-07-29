@@ -2,7 +2,7 @@
 const heroData = {
   title: "Chácara LD",
   subtitle: "Espaço para eventos",
-  backgroundImage: "/background.jpg",
+  backgroundImage: "/background.webp",
   logo: {
     src: "/logo2.png",
     alt: "Logo Chácara LD"
