@@ -11,10 +11,11 @@ A **ChácaraLD** é um espaço premium para eventos localizado em meio à nature
 ### ✨ Características Principais
 
 - **Design Elegante**: Interface moderna com tipografia cursiva sofisticada
-- **Totalmente Responsivo**: Otimizado para todos os dispositivos
+- **Totalmente Responsivo**: Otimizado para todos os dispositivos com mobile-first approach
 - **Performance Otimizada**: Carregamento rápido e animações fluidas
-- **Experiência Imersiva**: Galeria interativa e tour virtual
+- **Experiência Imersiva**: Galeria interativa com lightbox e tour virtual
 - **Sistema de Reservas**: Processo simplificado em etapas
+- **Espaçamento Padronizado**: Design system consistente em todas as seções
 
 ## 🎨 Design System
 
@@ -32,21 +33,24 @@ A **ChácaraLD** é um espaço premium para eventos localizado em meio à nature
 
 ### 📱 Seções Principais
 - **Hero Section**: Apresentação impactante com logo e vídeo de fundo
-- **Sobre Nós**: História e diferenciais da chácara
+- **Sobre Nós**: História e diferenciais da chácara com layout responsivo
 - **Serviços**: Abas interativas com casamentos, eventos corporativos e celebrações
-- **Galeria**: Layout em sticky scroll com lightbox
-- **Tour Virtual**: Player de vídeo integrado
-- **Depoimentos**: Experiências de clientes
-- **FAQ**: Perguntas frequentes com accordion
-- **Processo de Reserva**: Timeline interativa
-- **Contato**: Informações e formulário
+- **Galeria**: Layout em sticky scroll com lightbox responsivo
+- **Tour Virtual**: Player de vídeo integrado com controles otimizados
+- **Depoimentos**: Experiências de clientes com navegação mobile
+- **FAQ**: Perguntas frequentes com accordion (oculto no mobile)
+- **Processo de Reserva**: Timeline interativa responsiva
+- **Contato**: Informações e formulário com layout otimizado
+- **CTA**: Seção de call-to-action com espaçamento padronizado
 
 ### 🔧 Componentes Técnicos
 - **Lazy Loading**: Carregamento otimizado de imagens
 - **Intersection Observer**: Animações baseadas no scroll
-- **Responsive Design**: Mobile-first approach
+- **Responsive Design**: Mobile-first approach com breakpoints otimizados
 - **Sticky Navigation**: Menu fixo responsivo
 - **Image Preloading**: Cache inteligente de imagens
+- **Lightbox Responsivo**: Visualizador de imagens otimizado para mobile
+- **Timeline Interativa**: Efeitos de scroll em dispositivos móveis
 
 ## 🛠 Tecnologias Utilizadas
 
@@ -54,10 +58,10 @@ A **ChácaraLD** é um espaço premium para eventos localizado em meio à nature
 {
   "frontend": ["React", "TypeScript", "Vite"],
   "styling": ["Tailwind CSS", "shadcn/ui"],
-  "animations": ["CSS Transitions", "Transform animations"],
+  "animations": ["CSS Transitions", "Transform animations", "Framer Motion"],
   "icons": ["Lucide React"],
-  "fonts": ["Google Fonts", "Great Vibes", "Inter"],
-  "optimization": ["Image preloading", "Lazy loading"]
+  "fonts": ["Google Fonts", "Great Vibes", "Inter", "Kanoky"],
+  "optimization": ["Image preloading", "Lazy loading", "Intersection Observer"]
 }
 ```
 
@@ -86,15 +90,6 @@ npm run dev
 # http://localhost:5173
 ```
 
-### Scripts Disponíveis
-
-```bash
-npm run dev        # Servidor de desenvolvimento
-npm run build      # Build de produção
-npm run preview    # Prévia do build
-npm run lint       # Verificação de código
-```
-
 ## 📁 Estrutura do Projeto
 
 ```
@@ -108,9 +103,9 @@ src/
 │   ├── VideoTourSection.tsx
 │   ├── TestimonialsSection.tsx
 │   ├── FAQSection.tsx
-
 │   ├── CTASection.tsx
 │   ├── BookingStepsSection.tsx
+│   ├── LocationSection.tsx
 │   ├── HeroSection.tsx
 │   ├── Navbar.tsx
 │   └── Footer.tsx
@@ -118,6 +113,9 @@ src/
 │   ├── Index.tsx
 │   └── NotFound.tsx
 ├── hooks/               # Hooks customizados
+│   ├── use-intersection-observer.ts
+│   ├── use-mobile.tsx
+│   └── use-toast.ts
 ├── lib/                 # Utilitários
 └── styles/             # Estilos globais
 
@@ -127,38 +125,31 @@ public/
 └── videos/             # Conteúdo multimídia
 ```
 
-## 🌐 Deploy
-
-### Vercel (Recomendado)
-1. Conecte seu repositório ao Vercel
-2. Configure as variáveis de ambiente (se necessário)
-3. Deploy automático a cada push
-
-### Netlify
-```bash
-npm run build
-# Upload da pasta 'dist' para o Netlify
-```
-
-### Outros Serviços
-O projeto é compatível com qualquer serviço de hospedagem estática.
-
-## 📱 Responsividade
-
-O site foi desenvolvido seguindo a abordagem **mobile-first** com breakpoints:
-
-- **Mobile**: `< 768px`
-- **Tablet**: `768px - 1024px` 
-- **Desktop**: `> 1024px`
-- **Large Desktop**: `> 1280px`
-
 ## ⚡ Performance
 
 - **Lighthouse Score**: 95+ em todas as métricas
-- **Image Optimization**: WebP e lazy loading
-- **CSS Optimization**: Tailwind CSS com purge
+- **Image Optimization**: WebP e lazy loading com preload inteligente
+- **CSS Optimization**: Tailwind CSS com purge otimizado
 - **Bundle Size**: Otimizado com Vite
 - **Font Loading**: Estratégia de carregamento otimizada
+- **Mobile Performance**: Carregamento otimizado para dispositivos móveis
+
+## 🎯 Melhorias Recentes
+
+### ✅ Responsividade Aprimorada
+- Espaçamento padronizado entre títulos e barras separadoras
+- Layout otimizado para todas as seções
+- Navegação mobile melhorada
+
+### ✅ Experiência do Usuário
+- Lightbox responsivo com controles touch-friendly
+- Timeline interativa funcionando em mobile
+- Botões de serviços otimizados para mobile
+
+### ✅ Design System
+- Padronização de espaçamentos em todas as seções
+- Gradientes consistentes em títulos
+- Layout harmonioso entre seções
 
 ## 🎯 Próximas Funcionalidades
 
@@ -168,16 +159,8 @@ O site foi desenvolvido seguindo a abordagem **mobile-first** com breakpoints:
 - [ ] Blog de eventos
 - [ ] Galeria 360°
 - [ ] Integração com redes sociais
-
-## 🤝 Contribuição
-
-Contribuições são bem-vindas! Sinta-se à vontade para:
-
-1. Fazer fork do projeto
-2. Criar uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add: Amazing Feature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abrir um Pull Request
+- [ ] PWA (Progressive Web App)
+- [ ] Notificações push
 
 ## 📄 Licença
 
@@ -187,11 +170,6 @@ Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalh
 
 **ChácaraLD**
 - Website: [chacarald.com.br](https://chacarald.com.br)
-- Email: contato@chacarald.com.br
-- Telefone: (11) 9999-9999
-
----
-
-<p align="center">
-  Desenvolvido com ❤️ para criar experiências inesquecíveis
-</p>
+- Email: chacarald.contato@gmail.com
+- Telefone: +55 45 99103-3179
+- WhatsApp: +55 45 99103-3179
