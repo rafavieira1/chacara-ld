@@ -2,13 +2,26 @@ import { useState, useEffect, useRef, memo } from 'react';
 import { ChevronLeft, ChevronRight, X, Utensils, Palette, Heart, Mountain, Zap } from 'lucide-react';
 import { GetStartedButton } from '@/components/ui/get-started-button';
 import "react-medium-image-zoom/dist/styles.css";
+import React from 'react';
 
 const GallerySection = memo(() => {
   const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [animatedOptions, setAnimatedOptions] = useState<number[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -70,6 +83,14 @@ const GallerySection = memo(() => {
     if (index !== activeIndex) {
       setActiveIndex(index);
     }
+  };
+
+  const nextOption = () => {
+    setActiveIndex((activeIndex + 1) % options.length);
+  };
+
+  const prevOption = () => {
+    setActiveIndex(activeIndex === 0 ? options.length - 1 : activeIndex - 1);
   };
 
   useEffect(() => {
@@ -312,57 +333,27 @@ const GallerySection = memo(() => {
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
         style={{ transitionDelay: '300ms' }}>
-          {/* Options Container */}
-          <div className="options flex w-full max-w-[1100px] min-w-[280px] sm:min-w-[300px] h-[300px] sm:h-[400px] md:h-[450px] lg:h-[500px] mx-auto items-stretch overflow-hidden relative rounded-2xl shadow-2xl">
-            {options.map((option, index) => (
+          
+          {/* Mobile Version - Single Image Carousel */}
+          <div className="block lg:hidden">
+            <div className="relative w-full max-w-[400px] h-[400px] mx-auto rounded-2xl shadow-2xl overflow-hidden">
+              {/* Current Option */}
               <div
-                key={index}
-                className={`
-                  option relative flex flex-col justify-end overflow-hidden transition-all duration-700 ease-in-out
-                  ${activeIndex === index ? 'active' : ''}
-                `}
+                className="relative w-full h-full flex flex-col justify-end overflow-hidden"
                 style={{
-                  backgroundImage: `url('${option.image}')`,
-                  backgroundSize: activeIndex === index ? 'auto 100%' : 'auto 120%',
+                  backgroundImage: `url('${options[activeIndex].image}')`,
+                  backgroundSize: 'cover',
                   backgroundPosition: 'center',
-                  backfaceVisibility: 'hidden',
-                  opacity: animatedOptions.includes(index) ? 1 : 0,
-                  transform: animatedOptions.includes(index) ? 'translateX(0)' : 'translateX(-60px)',
-                  minWidth: '40px',
-                  minHeight: '80px',
-                  margin: 0,
-                  borderRadius: index === 0 ? '16px 0 0 16px' : index === options.length - 1 ? '0 16px 16px 0' : '0',
-                  borderWidth: activeIndex === index ? '4px' : '2px',
-                  borderStyle: 'solid',
-                  borderColor: activeIndex === index ? '#FFFFFF' : '#262626',
-                  cursor: 'pointer',
-                  backgroundColor: '#5C3A2B',
-                  boxShadow: activeIndex === index 
-                    ? '0 20px 60px rgba(92, 58, 43, 0.50)' 
-                    : '0 10px 30px rgba(0,0,0,0.20)',
-                  flex: activeIndex === index ? '7 1 0%' : '1 1 0%',
-                  zIndex: activeIndex === index ? 10 : 1,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'flex-end',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  willChange: 'flex-grow, box-shadow, background-size, background-position',
-                  filter: activeIndex === index ? 'none' : 'blur(2px)',
-                  transition: 'all 700ms ease-in-out, filter 700ms ease-in-out'
+                  borderRadius: '16px',
+                  border: '4px solid #FFFFFF',
+                  boxShadow: '0 20px 60px rgba(92, 58, 43, 0.50)',
                 }}
-                onClick={activeIndex === index ? undefined : () => handleOptionClick(index)}
               >
-                {/* Shadow overlay - sempre visível para animação */}
+                {/* Shadow overlay */}
                 <div 
-                  className="shadow absolute left-0 right-0 pointer-events-none transition-all duration-700 ease-in-out"
+                  className="absolute inset-0 pointer-events-none"
                   style={{
-                    bottom: '0',
-                    height: activeIndex === index ? '80px' : '40px',
-                    opacity: activeIndex === index ? 1 : 0.8,
-                    background: activeIndex === index 
-                      ? 'linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 100%)' 
-                      : 'linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%)',
+                    background: 'linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 100%)',
                     zIndex: 35
                   }}
                 ></div>
@@ -370,73 +361,213 @@ const GallerySection = memo(() => {
                 {/* Imagem de fundo */}
                 <div className="absolute inset-0 z-20">
                   <img
-                    src={option.imageHD}
-                    alt={option.title}
+                    src={options[activeIndex].imageHD}
+                    alt={options[activeIndex].title}
                     className="w-full h-full object-cover"
                   />
                 </div>
                 
                 {/* Label with icon and info */}
-                <div className="label absolute left-0 right-0 bottom-2 sm:bottom-4 flex items-center justify-start h-8 sm:h-10 md:h-12 pointer-events-none px-2 sm:px-4 gap-2 sm:gap-3 w-full" style={{ zIndex: 36 }}>
+                <div className="label absolute left-0 right-0 bottom-3 sm:bottom-4 flex items-end justify-start h-16 sm:h-20 pointer-events-none px-3 sm:px-4 gap-2 sm:gap-3 w-full" style={{ zIndex: 36 }}>
                   <div 
-                    className="icon min-w-[32px] max-w-[32px] h-[32px] sm:min-w-[40px] sm:max-w-[40px] sm:h-[40px] md:min-w-[44px] md:max-w-[44px] md:h-[44px] flex items-center justify-center rounded-full backdrop-blur-[10px] shadow-lg border-2 flex-shrink-0 flex-grow-0 transition-all duration-300"
+                    className="icon min-w-[36px] max-w-[36px] h-[36px] sm:min-w-[44px] sm:max-w-[44px] sm:h-[44px] flex items-center justify-center rounded-full backdrop-blur-[10px] shadow-lg border-2 flex-shrink-0 flex-grow-0"
                     style={{ 
                       backgroundColor: 'rgba(92, 58, 43, 0.90)',
                       borderColor: '#262626'
                     }}
                   >
-                    {option.icon}
+                    {React.cloneElement(options[activeIndex].icon, { 
+                      size: isMobile ? 18 : 24,
+                      className: "text-white" 
+                    })}
                   </div>
-                  <div className="info text-white whitespace-pre relative">
-                    <div 
-                      className="main font-semibold text-sm sm:text-base md:text-lg transition-all duration-700 ease-in-out"
-                      style={{
-                        opacity: activeIndex === index ? 1 : 0,
-                        transform: activeIndex === index ? 'translateX(0)' : 'translateX(25px)'
-                      }}
-                    >
-                      {option.title}
+                  <div className="info text-white relative flex-1 min-w-0 pb-1">
+                    <div className="main font-semibold text-sm sm:text-base md:text-lg leading-tight truncate">
+                      {options[activeIndex].title}
                     </div>
-                    <div 
-                      className="sub text-xs sm:text-sm md:text-base text-stone-200 transition-all duration-700 ease-in-out font-light"
-                      style={{
-                        opacity: activeIndex === index ? 1 : 0,
-                        transform: activeIndex === index ? 'translateX(0)' : 'translateX(25px)'
-                      }}
-                    >
-                      {option.description}
+                    <div className="sub text-xs sm:text-sm md:text-base text-stone-200 font-light leading-tight mt-0.5 sm:mt-1 line-clamp-2">
+                      {options[activeIndex].description}
                     </div>
                   </div>
                 </div>
 
-                {/* Botão Ver mais - só no card ativo */}
-                {activeIndex === index && (
-                  <div 
-                    className="absolute top-2 sm:top-4 right-2 sm:right-4 z-40 pointer-events-auto"
-                    style={{
-                      opacity: activeIndex === index ? 1 : 0,
-                      transform: activeIndex === index ? 'translateX(0)' : 'translateX(25px)',
-                      transition: 'all 700ms ease-in-out'
+                {/* Botão Ver mais */}
+                <div className="absolute top-4 right-4 z-40 pointer-events-auto">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const categoryImages = images.filter(img => img.category === options[activeIndex].title);
+                      if (categoryImages.length > 0) {
+                        const firstImageIndex = images.findIndex(img => img.src === categoryImages[0].src);
+                        setSelectedImage(firstImageIndex);
+                      }
                     }}
+                    className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white text-xs font-medium px-3 py-1.5 rounded-full border border-white/30 transition-all duration-300 hover:scale-105"
                   >
+                    Ver mais
+                  </button>
+                </div>
+
+                {/* Navigation Arrows */}
+                <button
+                  onClick={prevOption}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 z-40 w-10 h-10 bg-black/30 backdrop-blur-sm hover:bg-black/50 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                >
+                  <ChevronLeft size={20} />
+                </button>
+                
+                <button
+                  onClick={nextOption}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 z-40 w-10 h-10 bg-black/30 backdrop-blur-sm hover:bg-black/50 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                >
+                  <ChevronRight size={20} />
+                </button>
+
+                {/* Indicators */}
+                <div className="absolute bottom-24 sm:bottom-28 left-1/2 -translate-x-1/2 flex space-x-2 z-40">
+                  {options.map((_, index) => (
                     <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        // Encontrar a primeira imagem da categoria correspondente
-                        const categoryImages = images.filter(img => img.category === option.title);
-                        if (categoryImages.length > 0) {
-                          const firstImageIndex = images.findIndex(img => img.src === categoryImages[0].src);
-                          setSelectedImage(firstImageIndex);
-                        }
-                      }}
-                      className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white text-xs font-medium px-2 sm:px-3 py-1 sm:py-1.5 rounded-full border border-white/30 transition-all duration-300 hover:scale-105"
-                    >
-                      Ver mais
-                    </button>
-                  </div>
-                )}
+                      key={index}
+                      onClick={() => setActiveIndex(index)}
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        index === activeIndex 
+                          ? 'bg-white' 
+                          : 'bg-white/50 hover:bg-white/75'
+                      }`}
+                    />
+                  ))}
+                </div>
               </div>
-            ))}
+            </div>
+          </div>
+
+          {/* Desktop Version - Original Interactive Selector */}
+          <div className="hidden lg:block">
+            <div className="options flex w-full max-w-[1100px] min-w-[280px] sm:min-w-[300px] h-[300px] sm:h-[400px] md:h-[450px] lg:h-[500px] mx-auto items-stretch overflow-hidden relative rounded-2xl shadow-2xl">
+              {options.map((option, index) => (
+                <div
+                  key={index}
+                  className={`
+                    option relative flex flex-col justify-end overflow-hidden transition-all duration-700 ease-in-out
+                    ${activeIndex === index ? 'active' : ''}
+                  `}
+                  style={{
+                    backgroundImage: `url('${option.image}')`,
+                    backgroundSize: activeIndex === index ? 'auto 100%' : 'auto 120%',
+                    backgroundPosition: 'center',
+                    backfaceVisibility: 'hidden',
+                    opacity: animatedOptions.includes(index) ? 1 : 0,
+                    transform: animatedOptions.includes(index) ? 'translateX(0)' : 'translateX(-60px)',
+                    minWidth: '40px',
+                    minHeight: '80px',
+                    margin: 0,
+                    borderRadius: index === 0 ? '16px 0 0 16px' : index === options.length - 1 ? '0 16px 16px 0' : '0',
+                    borderWidth: activeIndex === index ? '4px' : '2px',
+                    borderStyle: 'solid',
+                    borderColor: activeIndex === index ? '#FFFFFF' : '#262626',
+                    cursor: 'pointer',
+                    backgroundColor: '#5C3A2B',
+                    boxShadow: activeIndex === index 
+                      ? '0 20px 60px rgba(92, 58, 43, 0.50)' 
+                      : '0 10px 30px rgba(0,0,0,0.20)',
+                    flex: activeIndex === index ? '7 1 0%' : '1 1 0%',
+                    zIndex: activeIndex === index ? 10 : 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-end',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    willChange: 'flex-grow, box-shadow, background-size, background-position',
+                    filter: activeIndex === index ? 'none' : 'blur(2px)',
+                    transition: 'all 700ms ease-in-out, filter 700ms ease-in-out'
+                  }}
+                  onClick={activeIndex === index ? undefined : () => handleOptionClick(index)}
+                >
+                  {/* Shadow overlay - sempre visível para animação */}
+                  <div 
+                    className="shadow absolute left-0 right-0 pointer-events-none transition-all duration-700 ease-in-out"
+                    style={{
+                      bottom: '0',
+                      height: activeIndex === index ? '80px' : '40px',
+                      opacity: activeIndex === index ? 1 : 0.8,
+                      background: activeIndex === index 
+                        ? 'linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 100%)' 
+                        : 'linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%)',
+                      zIndex: 35
+                    }}
+                  ></div>
+
+                  {/* Imagem de fundo */}
+                  <div className="absolute inset-0 z-20">
+                    <img
+                      src={option.imageHD}
+                      alt={option.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  
+                  {/* Label with icon and info */}
+                  <div className="label absolute left-0 right-0 bottom-2 sm:bottom-4 flex items-center justify-start h-8 sm:h-10 md:h-12 pointer-events-none px-2 sm:px-4 gap-2 sm:gap-3 w-full" style={{ zIndex: 36 }}>
+                    <div 
+                      className="icon min-w-[32px] max-w-[32px] h-[32px] sm:min-w-[40px] sm:max-w-[40px] sm:h-[40px] md:min-w-[44px] md:max-w-[44px] md:h-[44px] flex items-center justify-center rounded-full backdrop-blur-[10px] shadow-lg border-2 flex-shrink-0 flex-grow-0 transition-all duration-300"
+                      style={{ 
+                        backgroundColor: 'rgba(92, 58, 43, 0.90)',
+                        borderColor: '#262626'
+                      }}
+                    >
+                      {option.icon}
+                    </div>
+                    <div className="info text-white whitespace-pre relative">
+                      <div 
+                        className="main font-semibold text-sm sm:text-base md:text-lg transition-all duration-700 ease-in-out"
+                        style={{
+                          opacity: activeIndex === index ? 1 : 0,
+                          transform: activeIndex === index ? 'translateX(0)' : 'translateX(25px)'
+                        }}
+                      >
+                        {option.title}
+                      </div>
+                      <div 
+                        className="sub text-xs sm:text-sm md:text-base text-stone-200 transition-all duration-700 ease-in-out font-light"
+                        style={{
+                          opacity: activeIndex === index ? 1 : 0,
+                          transform: activeIndex === index ? 'translateX(0)' : 'translateX(25px)'
+                        }}
+                      >
+                        {option.description}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Botão Ver mais - só no card ativo */}
+                  {activeIndex === index && (
+                    <div 
+                      className="absolute top-2 sm:top-4 right-2 sm:right-4 z-40 pointer-events-auto"
+                      style={{
+                        opacity: activeIndex === index ? 1 : 0,
+                        transform: activeIndex === index ? 'translateX(0)' : 'translateX(25px)',
+                        transition: 'all 700ms ease-in-out'
+                      }}
+                    >
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          // Encontrar a primeira imagem da categoria correspondente
+                          const categoryImages = images.filter(img => img.category === option.title);
+                          if (categoryImages.length > 0) {
+                            const firstImageIndex = images.findIndex(img => img.src === categoryImages[0].src);
+                            setSelectedImage(firstImageIndex);
+                          }
+                        }}
+                        className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white text-xs font-medium px-2 sm:px-3 py-1 sm:py-1.5 rounded-full border border-white/30 transition-all duration-300 hover:scale-105"
+                      >
+                        Ver mais
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 

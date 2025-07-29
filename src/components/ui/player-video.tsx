@@ -48,6 +48,7 @@ const CustomSlider = ({
 const VideoPlayer = ({ src }: { src: string }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
   const [volume, setVolume] = useState(1);
   const [progress, setProgress] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
@@ -55,6 +56,14 @@ const VideoPlayer = ({ src }: { src: string }) => {
   const [showControls, setShowControls] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+
+  const handlePlayClick = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+      setIsPlaying(true);
+      setHasStarted(true);
+    }
+  };
 
   const togglePlay = () => {
     if (videoRef.current) {
@@ -131,11 +140,38 @@ const VideoPlayer = ({ src }: { src: string }) => {
         className="w-full h-full object-cover"
         onTimeUpdate={handleTimeUpdate}
         src={src}
-        onClick={togglePlay}
+        onClick={hasStarted ? togglePlay : undefined}
       />
 
+      {/* Capa com blur e botão de play */}
       <AnimatePresence>
-        {showControls && (
+        {!hasStarted && (
+          <motion.div
+            className="absolute inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.div
+              className="relative"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+            >
+              <Button
+                onClick={handlePlayClick}
+                className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/20 backdrop-blur-md border-2 border-white/30 hover:bg-white/30 hover:scale-110 transition-all duration-300 group"
+              >
+                <Play className="w-8 h-8 sm:w-10 sm:h-10 text-white ml-1 group-hover:scale-110 transition-transform duration-300" />
+              </Button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showControls && hasStarted && (
           <motion.div
             className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 bg-gradient-to-t from-black/90 via-black/70 to-transparent"
             initial={{ y: 20, opacity: 0 }}
