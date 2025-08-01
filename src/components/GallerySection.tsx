@@ -1,11 +1,9 @@
 import { useState, useEffect, useRef, memo } from 'react';
-import { ChevronLeft, ChevronRight, X, Utensils, Palette, Heart, Mountain, Zap } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Utensils, Palette, Heart, Mountain, Zap } from 'lucide-react';
 import { GetStartedButton } from '@/components/ui/get-started-button';
-import "react-medium-image-zoom/dist/styles.css";
 import React from 'react';
 
 const GallerySection = memo(() => {
-  const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [animatedOptions, setAnimatedOptions] = useState<number[]>([]);
@@ -107,184 +105,6 @@ const GallerySection = memo(() => {
       timers.forEach(timer => clearTimeout(timer));
     };
   }, [isVisible]);
-
-  const images = [
-    {
-      src: "/buffet1.webp",
-      alt: "Vista panorâmica da chácara",
-      category: "Gastronomia"
-    },
-    {
-      src: "/buffet2.webp",
-      alt: "Vista panorâmica da chácara",
-      category: "Gastronomia"
-    },
-    {
-      src: "/buffet3.webp",
-      alt: "Vista panorâmica da chácara",
-      category: "Gastronomia"
-    },
-    {
-      src: "/buffet4.webp",
-      alt: "Vista panorâmica da chácara",
-      category: "Gastronomia"
-    },
-    {
-      src: "/deco1.webp",
-      alt: "Vista panorâmica da chácara",
-      category: "Decorações"
-    },
-    {
-      src: "/deco2.webp",
-      alt: "Vista panorâmica da chácara",
-      category: "Decorações"
-    },
-    {
-      src: "/deco3.webp",
-      alt: "Vista panorâmica da chácara",
-      category: "Decorações"
-    },
-    {
-      src: "/deco5.webp",
-      alt: "Vista panorâmica da chácara",
-      category: "Decorações"
-    },
-    {
-      src: "/evento1.webp",
-      alt: "Vista panorâmica da chácara",
-      category: "Eventos"
-    },
-    {
-      src: "/evento2.webp",
-      alt: "Vista panorâmica da chácara",
-      category: "Eventos"
-    },
-    {
-      src: "/evento3.webp",
-      alt: "Vista panorâmica da chácara",
-      category: "Eventos"
-    },
-    {
-      src: "/evento4.webp",
-      alt: "Vista panorâmica da chácara",
-      category: "Eventos"
-    },
-    {
-      src: "/paisagem2.webp",
-      alt: "Vista panorâmica da chácara",
-      category: "Paisagem"
-    },
-    {
-      src: "/paisagem3.webp",
-      alt: "Vista panorâmica da chácara",
-      category: "EvenPaisagemtos"
-    },
-    {
-      src: "/paisagem4.webp",
-      alt: "Vista panorâmica da chácara",
-      category: "Paisagem"
-    },
-    {
-      src: "/paisagem5.webp",
-      alt: "Vista panorâmica da chácara",
-      category: "Paisagem"
-    },
-    {
-      src: "/lazer2.webp",
-      alt: "Vista panorâmica da chácara",
-      category: "Lazer"
-    },
-    {
-      src: "/lazer3.webp",
-      alt: "Vista panorâmica da chácara",
-      category: "Lazer"
-    },
-    {
-      src: "/lazer4.webp",
-      alt: "Vista panorâmica da chácara",
-      category: "Lazer"
-    },
-    {
-      src: "/lazer5.webp",
-      alt: "Vista panorâmica da chácara",
-      category: "Lazer"
-    }
-  ];
-
-  const nextImage = () => {
-    if (selectedImage !== null) {
-      setSelectedImage((selectedImage + 1) % images.length);
-    }
-  };
-
-  const prevImage = () => {
-    if (selectedImage !== null) {
-      setSelectedImage(selectedImage === 0 ? images.length - 1 : selectedImage - 1);
-    }
-  };
-
-  // Bloquear scroll quando lightbox estiver aberto
-  useEffect(() => {
-    if (selectedImage !== null) {
-      // Salvar posição atual do scroll
-      const scrollY = window.scrollY;
-      
-      // Bloquear scroll
-      document.body.style.overflow = 'hidden';
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
-    } else {
-      // Restaurar posição do scroll
-      const scrollY = document.body.style.top;
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      
-      // Restaurar posição exata onde estava
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);
-      }
-    }
-
-    // Cleanup quando componente for desmontado
-    return () => {
-      const scrollY = document.body.style.top;
-      document.body.style.overflow = '';
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);
-      }
-    };
-  }, [selectedImage]);
-
-  // Listener para tecla Escape
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && selectedImage !== null) {
-        setSelectedImage(null);
-      }
-    };
-
-    if (selectedImage !== null) {
-      document.addEventListener('keydown', handleKeyDown);
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [selectedImage]);
-
-  // Função para fechar lightbox ao clicar fora da imagem
-  const handleBackdropClick = (event: React.MouseEvent) => {
-    if (event.target === event.currentTarget) {
-      setSelectedImage(null);
-    }
-  };
 
   return (
     <section ref={sectionRef} id="gallery" className="py-24 px-6">
@@ -394,14 +214,7 @@ const GallerySection = memo(() => {
                 {/* Botão Ver mais */}
                 <div className="absolute top-4 right-4 z-40 pointer-events-auto">
                   <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      const categoryImages = images.filter(img => img.category === options[activeIndex].title);
-                      if (categoryImages.length > 0) {
-                        const firstImageIndex = images.findIndex(img => img.src === categoryImages[0].src);
-                        setSelectedImage(firstImageIndex);
-                      }
-                    }}
+                    onClick={() => window.open('https://www.instagram.com/chacara.ld', '_blank')}
                     className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white text-xs font-medium px-3 py-1.5 rounded-full border border-white/30 transition-all duration-300 hover:scale-105"
                   >
                     Ver mais
@@ -550,15 +363,7 @@ const GallerySection = memo(() => {
                       }}
                     >
                       <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          // Encontrar a primeira imagem da categoria correspondente
-                          const categoryImages = images.filter(img => img.category === option.title);
-                          if (categoryImages.length > 0) {
-                            const firstImageIndex = images.findIndex(img => img.src === categoryImages[0].src);
-                            setSelectedImage(firstImageIndex);
-                          }
-                        }}
+                        onClick={() => window.open('https://www.instagram.com/chacara.ld', '_blank')}
                         className="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white text-xs font-medium px-2 sm:px-3 py-1 sm:py-1.5 rounded-full border border-white/30 transition-all duration-300 hover:scale-105"
                       >
                         Ver mais
@@ -600,7 +405,7 @@ const GallerySection = memo(() => {
             <div className="text-center">
               <div className="inline-block relative">
                 <div className="absolute inset-0 bg-gradient-to-r from-stone-200 via-stone-100 to-stone-200 rounded-lg blur-xl opacity-30 transform scale-110"></div>
-                <GetStartedButton text="Ver tudo" onClick={() => setSelectedImage(0)} />
+                <GetStartedButton text="Ver tudo" onClick={() => window.open('https://www.instagram.com/chacara.ld', '_blank')} />
               </div>
             </div>
 
@@ -614,65 +419,6 @@ const GallerySection = memo(() => {
         </div>
       </div>
 
-      {/* Lightbox */}
-      {selectedImage !== null && (
-        <div className="fixed inset-0 bg-black/95 z-[99999] flex items-center justify-center p-4 sm:p-4 pt-20 sm:pt-20 lightbox-overlay" onClick={handleBackdropClick}>
-          <div className="relative w-full h-full flex items-center justify-center">
-            <button
-              onClick={() => setSelectedImage(null)}
-              className="absolute -top-16 sm:-top-16 right-4 sm:right-0 text-white hover:text-stone-300 transition-colors duration-300 z-20 bg-black/70 backdrop-blur-sm rounded-full p-2 sm:p-3"
-            >
-              <X size={20} className="sm:w-6 sm:h-6" />
-            </button>
-            
-            <img 
-              src={images[selectedImage].src}
-              alt={images[selectedImage].alt}
-              className="w-auto h-auto max-w-full max-h-full object-contain rounded-lg sm:rounded-2xl shadow-2xl lightbox-image z-10"
-              style={{
-                maxHeight: 'calc(100vh - 200px)',
-                maxWidth: 'calc(100vw - 80px)'
-              }}
-            />
-            
-            <button
-              onClick={prevImage}
-              className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 text-white hover:text-stone-300 transition-colors duration-300 sm:glass-card p-2 sm:p-3 rounded-full z-20"
-            >
-              <ChevronLeft size={20} className="sm:w-6 sm:h-6" />
-            </button>
-            
-            <button
-              onClick={nextImage}
-              className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 text-white hover:text-stone-300 transition-colors duration-300 sm:glass-card p-2 sm:p-3 rounded-full z-20"
-            >
-              <ChevronRight size={20} className="sm:w-6 sm:h-6" />
-            </button>
-            
-            <div className="absolute bottom-4 sm:bottom-4 left-1/2 -translate-x-1/2 glass-card px-3 sm:px-4 py-1.5 sm:py-2 rounded-full z-20">
-              <span className="text-white text-xs sm:text-sm">
-                {selectedImage + 1} / {images.length}
-              </span>
-            </div>
-
-            {/* Indicadores de navegação por toque para mobile */}
-            <div className="absolute bottom-20 sm:bottom-20 left-1/2 -translate-x-1/2 flex space-x-2 z-20">
-              {images.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedImage(index)}
-                  className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
-                    index === selectedImage 
-                      ? 'bg-white' 
-                      : 'bg-white/50 hover:bg-white/75'
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Custom animations for interactive selector */}
       <style>{`
         @keyframes slideAndFade {
@@ -684,58 +430,6 @@ const GallerySection = memo(() => {
             opacity: 1;
             transform: translateX(0);
           }
-        }
-
-        /* Lightbox mobile optimizations */
-        @media (max-width: 1024px) {
-          .lightbox-image {
-            width: auto !important;
-            height: auto !important;
-            max-width: calc(100vw - 80px) !important;
-            max-height: calc(100vh - 200px) !important;
-            object-fit: contain !important;
-            object-position: center !important;
-            margin: 0 auto !important;
-            display: block !important;
-            position: relative !important;
-            z-index: 10 !important;
-          }
-        }
-
-        /* Extra mobile optimizations for very small screens */
-        @media (max-width: 480px) {
-          .lightbox-image {
-            max-width: calc(100vw - 60px) !important;
-            max-height: calc(100vh - 180px) !important;
-          }
-        }
-
-        /* Desktop optimizations */
-        @media (min-width: 1025px) {
-          .lightbox-image {
-            width: auto !important;
-            height: auto !important;
-            max-width: calc(100vw - 120px) !important;
-            max-height: calc(100vh - 160px) !important;
-            object-fit: contain !important;
-            object-position: center !important;
-            margin: 0 auto !important;
-            display: block !important;
-            position: relative !important;
-            z-index: 10 !important;
-          }
-        }
-
-        /* Force lightbox isolation */
-        .lightbox-overlay {
-          position: fixed !important;
-          top: 0 !important;
-          left: 0 !important;
-          right: 0 !important;
-          bottom: 0 !important;
-          background-color: rgba(0, 0, 0, 0.95) !important;
-          z-index: 99999 !important;
-          backdrop-filter: blur(10px) !important;
         }
       `}</style>
     </section>
