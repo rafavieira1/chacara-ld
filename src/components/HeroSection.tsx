@@ -40,12 +40,14 @@ const HeroSubtitle = ({ subtitle }: { subtitle: string }) => (
 
 const HeroSection = () => {
   return (
-    <section id="hero" className="relative min-h-screen overflow-hidden">
+    <section id="hero" className="relative min-h-screen overflow-hidden" style={{ paddingTop: 'var(--safe-area-inset-top)' }}>
       {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-bottom bg-no-repeat"
         style={{
           backgroundImage: `url('${heroData.backgroundImage}')`,
+          top: 'calc(-1 * var(--safe-area-inset-top))',
+          height: 'calc(100% + var(--safe-area-inset-top))',
         }}
       ></div>
 
