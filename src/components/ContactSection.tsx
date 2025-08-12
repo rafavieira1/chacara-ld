@@ -208,19 +208,11 @@ const ContactSection = () => {
               <p className="text-white/80 mb-4 sm:mb-6 text-sm sm:text-base">
                 Venha conhecer nossa chácara pessoalmente e planeje seu evento perfeito.
               </p>
-              <div className="space-y-2 sm:space-y-3">
-                <div className="w-full">
-                  <GetStartedButton 
-                    text="Agendar"
-                    onClick={() => window.open('https://wa.me/5545991033179', '_blank')}
-                  />
-                </div>
-                <div className="w-full">
-                  <GetStartedButton 
-                    text="Ligue Já"
-                    onClick={() => window.open('tel:+5545991033179', '_blank')}
-                  />
-                </div>
+              <div className="w-full max-w-xs mx-auto">
+                <GetStartedButton 
+                  text="Agendar"
+                  onClick={() => window.open('https://wa.me/5545991033179', '_blank')}
+                />
               </div>
             </div>
           </div>

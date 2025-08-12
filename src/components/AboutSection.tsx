@@ -14,9 +14,9 @@ const aboutContent = {
     "Aqui, cada detalhe é pensado com cuidado para que seu evento seja inesquecível, com conforto, privacidade, contato com a natureza e atendimento de excelência."
   ],
   images: [
-    { src: "/paisagem1.webp", alt: "Vista da Chácara LD" },
+    { src: "/about2novo2.webp", alt: "Vista da Chácara LD" },
     { src: "/about2.webp", alt: "Eventos na Chácara LD" },
-    { src: "/aboutwall.webp", alt: "Vista panorâmica da Chácara LD" }
+    { src: "/about2novo3.webp", alt: "Vista panorâmica da Chácara LD" }
   ]
 };
 

@@ -1,5 +1,6 @@
 import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useIntersectionObserver } from '@/hooks/use-intersection-observer';
 import { TestimonialsColumn } from './ui/testimonials-columns-1';
 
@@ -130,13 +131,13 @@ const DesktopTestimonials = ({ testimonials, isVisible }: {
 const MobileTestimonialCard = ({ testimonial }: { testimonial: typeof testimonialsData.testimonials[0] }) => (
   <div className="rounded-lg p-6 sm:p-8 text-center relative overflow-hidden shadow-2xl">
     {/* Quote Icon - Top Left */}
-    <div className="absolute top-4 sm:top-6 md:top-8 left-4 sm:left-6 md:left-8 opacity-20 gradient-text">
-      <Quote className="w-12 h-12 sm:w-16 sm:h-16" />
+    <div className="absolute top-20 sm:top-8 md:top-8 right-24 sm:left-6 md:left-8 opacity-20 gradient-text">
+      <Quote className="w-8 h-12 sm:w-16 sm:h-16" />
     </div>
     
     {/* Quote Icon - Bottom Right */}
-    <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 right-4 sm:right-6 md:right-8 opacity-20 gradient-text transform rotate-180">
-      <Quote className="w-12 h-12 sm:w-16 sm:h-16" />
+    <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-24 sm:right-6 md:right-8 opacity-20 gradient-text transform rotate-180">
+      <Quote className="w-8 h-12 sm:w-16 sm:h-16" />
     </div>
     
     {/* Stars */}
@@ -175,26 +176,18 @@ const MobileTestimonialCard = ({ testimonial }: { testimonial: typeof testimonia
 const MobileNavigation = ({ 
   testimonials, 
   activeTestimonial, 
-  setActiveTestimonial 
+  onSelectIndex,
 }: { 
   testimonials: typeof testimonialsData.testimonials; 
   activeTestimonial: number; 
-  setActiveTestimonial: (index: number) => void; 
+  onSelectIndex: (index: number) => void; 
 }) => {
-  const nextTestimonial = () => {
-    setActiveTestimonial((activeTestimonial + 1) % testimonials.length);
-  };
-
-  const prevTestimonial = () => {
-    setActiveTestimonial(activeTestimonial === 0 ? testimonials.length - 1 : activeTestimonial - 1);
-  };
-
   return (
     <div className="flex justify-center space-x-3">
       {testimonials.map((_, index) => (
         <button
           key={index}
-          onClick={() => setActiveTestimonial(index)}
+          onClick={() => onSelectIndex(index)}
           className={`w-3 h-3 rounded-full transition-all duration-300 ${
             index === activeTestimonial 
               ? 'shadow-lg gradient-bg' 
@@ -209,20 +202,94 @@ const MobileNavigation = ({
 // Componente para testemunhos mobile
 const MobileTestimonials = ({ testimonials }: { testimonials: typeof testimonialsData.testimonials }) => {
   const { activeTestimonial, setActiveTestimonial } = useActiveTestimonial();
+  const [direction, setDirection] = useState<1 | -1>(1);
+  const touchStartXRef = useRef<number | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
+  const isSwipingRef = useRef<boolean>(false);
+  const SWIPE_THRESHOLD = 50; // px
 
   const nextTestimonial = () => {
+    setDirection(1);
     setActiveTestimonial((activeTestimonial + 1) % testimonials.length);
   };
 
   const prevTestimonial = () => {
+    setDirection(-1);
     setActiveTestimonial(activeTestimonial === 0 ? testimonials.length - 1 : activeTestimonial - 1);
+  };
+
+  const handleSelectIndex = (index: number) => {
+    if (index === activeTestimonial) return;
+    setDirection(index > activeTestimonial ? 1 : -1);
+    setActiveTestimonial(index);
+  };
+
+  const variants = {
+    enter: (dir: 1 | -1) => ({ x: dir * 30, opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit: (dir: 1 | -1) => ({ x: dir * -30, opacity: 0 }),
+  } as const;
+
+  // Swipe handlers (mobile)
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+    if (target.closest('button, a')) return;
+    const touch = e.touches[0];
+    touchStartXRef.current = touch.clientX;
+    touchStartYRef.current = touch.clientY;
+    isSwipingRef.current = false;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartXRef.current === null || touchStartYRef.current === null) return;
+    const touch = e.touches[0];
+    const deltaX = touch.clientX - touchStartXRef.current;
+    const deltaY = touch.clientY - touchStartYRef.current;
+    if (!isSwipingRef.current && Math.abs(deltaX) > 10 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      isSwipingRef.current = true;
+    }
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartXRef.current === null || touchStartYRef.current === null) return;
+    const touch = e.changedTouches[0];
+    const deltaX = touch.clientX - touchStartXRef.current;
+    const deltaY = touch.clientY - touchStartYRef.current;
+    if (isSwipingRef.current && Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > SWIPE_THRESHOLD) {
+      if (deltaX < 0) {
+        nextTestimonial();
+      } else {
+        prevTestimonial();
+      }
+    }
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
+    isSwipingRef.current = false;
   };
 
   return (
     <div className="md:hidden relative">
-      <div className="mb-8 sm:mb-12 md:mb-16 relative">
-        <MobileTestimonialCard testimonial={testimonials[activeTestimonial]} />
-        
+      <div
+        className="mb-8 sm:mb-12 md:mb-16 relative min-h-[260px] select-none"
+        style={{ touchAction: 'pan-y' }}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        <AnimatePresence mode="wait" custom={direction}>
+          <motion.div
+            key={activeTestimonial}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+          >
+            <MobileTestimonialCard testimonial={testimonials[activeTestimonial]} />
+          </motion.div>
+        </AnimatePresence>
+
         {/* Navigation Arrows */}
         <button
           onClick={prevTestimonial}
@@ -242,7 +309,7 @@ const MobileTestimonials = ({ testimonials }: { testimonials: typeof testimonial
       <MobileNavigation 
         testimonials={testimonials}
         activeTestimonial={activeTestimonial}
-        setActiveTestimonial={setActiveTestimonial}
+        onSelectIndex={handleSelectIndex}
       />
     </div>
   );

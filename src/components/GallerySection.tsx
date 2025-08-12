@@ -9,6 +9,13 @@ const GallerySection = memo(() => {
   const [animatedOptions, setAnimatedOptions] = useState<number[]>([]);
   const [isMobile, setIsMobile] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const touchStartXRef = useRef<number | null>(null);
+  const touchStartYRef = useRef<number | null>(null);
+  const isSwipingRef = useRef<boolean>(false);
+  const SWIPE_THRESHOLD = 50; // px
+  const [prevIndex, setPrevIndex] = useState<number | null>(null);
+  const [fadePhase, setFadePhase] = useState<0 | 1>(1);
+  const fadeTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -50,8 +57,8 @@ const GallerySection = memo(() => {
     {
       title: "Decorações",
       description: "Espaço completo para experiências culinárias",
-      image: "/deco4.webp",
-      imageHD: "/deco4.webp",
+      image: "/deco4novo.webp",
+      imageHD: "/deco4novo.webp",
       icon: <Palette size={24} className="text-white" />
     },
     {
@@ -64,8 +71,8 @@ const GallerySection = memo(() => {
     {
       title: "Paisagem",
       description: "Relaxamento com vista para o lago",
-      image: "/paisagem1.webp",
-      imageHD: "/paisagem1.webp",
+      image: "/paisagemnovo.webp",
+      imageHD: "/paisagemnovo.webp",
       icon: <Mountain size={24} className="text-white" />
     },
     {
@@ -83,17 +90,73 @@ const GallerySection = memo(() => {
     }
   };
 
+  const setActiveWithFade = (newIndex: number) => {
+    if (newIndex === activeIndex) return;
+    setPrevIndex(activeIndex);
+    setActiveIndex(newIndex);
+    setFadePhase(0);
+    if (fadeTimeoutRef.current !== null) {
+      window.clearTimeout(fadeTimeoutRef.current);
+      fadeTimeoutRef.current = null;
+    }
+    requestAnimationFrame(() => setFadePhase(1));
+    fadeTimeoutRef.current = window.setTimeout(() => {
+      setPrevIndex(null);
+    }, 300);
+  };
+
   const nextOption = () => {
-    setActiveIndex((activeIndex + 1) % options.length);
+    setActiveWithFade((activeIndex + 1) % options.length);
   };
 
   const prevOption = () => {
-    setActiveIndex(activeIndex === 0 ? options.length - 1 : activeIndex - 1);
+    setActiveWithFade(activeIndex === 0 ? options.length - 1 : activeIndex - 1);
+  };
+
+  // Swipe handlers (mobile)
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+    // Não iniciar swipe quando clicando em botões/links internos
+    if (target.closest('button, a')) return;
+    const touch = e.touches[0];
+    touchStartXRef.current = touch.clientX;
+    touchStartYRef.current = touch.clientY;
+    isSwipingRef.current = false;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartXRef.current === null || touchStartYRef.current === null) return;
+    const touch = e.touches[0];
+    const deltaX = touch.clientX - touchStartXRef.current;
+    const deltaY = touch.clientY - touchStartYRef.current;
+
+    // Detecta intenção de swipe horizontal
+    if (!isSwipingRef.current && Math.abs(deltaX) > 10 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      isSwipingRef.current = true;
+    }
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    if (touchStartXRef.current === null || touchStartYRef.current === null) return;
+    const touch = e.changedTouches[0];
+    const deltaX = touch.clientX - touchStartXRef.current;
+    const deltaY = touch.clientY - touchStartYRef.current;
+
+    if (isSwipingRef.current && Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > SWIPE_THRESHOLD) {
+      if (deltaX < 0) {
+        nextOption(); // swipe left -> próximo
+      } else {
+        prevOption(); // swipe right -> anterior
+      }
+    }
+
+    touchStartXRef.current = null;
+    touchStartYRef.current = null;
+    isSwipingRef.current = false;
   };
 
   useEffect(() => {
     const timers: NodeJS.Timeout[] = [];
-    
     options.forEach((_, i) => {
       const timer = setTimeout(() => {
         setAnimatedOptions(prev => [...prev, i]);
@@ -105,6 +168,16 @@ const GallerySection = memo(() => {
       timers.forEach(timer => clearTimeout(timer));
     };
   }, [isVisible]);
+
+  // Cleanup fade timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (fadeTimeoutRef.current !== null) {
+        window.clearTimeout(fadeTimeoutRef.current);
+        fadeTimeoutRef.current = null;
+      }
+    };
+  }, []);
 
   return (
     <section ref={sectionRef} id="gallery" className="py-24 px-6">
@@ -156,10 +229,10 @@ const GallerySection = memo(() => {
           
           {/* Mobile Version - Single Image Carousel */}
           <div className="block lg:hidden">
-            <div className="relative w-full max-w-[400px] h-[400px] mx-auto rounded-2xl shadow-2xl overflow-hidden">
+              <div className="relative w-full max-w-[400px] h-[400px] mx-auto rounded-2xl shadow-2xl overflow-hidden">
               {/* Current Option */}
               <div
-                className="relative w-full h-full flex flex-col justify-end overflow-hidden"
+                className="relative w-full h-full flex flex-col justify-end overflow-hidden select-none"
                 style={{
                   backgroundImage: `url('${options[activeIndex].image}')`,
                   backgroundSize: 'cover',
@@ -167,7 +240,11 @@ const GallerySection = memo(() => {
                   borderRadius: '16px',
                   border: '4px solid #FFFFFF',
                   boxShadow: '0 20px 60px rgba(92, 58, 43, 0.50)',
+                  touchAction: 'pan-y',
                 }}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
               >
                 {/* Shadow overlay */}
                 <div 
@@ -180,10 +257,17 @@ const GallerySection = memo(() => {
 
                 {/* Imagem de fundo */}
                 <div className="absolute inset-0 z-20">
+                  {prevIndex !== null && (
+                    <img
+                      src={options[prevIndex].imageHD}
+                      alt={options[prevIndex].title}
+                      className={`w-full h-full object-cover transition-opacity duration-300 ease-in-out ${fadePhase === 1 ? 'opacity-0' : 'opacity-100'}`}
+                    />
+                  )}
                   <img
                     src={options[activeIndex].imageHD}
                     alt={options[activeIndex].title}
-                    className="w-full h-full object-cover"
+                    className={`w-full h-full object-cover transition-opacity duration-300 ease-in-out ${prevIndex !== null ? (fadePhase === 1 ? 'opacity-100' : 'opacity-0') : 'opacity-100'}`}
                   />
                 </div>
                 
@@ -241,7 +325,7 @@ const GallerySection = memo(() => {
                   {options.map((_, index) => (
                     <button
                       key={index}
-                      onClick={() => setActiveIndex(index)}
+                      onClick={() => setActiveWithFade(index)}
                       className={`w-2 h-2 rounded-full transition-all duration-300 ${
                         index === activeIndex 
                           ? 'bg-white' 

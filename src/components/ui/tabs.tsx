@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 type Tab = {
@@ -34,41 +34,45 @@ export const Tabs = ({
   return (
     <div className="w-full">
       {/* Tab Navigation */}
-      <div className={cn("flex flex-wrap justify-center gap-4 mb-8", containerClassName)}>
-        {propTabs.map((tab) => (
-          <button
-            key={tab.value}
-            onClick={() => handleTabClick(tab.value)}
-            className={cn(
-              "relative px-4 py-2 rounded-full transition-all duration-300 ease-out hover:scale-105 overflow-hidden",
-              tabClassName,
-              activeTab === tab.value 
-                ? "text-white shadow-lg border-0" 
-                : "text-muted-foreground hover:text-foreground hover:shadow-md"
-            )}
-          >
-            {activeTab === tab.value && (
-              <motion.div
-                layoutId="activeBackground"
-                transition={{ 
-                  duration: 0.3,
-                  ease: "easeInOut"
-                }}
-                className={cn(
-                  "absolute inset-0 w-full h-full",
-                  activeTabClassName
-                )}
-                style={{ 
-                  margin: 0, 
-                  padding: 0,
-                  borderRadius: 'inherit'
-                }}
-              />
-            )}
-            <span className="relative z-10">{tab.title}</span>
-          </button>
-        ))}
-      </div>
+      <LayoutGroup id="tabs-layout-group">
+        <div className={cn("flex justify-center gap-4 mb-8", containerClassName)}>
+          {propTabs.map((tab) => (
+            <button
+              key={tab.value}
+              onClick={() => handleTabClick(tab.value)}
+              className={cn(
+                "relative px-4 py-2 rounded-xl transition-none md:transition-[transform,box-shadow,color] md:duration-300 md:ease-out md:hover:scale-105 overflow-hidden",
+                tabClassName,
+                activeTab === tab.value 
+                  ? "text-white shadow-lg border-0 bg-gradient-to-r from-[#5C3A2B] to-[#8B6355] md:bg-transparent" 
+                  : "text-muted-foreground hover:text-foreground hover:shadow-md"
+              )}
+            >
+              {activeTab === tab.value && (
+                <motion.div
+                  layoutId="activeBackground"
+                  transition={{ 
+                    duration: 0.3,
+                    ease: "easeInOut"
+                  }}
+                  className={cn(
+                    "absolute inset-0 w-full h-full hidden md:block",
+                    activeTabClassName
+                  )}
+                  style={{ 
+                    margin: 0, 
+                    padding: 0,
+                    borderRadius: 'inherit',
+                    pointerEvents: 'none',
+                    willChange: 'transform, opacity'
+                  }}
+                />
+              )}
+              <span className="relative z-10">{tab.title}</span>
+            </button>
+          ))}
+        </div>
+      </LayoutGroup>
 
       {/* Tab Content */}
       <div className={cn("mt-0", contentClassName)}>
