@@ -123,9 +123,6 @@ const MobileMenu = ({
             isMobile
           />
         ))}
-        <div className="pt-2">
-          <GetStartedButton text={navbarData.ctaButton.text} />
-        </div>
       </div>
     </div>
   )
