@@ -4,26 +4,30 @@ import { useIntersectionObserver } from '@/hooks/use-intersection-observer';
 // Dados extraídos para facilitar manutenção
 const aboutContent = {
   title: "Sobre Nós",
-  paragraphs: [
-    "A Chácara LD é um espaço completo para eventos, localizada em Santa Terezinha de Itaipu – PR, a poucos minutos das Cataratas do Iguaçu.",
-    "Com uma estrutura acolhedora e cercada pela natureza, oferecemos um ambiente ideal para celebrações em família, casamentos, confraternizações e momentos de lazer.",
-    "Piscina, salão de jogos, campo de futebol, cozinha equipada e área gourmet fazem parte da experiência.",
-    "Quando não estamos organizando eventos, estamos constantemente inovando e pensando em novas formas de tornar cada celebração ainda mais especial.",
-    "Queremos deixar um legado de momentos únicos e inesquecíveis que marquem a vida de cada pessoa que passa por aqui.",
-    "Além do espaço físico, agora levamos o sabor e o estilo da Chácara LD até você, com serviços personalizados como buffets completos, mesas de frios, bar temático e muito mais.",
-    "Aqui, cada detalhe é pensado com cuidado para que seu evento seja inesquecível, com conforto, privacidade, contato com a natureza e atendimento de excelência."
+  subtitle: "Um espaço completo para eventos em Santa Terezinha de Itaipu – PR. Celebre momentos especiais cercado pela natureza.",
+
+  features: [
+    "Piscina aquecida",
+    "Salão de jogos",
+    "Campo de futebol",
+    "Área gourmet equipada",
+    "Cozinha profissional",
+    "Decoração personalizada"
   ],
+
   images: [
     { src: "/about2novo2.webp", alt: "Vista da Chácara LD" },
     { src: "/about2.webp", alt: "Eventos na Chácara LD" },
     { src: "/about2novo3.webp", alt: "Vista panorâmica da Chácara LD" }
-  ]
+  ],
+
+  historyText: "A Chácara LD nasceu do sonho de criar um espaço onde momentos especiais pudessem ser celebrados em harmonia com a natureza. Localizada em Santa Terezinha de Itaipu, próximo às Cataratas do Iguaçu, foi planejada para oferecer conforto, privacidade e experiências memoráveis em cada celebração. Nossa missão é proporcionar um ambiente acolhedor e versátil, ideal para casamentos, festas de aniversário, eventos corporativos e encontros familiares. Com uma equipe dedicada e apaixonada pelo que faz.",
+  
+  offeringsText: "Hoje oferecemos um espaço completo com piscina aquecida, salão de jogos, campo de futebol, área gourmet e cozinha profissional. Realizamos casamentos, festas e eventos corporativos, além de levar nossos serviços até você com buffets personalizados e decoração exclusiva."
 };
 
-
-
 // Componente para o título com gradiente
-const GradientTitle = ({ children, isVisible }: { children: string; isVisible: boolean }) => (
+const GradientTitle = ({ children, subtitle, isVisible }: { children: string; subtitle: string; isVisible: boolean }) => (
   <div className={`text-center mb-8 sm:mb-12 md:mb-16 transition-all duration-1000 relative z-10 ${
     isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
   }`}>
@@ -48,26 +52,14 @@ const GradientTitle = ({ children, isVisible }: { children: string; isVisible: b
         {children}
       </h2>
     </div>
-    <div className="w-full h-px bg-stone-300 mt-0 mb-8 sm:mb-12 md:mb-16 relative z-10"></div>
-  </div>
-);
-
-// Componente para parágrafos
-const Paragraph = ({ children }: { children: string }) => (
-  <p className="text-luxury leading-relaxed text-base sm:text-lg text-justify">
-    {children}
-  </p>
-);
-
-// Componente para imagem
-const AboutImage = ({ src, alt, className = "" }: { src: string; alt: string; className?: string }) => (
-  <div className="relative flex-shrink-0">
-    <img 
-      src={src}
-      alt={alt}
-      loading="lazy"
-      className={`object-cover rounded-lg shadow-2xl ${className}`}
-    />
+    <div className="w-full h-px bg-stone-300 mt-0 mb-4 sm:mb-6 md:mb-8 relative z-10"></div>
+    
+    {/* Description Text */}
+    <div className="text-center max-w-3xl mx-auto relative z-10 px-4">
+      <p className="text-luxury leading-relaxed text-base sm:text-lg">
+        {subtitle}
+      </p>
+    </div>
   </div>
 );
 
@@ -75,126 +67,141 @@ const AboutSection = () => {
   const { isVisible, ref } = useIntersectionObserver();
 
   return (
-    <section ref={ref} id="about" className="py-12 sm:py-16 md:py-20 lg:py-24 px-4 sm:px-6 pb-6 sm:pb-8 md:pb-10">
+    <section ref={ref} id="about" className="py-16 sm:py-20 md:py-24 lg:py-28 px-4 sm:px-6 bg-gradient-to-b from-white via-stone-50 to-white">
       <div className="container mx-auto max-w-7xl">
-        <GradientTitle isVisible={isVisible}>
+        <GradientTitle isVisible={isVisible} subtitle={aboutContent.subtitle}>
           {aboutContent.title}
         </GradientTitle>
 
-        <div className="space-y-8 sm:space-y-12 md:space-y-16">
-          {/* Layout Mobile - Ordem específica */}
-          <div className="lg:hidden space-y-6 sm:space-y-8">
-            {/* Primeiros dois parágrafos */}
-            <div className={`space-y-4 sm:space-y-6 transition-all duration-1000 ${
+        {/* Image Grid + Features */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 mb-16 sm:mb-20 items-start">
+          {/* Images Column - Desktop */}
+          <div className={`hidden lg:block space-y-4 transition-all duration-1000 ${
+            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
+          }`}
+          style={{ transitionDelay: '400ms' }}>
+            <div className="relative rounded-2xl overflow-hidden shadow-xl group">
+              <img 
+                src={aboutContent.images[0].src}
+                alt={aboutContent.images[0].alt}
+                className="w-full h-64 sm:h-80 lg:h-96 object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="relative rounded-xl overflow-hidden shadow-lg group">
+                <img 
+                  src={aboutContent.images[1].src}
+                  alt={aboutContent.images[1].alt}
+                  className="w-full h-40 sm:h-48 lg:h-56 object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+              <div className="relative rounded-xl overflow-hidden shadow-lg group">
+                <img 
+                  src={aboutContent.images[2].src}
+                  alt={aboutContent.images[2].alt}
+                  className="w-full h-40 sm:h-48 lg:h-56 object-cover transition-transform duration-700 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile Layout */}
+          <div className="lg:hidden space-y-8">
+            {/* Primeira imagem */}
+            <div className={`relative rounded-2xl overflow-hidden shadow-xl group transition-all duration-1000 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
             style={{ transitionDelay: '300ms' }}>
-              <Paragraph>{aboutContent.paragraphs[0]}</Paragraph>
-              <Paragraph>{aboutContent.paragraphs[1]}</Paragraph>
+              <img 
+                src={aboutContent.images[0].src}
+                alt={aboutContent.images[0].alt}
+                className="w-full h-64 sm:h-80 object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </div>
 
-            {/* Imagem 1 */}
-            <div className={`transition-all duration-1000 ${
+            {/* Primeiro bloco de texto */}
+            <div className={`space-y-4 transition-all duration-1000 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
             style={{ transitionDelay: '400ms' }}>
-              <AboutImage 
-                src={aboutContent.images[0].src} 
-                alt={aboutContent.images[0].alt}
-                className="w-full h-48 sm:h-64 md:h-72"
-              />
+              <h3 className="text-3xl sm:text-4xl font-semibold text-foreground">
+                Nossa história
+              </h3>
+              <p className="text-luxury leading-relaxed text-base sm:text-lg">
+                {aboutContent.historyText}
+              </p>
             </div>
 
-            {/* Próximos três parágrafos */}
-            <div className={`space-y-4 sm:space-y-6 transition-all duration-1000 ${
+            {/* Segunda imagem */}
+            <div className={`relative rounded-xl overflow-hidden shadow-lg group transition-all duration-1000 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
             style={{ transitionDelay: '500ms' }}>
-              <Paragraph>{aboutContent.paragraphs[2]}</Paragraph>
-              <Paragraph>{aboutContent.paragraphs[3]}</Paragraph>
-              <Paragraph>{aboutContent.paragraphs[4]}</Paragraph>
-            </div>
-
-            {/* Imagem 2 */}
-            <div className={`transition-all duration-1000 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
-            style={{ transitionDelay: '600ms' }}>
-              <AboutImage 
-                src={aboutContent.images[1].src} 
+              <img 
+                src={aboutContent.images[1].src}
                 alt={aboutContent.images[1].alt}
-                className="w-full h-48 sm:h-64 md:h-72"
+                className="w-full h-48 sm:h-56 object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
               />
             </div>
 
-            {/* Últimos dois parágrafos */}
-            <div className={`space-y-4 sm:space-y-6 transition-all duration-1000 ${
+            {/* Segundo bloco de texto */}
+            <div className={`space-y-4 transition-all duration-1000 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: '600ms' }}>
+              <h3 className="text-3xl sm:text-4xl font-semibold text-foreground">
+                Nossa Chácara
+              </h3>
+              <p className="text-luxury leading-relaxed text-base sm:text-lg">
+                {aboutContent.offeringsText}
+              </p>
+            </div>
+
+            {/* Terceira imagem */}
+            <div className={`relative rounded-xl overflow-hidden shadow-lg group transition-all duration-1000 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
             }`}
             style={{ transitionDelay: '700ms' }}>
-              <Paragraph>{aboutContent.paragraphs[5]}</Paragraph>
-              <Paragraph>{aboutContent.paragraphs[6]}</Paragraph>
-            </div>
-
-            {/* Imagem 3 */}
-            <div className={`transition-all duration-1000 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
-            style={{ transitionDelay: '800ms' }}>
-              <AboutImage 
-                src={aboutContent.images[2].src} 
+              <img 
+                src={aboutContent.images[2].src}
                 alt={aboutContent.images[2].alt}
-                className="w-full h-32 sm:h-40 md:h-48"
+                className="w-full h-48 sm:h-56 object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
               />
             </div>
           </div>
 
-          {/* Layout Desktop - Mantém o layout original */}
-          <div className="hidden lg:block space-y-16">
-            {/* Primeira linha - Imagem e Texto */}
-            <div className={`flex flex-col lg:flex-row gap-y-6 sm:gap-y-8 lg:gap-y-0 lg:gap-x-8 transition-all duration-1000 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
-            style={{ transitionDelay: '300ms' }}>
-              <AboutImage 
-                src={aboutContent.images[0].src} 
-                alt={aboutContent.images[0].alt}
-                className="w-full sm:w-[20rem] md:w-[24rem] lg:w-[26rem] h-48 sm:h-64 md:h-72 lg:h-80"
-              />
-              <div className="space-y-4 sm:space-y-6 flex-1">
-                {aboutContent.paragraphs.slice(0, 4).map((text, index) => (
-                  <Paragraph key={index}>{text}</Paragraph>
-                ))}
-              </div>
-            </div>
-
-            {/* Segunda linha - Texto e Imagem */}
-            <div className={`flex flex-col lg:flex-row gap-y-6 sm:gap-y-8 lg:gap-y-0 lg:gap-x-8 transition-all duration-1000 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
-            style={{ transitionDelay: '600ms' }}>
-              <div className="space-y-4 sm:space-y-6 flex-1">
-                {aboutContent.paragraphs.slice(4).map((text, index) => (
-                  <Paragraph key={index}>{text}</Paragraph>
-                ))}
-              </div>
-              <AboutImage 
-                src={aboutContent.images[1].src} 
-                alt={aboutContent.images[1].alt}
-                className="w-full sm:w-[20rem] md:w-[24rem] lg:w-[26rem] h-48 sm:h-64 md:h-72 lg:h-80 lg:ml-auto"
-              />
-            </div>
-
-            {/* Imagem de largura total */}
-            <div className={`relative transition-all duration-1000 ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
-            style={{ transitionDelay: '900ms' }}>
-              <AboutImage 
-                src={aboutContent.images[2].src} 
-                alt={aboutContent.images[2].alt}
-                className="w-full h-32 sm:h-40 md:h-48"
-              />
+          {/* Features Column - Desktop */}
+          <div className={`hidden lg:flex flex-col justify-start space-y-4 transition-all duration-1000 lg:pt-0 ${
+            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'
+          }`}
+          style={{ transitionDelay: '500ms' }}>
+            <h3 className="text-3xl sm:text-4xl lg:text-4xl font-semibold text-foreground">
+              Nossa história
+            </h3>
+            
+            {/* Textos descritivos */}
+            <div className="space-y-4">
+              <p className="text-luxury leading-relaxed text-base sm:text-lg">
+                {aboutContent.historyText}
+              </p>
+              
+              {/* Título do segundo bloco */}
+              <h3 className="text-3xl sm:text-4xl lg:text-4xl font-semibold text-foreground pt-12 sm:pt-14 lg:pt-10 ">
+                Nossa Chácara
+              </h3>
+              
+              {/* Texto sobre o que a chácara oferece */}
+              <p className="text-luxury leading-relaxed text-base sm:text-lg">
+                {aboutContent.offeringsText}
+              </p>
             </div>
           </div>
         </div>
